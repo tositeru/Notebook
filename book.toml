@@ -1,0 +1,8 @@
+[book]
+authors = ["tositeru"]
+multilingual = false
+src = "src"
+title = "Note to siteru"
+
+[build]
+build-dir = "doc/"
