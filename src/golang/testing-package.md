@@ -11,18 +11,36 @@ Golangの標準パッケージにある自動テストのためのもの
 
 ```go
 
+import (
+  "testing"
+  "github.com/stretchr/testify/assert"
+)
+
 // テスト用の関数
 func TestApple() {
-
+  fmt.Println("Give me Apple")
 }
 
 func Example(t *testing.T) {
+  correct := 42
+  answer := TestTarget(100)
+  if correct != answer {
+    // テストに失敗
+    t.Errorf("Bad answer... correct=%d, answer=%d", correct, answer)
+  }
 
+  // 標準ではアサート関数は用意されていないので
+  // testifyというライブラリを使うといい
+  assert.Equal(t, correct, answer, "Bad answer...")
+
+  // サブテストの実行
+  t.Run("Case=A", func(t *testing.T){  })
+  t.Run("Case=A", func(t *testing.T){  })
+  t.Run("Case=B", func(t *testing.T){  })
 }
 
-// ベンチマーク用の関数
-func BenchmarkFirstCase(b *testing.B) {
-
+func SkipTest(t *testing.T) {
+  t.Skip()
 }
 
 ```
@@ -83,14 +101,14 @@ func TestMain(m *testing.M) {
     }
     ```
 1. mを他の関数に渡し、その中で色々する
-  [ここから拝借](https://github.com/stan/gitaly/blob/449133f786e6df001c64e20f30ea7ab13e05ba8e/internal/rubyserver/testhelper_test.go)
-  ```go
-  func hoge(m *testing.M) {
-    defer testhelper.MustHaveNoChildProcess()
+    [ここから拝借](https://github.com/stan/gitaly/blob/449133f786e6df001c64e20f30ea7ab13e05ba8e/internal/rubyserver/testhelper_test.go)
+    ```go
+    func hoge(m *testing.M) {
+      defer testhelper.MustHaveNoChildProcess()
 
-    m.Run()
-  }
-  ```
+      m.Run()
+    }
+    ```
 1. 変わったものも
     初め見た時戸惑ったが、goroutineを使っているコードもあった
     [こちらから](https://github.com/nbari/go-sandbox/blob/047e52019186083fcee1035ae0f758a40396d524/functional_tests/main_test.go)
@@ -120,6 +138,7 @@ go test -run ''      # Run all tests.
 go test -run Foo     # Run top-level tests matching "Foo", such as "TestFooBar".
 go test -run Foo/A=  # For top-level tests matching "Foo", run subtests matching "A=".
 go test -run /A=1    # For all top-level tests, run subtests matching "A=1".```
+```
 
 ## 補足事項
 
