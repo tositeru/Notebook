@@ -96,3 +96,5 @@ installイベントのときにキャッシュ管理を行うと古い方の処�
 `chrome://inspect/#service-workers`から確認できる。
 
 ### Firefox
+
+`about:debugging#workers`から確認できる。
