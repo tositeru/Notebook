@@ -10,6 +10,8 @@
 
 > Service Worker はブラウザが Web ページとは別にバックグラウンドで実行するスクリプトで、Web ページやユーザーのインタラクションを必要としない機能を Web にもたらします。 既に現在、[プッシュ通知](https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web?hl=ja)や[バックグラウンド同期](https://developers.google.com/web/updates/2015/12/background-sync?hl=ja)が提供されています。 さらに将来は定期的な同期、ジオフェンシングなども導入されるでしょう。 このチュートリアルで説明する機能は、ネットワーク リクエストへの介入や処理機能と、レスポンスのキャッシュをプログラムから操作できる機能です。
 
+プログレッシブ ウェブアプリというWebアプリの作り方に利用されている。
+[はじめてのプログレッシブ ウェブアプリ](https://codelabs.developers.google.com/codelabs/your-first-pwapp-ja/#0)
 
 ## 前提条件
 

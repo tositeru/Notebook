@@ -1,8 +1,6 @@
 # Web
 
-
-
-[Service Worker](./service-worker.md)
+- [Service Worker](./service-worker.md)
 
 
 ## Remind
