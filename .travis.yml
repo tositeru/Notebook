@@ -19,7 +19,7 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   local-dir: ./book
-  keep-history: false
+  keep-history: true
   on:
     branch: master
   
