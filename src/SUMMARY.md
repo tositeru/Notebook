@@ -9,5 +9,5 @@
     - [Service Worker](./web/service-worker.md)
 - [Javascript](./js/top.md)
     - [Vue/Nuxt](./js/vue-nuxt.md)
-    - [Only-Vue](./only-vue.md)
+    - [Only-Vue](./js/only-vue.md)
 - [CSS](./css/top.md)
