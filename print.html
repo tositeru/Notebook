@@ -1,0 +1,577 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Note to siteru</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Note to siteru</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#note-to-siteru" id="note-to-siteru"><h1>Note to siteru</h1></a>
+<p>調べたことについてメモしていく個人的なサイト</p>
+<ul>
+<li><a href="./golang/top.html">Golang</a></li>
+<li><a href="./web/top.html">Web</a></li>
+<li><a href="./js/top.html">Javascript</a></li>
+<li><a href="./css.top.html">CSS</a></li>
+</ul>
+<a class="header" href="#golangについてのメモ" id="golangについてのメモ"><h1>Golangについてのメモ</h1></a>
+<ul>
+<li><a href="golang/./testing-package.html">testingパッケージ</a></li>
+<li><a href="golang/./string-formatter.html">string formatter</a></li>
+</ul>
+<a class="header" href="#testing-package" id="testing-package"><h1>Testing Package</h1></a>
+<p>Golangの標準パッケージにある自動テストのためのもの
+ベンチマークを行うこともできる。</p>
+<p><code>go test &lt;target package&gt;</code>コマンドでテストを実行できる。</p>
+<p><a href="https://golang.org/pkg/testing/">公式サイト</a></p>
+<a class="header" href="#サンプルコード" id="サンプルコード"><h2>サンプルコード</h2></a>
+<pre><code class="language-go">
+import (
+  &quot;testing&quot;
+  &quot;github.com/stretchr/testify/assert&quot;
+)
+
+// テスト用の関数
+func TestApple() {
+  fmt.Println(&quot;Give me Apple&quot;)
+}
+
+func Example(t *testing.T) {
+  correct := 42
+  answer := TestTarget(100)
+  if correct != answer {
+    // テストに失敗
+    t.Errorf(&quot;Bad answer... correct=%d, answer=%d&quot;, correct, answer)
+  }
+
+  // 標準ではアサート関数は用意されていないので
+  // testifyというライブラリを使うといい
+  assert.Equal(t, correct, answer, &quot;Bad answer...&quot;)
+
+  // サブテストの実行
+  t.Run(&quot;Case=A&quot;, func(t *testing.T){  })
+  t.Run(&quot;Case=A&quot;, func(t *testing.T){  })
+  t.Run(&quot;Case=B&quot;, func(t *testing.T){  })
+}
+
+func SkipTest(t *testing.T) {
+  t.Skip()
+}
+
+</code></pre>
+<a class="header" href="#基本的な使い方" id="基本的な使い方"><h2>基本的な使い方</h2></a>
+<p><code>go test</code>コマンドを実行するためには以下の項目を満たす必要がある。</p>
+<ul>
+<li>&quot;_test.go&quot;で終わるファイルの作成。
+<ul>
+<li>このファイルはビルドの時に自動的に省かれる。</li>
+</ul>
+</li>
+<li>上のファイルの中で関数名が大文字から始まる関数がテスト内容として実行される。
+<ul>
+<li><code>\*testing.T</code>を引数に取ることができる。</li>
+</ul>
+</li>
+<li>テスト失敗を告げるにはError, Failまたは関係するメソッドを使う。</li>
+<li>｀*testing.T｀のSkipメソッドを使うとそのテストをスキップできる。</li>
+</ul>
+<a class="header" href="#ベンチマーク" id="ベンチマーク"><h3>ベンチマーク</h3></a>
+<p>ベンチマークを行う際は以下の項目を追加で満たす必要がある。</p>
+<ul>
+<li><code>go test</code>に<code>-bench</code>フラグを付ける</li>
+<li>ベンチマークを行う関数は<code>BenchmarkXxx(*testing.B)</code>という形式を取る
+<ul>
+<li>Benchmarkの後に大文字から始まる名前を付けること</li>
+<li><code>\*testing.B</code>を引数に取ることができる。
+<ul>
+<li><code>\*testing.T</code>と同様Skip関数が使える。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="#サブテスト" id="サブテスト"><h2>サブテスト</h2></a>
+<p>Runメソッドを使うことで実行される関数内でサブテスト/サブベンチマーク(以降サブテストと統一)を行うことができる</p>
+<p>サブテストには名前を付けることができ、付けた名前は後述する-runオプションなどで利用できる。</p>
+<p>ネストすることも可能で、Runメソッド内でRunメソッドを呼び出すとできる。</p>
+<a class="header" href="#テストの前準備後処理" id="テストの前準備後処理"><h2>テストの前準備/後処理</h2></a>
+<p>テストする前に追加の前準備/後処理が必要になるケースがある場合は、テスト用ファイル内に、<code>func TestMain(m *testing.M)</code>を定義するといい。</p>
+<p>定義した時は各テスト関数は直接呼び出されず、代わりにTestMain関数が呼び出される。
+その際はTestMain関数内で<code>m.Run()</code>の結果を<code>os.Exit()</code>に渡すこと。</p>
+<pre><code class="language-go">func TestMain(m *testing.M) {
+  // コマンドライン引数を使用したい時は先にflag.Parse()を呼び出すこと
+    os.Exit(m.Run())
+}
+
+</code></pre>
+<p>ドキュメントだけでは使い方がよくわからなかったので、Githubで調べたところ、以下のパターンで使われていた。</p>
+<ol>
+<li>ドキュメントどおり
+<pre><code class="language-go">func TestMain(m *testing.M) {
+  os.Exit(m.Run);
+}
+// 変数に介するパターン
+func TestMain(m *testing.M) {
+  r := m.Run()
+  os.Exit(r);
+}
+</code></pre>
+</li>
+<li>mを他の関数に渡し、その中で色々する
+<a href="https://github.com/stan/gitaly/blob/449133f786e6df001c64e20f30ea7ab13e05ba8e/internal/rubyserver/testhelper_test.go">ここから拝借</a>
+<pre><code class="language-go">func hoge(m *testing.M) {
+  defer testhelper.MustHaveNoChildProcess()
+
+  m.Run()
+}
+</code></pre>
+</li>
+<li>変わったものも
+初め見た時戸惑ったが、goroutineを使っているコードもあった
+<a href="https://github.com/nbari/go-sandbox/blob/047e52019186083fcee1035ae0f758a40396d524/functional_tests/main_test.go">こちらから</a>
+<pre><code class="language-go">func Test_main(t *testing.T) {
+    go main()
+    exitCode = &lt;-exitCh
+}
+func TestMain(m *testing.M) {
+    m.Run()
+    // can exit because cover profile is already written
+    os.Exit(exitCode)
+}
+</code></pre>
+<code>go main()</code>はgoroutineというGolangの軽量スレッド内でmain関数を呼び出すという意味になるみたい<a href="https://go-tour-jp.appspot.com/concurrency/1">Goroutines</a>
+その下の<code>&lt;-exitCh</code>もgoroutine関連で<a href="https://go-tour-jp.appspot.com/concurrency/2">Channels</a>と呼ばれる値の送受信のための型だそうだ</li>
+</ol>
+<a class="header" href="#-runオプション" id="-runオプション"><h2>-runオプション</h2></a>
+<p><code>-run</code>オプションを使うとファイル内の特定の関数/サブテストのみ実行できる。</p>
+<p>以下、ドキュメントから拝借した。</p>
+<pre><code class="language-hs">go test -run ''      # Run all tests.
+go test -run Foo     # Run top-level tests matching &quot;Foo&quot;, such as &quot;TestFooBar&quot;.
+go test -run Foo/A=  # For top-level tests matching &quot;Foo&quot;, run subtests matching &quot;A=&quot;.
+go test -run /A=1    # For all top-level tests, run subtests matching &quot;A=1&quot;.```
+</code></pre>
+<a class="header" href="#補足事項" id="補足事項"><h2>補足事項</h2></a>
+<p>補足事項として以下のものがある</p>
+<ul>
+<li><code>go test ./...</code>を使うとプロジェクト内の全てのパッケージのテストを行える
+<ul>
+<li>ただし、バージョン1.9以降から</li>
+<li>それ以前のバージョンのときは <code>go test $(go list ./... | grep -v /vendor/)</code>と入力するといい</li>
+</ul>
+</li>
+<li>テストデータは&quot;testdata&quot;と名付けられたディレクトリに入れる
+<ul>
+<li>そのディレクトリはgoツールから無視される仕様になっている</li>
+</ul>
+</li>
+<li>標準エラー出力に何かを出力しても標準出力へ出力される
+<ul>
+<li>これは仕様で、goコマンドの標準エラーはテストをビルドした時のエラー出力に使われている</li>
+</ul>
+</li>
+</ul>
+<p>TODO</p>
+<p>What?</p>
+<ul>
+<li>string formater %T and %q</li>
+</ul>
+<a class="header" href="#web" id="web"><h1>Web</h1></a>
+<ul>
+<li><a href="web/./service-worker.html">Service Worker</a></li>
+</ul>
+<a class="header" href="#remind" id="remind"><h2>Remind</h2></a>
+<ul>
+<li><a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/">Mozilla SSL Configuration Generator</a></li>
+</ul>
+<a class="header" href="#todo" id="todo"><h2>TODO</h2></a>
+<ul>
+<li>ServiceWorker API Cache</li>
+<li>window.navigator</li>
+<li>Stream API <a href="https://streams.spec.whatwg.org/">Home page</a></li>
+</ul>
+<a class="header" href="#service-worker" id="service-worker"><h1>Service Worker</h1></a>
+<p>参考サイト</p>
+<p><a href="https://developers.google.com/web/fundamentals/primers/service-workers/?hl=ja">Service Workerの紹介</a></p>
+<a class="header" href="#service-workerとは" id="service-workerとは"><h2>Service Workerとは？</h2></a>
+<p>上のリンクから</p>
+<blockquote>
+<p>Service Worker はブラウザが Web ページとは別にバックグラウンドで実行するスクリプトで、Web ページやユーザーのインタラクションを必要としない機能を Web にもたらします。 既に現在、<a href="https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web?hl=ja">プッシュ通知</a>や<a href="https://developers.google.com/web/updates/2015/12/background-sync?hl=ja">バックグラウンド同期</a>が提供されています。 さらに将来は定期的な同期、ジオフェンシングなども導入されるでしょう。 このチュートリアルで説明する機能は、ネットワーク リクエストへの介入や処理機能と、レスポンスのキャッシュをプログラムから操作できる機能です。</p>
+</blockquote>
+<p>プログレッシブ ウェブアプリというWebアプリの作り方に利用されている。
+<a href="https://codelabs.developers.google.com/codelabs/your-first-pwapp-ja/#0">はじめてのプログレッシブ ウェブアプリ</a></p>
+<a class="header" href="#前提条件" id="前提条件"><h2>前提条件</h2></a>
+<ul>
+<li>Service Workerを対応しているブラウザを使う</li>
+<li>HTTPSが必要</li>
+</ul>
+<p>Chromeが現時点で全ての機能を対応しているので、検証にはそれを使うのが良さそう。
+GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
+<a class="header" href="#ライフサイクル" id="ライフサイクル"><h2>ライフサイクル</h2></a>
+<p>Service Workerには以下のようなライフサイクルがある。(画像も上のサイトから引用)</p>
+<p>！<a href="https://developers.google.com/web/fundamentals/primers/service-workers/images/sw-lifecycle.png?hl=ja%E3%80%80%E2%80%9D%E5%BC%95%E7%94%A8%E3%81%97%E3%81%9F%E7%94%BB%E5%83%8F%E2%80%9D"></a></p>
+<a class="header" href="#インストール" id="インストール"><h3>インストール</h3></a>
+<p>はじめのインストールにはWebページ上のJavascriptを利用する必要がある。</p>
+<pre><code class="language-js">if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+</code></pre>
+<p>基本的な流れは以下のものになる</p>
+<p>ただし <strong>Service　Workerを登録するタイミングによっては処理落ちする可能性があるので、全ての初期化処理が終わってからインストールした方がいい。</strong></p>
+<ol>
+<li>ブラウザが対応しているかチェック</li>
+<li>Service　Workerとして実行するJaveScriptファイルを指定</li>
+</ol>
+<p>一度インストールされるとキャッシュされるため、以降再度ページにアクセスしてもキャッシュされたものが使われる。</p>
+<p>キャッシュされたものがある状態で<code>navigator.serviceWorker.register()</code>を呼び出しても何もしないので安心。</p>
+<p>参考サイト
+<a href="https://developers.google.com/web/fundamentals/primers/service-workers/registration?hl=ja">Service Worker 登録</a></p>
+<a class="header" href="#ファイルの更新" id="ファイルの更新"><h3>ファイルの更新</h3></a>
+<p>何らかの作業でインストールしているService　Workerファイルの内容が変わった時は自動的に更新してくれる。(ただし、ファイルサイズが変わったときだけ)</p>
+<p>更新の際は以下の流れを取る。<strong>注意点として再度ページを開かないと新しいものが実行されない。</strong></p>
+<blockquote>
+<ol>
+<li>Service Worker の JavaScript ファイルを更新します。 ユーザーがサイトに移動してきたとき、ブラウザは Service Worker を定義するスクリプト ファイルをバックグラウンドで再度ダウンロードしようとします。 現在ブラウザが保持しているファイルとダウンロードしようとするファイルにバイトの差異がある場合、それは「新しい」と認識されます。</li>
+<li>新しい Service Worker がスタートし、install イベントが起こります。</li>
+<li>この時点では、まだ古い Service Worker が現在のページを制御しているため、新しい Service Worker は waiting 状態になります。</li>
+<li>開かれているページが閉じると、古い Service Worker は終了し、新しい Service Worker がページを制御するようになります。</li>
+<li>新しい Service Worker がページを制御するようになると、activate イベントが起こります。</li>
+</ol>
+</blockquote>
+<p>installイベントのときにキャッシュ管理を行うと古い方の処理に影響がでてしまうため、activateイベントの際にキャッシュ管理を行うのを推奨している。</p>
+<a class="header" href="#service-workerファイルの場所とfetchイベントの関係" id="service-workerファイルの場所とfetchイベントの関係"><h3>Service Workerファイルの場所とfetchイベントの関係</h3></a>
+<p><code>navigator.serviceWorker.register()</code>でService Workerをインストールするが、その際のファイルのパスによってService　Workerが受け取る<code>fetch</code>イベントが変わってくることに注意。</p>
+<p>ファイルパスはドメインと関連しており、例えば<code>/example/sw.js</code>にあるService　WorkerはURLに<code>/example</code>が含まれているページからの<code>fetch</code>イベントを受け取る。</p>
+<p><code>/sw.js</code>だと、そのドメイン全てのページからの<code>fetch</code>イベントを受け取るようになる。</p>
+<a class="header" href="#service-workerのコールバック" id="service-workerのコールバック"><h2>Service Workerのコールバック</h2></a>
+<a class="header" href="#installイベント" id="installイベント"><h3>installイベント</h3></a>
+<a class="header" href="#fetchイベント" id="fetchイベント"><h3>fetchイベント</h3></a>
+<a class="header" href="#fetchイベント-1" id="fetchイベント-1"><h3>fetchイベント</h3></a>
+<a class="header" href="#有効になっているservice-workerの確認" id="有効になっているservice-workerの確認"><h2>有効になっているService　Workerの確認</h2></a>
+<a class="header" href="#chrome" id="chrome"><h3>Chrome</h3></a>
+<p><code>chrome://inspect/#service-workers</code>から確認できる。</p>
+<a class="header" href="#firefox" id="firefox"><h3>Firefox</h3></a>
+<p><code>about:debugging#workers</code>から確認できる。</p>
+<a class="header" href="#javascript" id="javascript"><h1>JavaScript</h1></a>
+<ul>
+<li><a href="js/./vue-nuxt.html">Vue/Nuxt</a></li>
+<li><a href="js/./only-vue.html">Only-Vue</a></li>
+</ul>
+<a class="header" href="#vuejsnuxtjs" id="vuejsnuxtjs"><h1>Vue.js/Nuxt.js</h1></a>
+<a class="header" href="#プロジェクト構築" id="プロジェクト構築"><h2>プロジェクト構築</h2></a>
+<p>vue-cliを使う</p>
+<p>開発環境の準備</p>
+<pre><code class="language-bash"># install yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo &quot;deb https://dl.yarnpkg.com/debian/ stable main&quot; | sudo tee /etc/apt/sources.list.d/yarn.list
+
+sudo apt-get update &amp;&amp; sudo apt-get install yarn
+
+# install vue
+sudo yarn -g install vue-cli
+</code></pre>
+<p>プロジェクトの作成</p>
+<p>TypeScriptを使うため<a href="https://github.com/nuxt-community/typescript-template">typescript-template</a>を使っている</p>
+<pre><code class="language-bash"># install vue and create project using typescript
+sudo npm install -g vue-cli
+vue init nuxt-community/typescript-template &lt;project-name&gt;
+cd &lt;project-name&gt;
+yarn
+</code></pre>
+<p>開発時の作成しているページの確認</p>
+<pre><code class="language-bash">yarn run dev
+</code></pre>
+<p>今回はGithub pageを作るために使っているので静的ページの作成する。以下のコマンドで作れる。</p>
+<pre><code class="language-bash">yarn run generate
+</code></pre>
+<p>注意点として、<code>vue init nuxt-community/typescript-template</code>を使って作ったプロジェクトはサーバーサイドレンダリングを使うように設定されている。</p>
+<p>静的ページを作成する時はサーバーは使わないので、Nuxt.jsのモードを<code>spa</code>に指定する必要がある。</p>
+<p>その方法は<code>nuxt.config.js</code>の<code>export</code>に<code>mode: 'spa'</code>を追記することでできる。</p>
+<pre><code class="language-js">//nuxt.config.js
+export default {
+  mode: 'spa',
+  // ... 以下、他の設定
+}
+</code></pre>
+<a class="header" href="#sassを使う" id="sassを使う"><h2>SASSを使う</h2></a>
+<p>SASSを使う時はまず<code>node-sass</code>と<code>sass-loader</code>をインストールする</p>
+<pre><code class="language-bash">yarn add --dev node-sass sass-loader
+</code></pre>
+<p>SASSの定義にはファイルを使うかVueのプリプロセッサを使うかの二通りの方法がある</p>
+<p><strong>ファイルを使う方法</strong></p>
+<p><code>nuxt.config.js</code>ファイル内でSASSファイルを指定すればいい。</p>
+<pre><code class="language-js">export default {
+  css: [
+    '@/assets/css/main.sass'
+  ]
+}
+</code></pre>
+<p><strong>プリプロセッサを使う方法</strong></p>
+<p>こちらはVueファイルに埋め込む形になる。</p>
+<pre><code class="language-html">//直接指定できる
+&lt;style lang=&quot;sass&quot;&gt;
+.red {
+  color: red;
+  .inner {
+    background-color: black;
+  }
+}
+&lt;\/style&gt;
+// ファイルを読み込むこともできる
+&lt;style lang=&quot;sass&quot; src=&quot;#/styles/hoge.sass&quot;&gt;&lt;/style&gt;
+</code></pre>
+<a class="header" href="#eslintとprettier" id="eslintとprettier"><h2>ESLintとPrettier</h2></a>
+<p>インストールには以下のコマンドを使う</p>
+<pre><code class="language-bash">yarn add --save-dev babel-eslint eslint eslint-config-prettier eslint-loader eslint-plugin-vue eslint-plugin-prettier prettier
+</code></pre>
+<p>その後に<code>.eslintrc.js</code>をルートディレクトリに置くことでESLintの設定ができる。</p>
+<p><code>nuxt.config.js</code>の<code>build</code>を修正することで、ホットリロードモードの時にESLintを実行することができるので、必ず有効化すること。</p>
+<pre><code class="language-js">build: {
+  //ここで webpack config を拡張できます
+  extend(config, ctx) {
+    // Run ESLint on save
+    if (ctx.isDev &amp;&amp; ctx.isClient) {
+      config.module.rules.push({
+        enforce: &quot;pre&quot;,
+        test: /\.(js|vue)$/,
+        loader: &quot;eslint-loader&quot;,
+        exclude: /(node_modules)/
+      })
+    }
+  }
+}
+</code></pre>
+<p><a href="https://ja.nuxtjs.org/guide/development-tools/#eslint-%E3%81%A8-prettier">eslint-と-prettier</a></p>
+<a class="header" href="#ファイルパスにおいてのとの扱い" id="ファイルパスにおいてのとの扱い"><h2>ファイルパスにおいての~と@の扱い</h2></a>
+<p><code>~</code>と<code>@</code>はWebpackが認識するパス記法のエイリアスになっている。</p>
+<p>エイリアスには以下のものがある。</p>
+<ul>
+<li><code>~</code>,<code>@</code>: <a href="https://ja.nuxtjs.org/api/configuration-srcdir">srcDir</a>を表す。</li>
+<li><code>~~</code>,<code>@@</code>: <a href="https://ja.nuxtjs.org/api/configuration-rootdir">rootDir</a>を表す。</li>
+</ul>
+<p><a href="https://ja.nuxtjs.org/api/configuration-srcdir">srcDir</a>と<a href="https://ja.nuxtjs.org/api/configuration-rootdir">rootDir</a>は<code>nuxt.config.js</code>で設定できる。</p>
+<a class="header" href="#imgタグに画像のurlを指定する時の注意点nuxtjs" id="imgタグに画像のurlを指定する時の注意点nuxtjs"><h2>imgタグに画像のURLを指定する時の注意点(Nuxt.js)</h2></a>
+<p>v-bind:srcで設定するときと、直接srcを書き込む時でパスの指定方法が異なる。</p>
+<p>webpackが関係している問題。<sub>(が、別のうまい方法がある気がする。)</sub></p>
+<p><strong>v-bind:srcのとき</strong></p>
+<p>staticディレクトリに画像を保存した状態で下のコードみたいに書く</p>
+<pre><code class="language-js">&lt;img v-bind:src=&quot;`images/${path}`&quot;&gt;
+</code></pre>
+<p><a href="https://github.com/nuxt/nuxt.js/issues/448">How to link img src to a rendered list #448</a></p>
+<p><strong>直接srcを書き込む時</strong></p>
+<p>この場合はassetsディレクトリに画像を保存した状態で以下のように書く。</p>
+<pre><code class="language-js">&lt;img src=&quot;~assets/images/QR_URL_itch.png&quot;&gt;
+</code></pre>
+<p><a href="https://ja.nuxtjs.org/api/configuration-css/">css プロパティ</a>
+<a href="https://ja.nuxtjs.org/faq/pre-processors/">プリプロセッサを使うには？</a></p>
+<a class="header" href="#only-vue" id="only-vue"><h1>Only-Vue</h1></a>
+<a class="header" href="#css" id="css"><h1>CSS</h1></a>
+<a class="header" href="#fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ" id="fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ"><h2>Fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ。</h2></a>
+<p>Fontawesomeアイコン専用というわけではなく、なんにでも使える方法</p>
+<p><a href="https://saruwakakun.com/html-css/basic/centering">参考サイト</a></p>
+<pre><code class="language-css">親要素 {
+  position: relative;
+}
+
+Fontawesomeを指定したi {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>

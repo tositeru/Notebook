@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Service Worker - Note to siteru</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html" class="active"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="../only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Note to siteru</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#service-worker" id="service-worker"><h1>Service Worker</h1></a>
+<p>参考サイト</p>
+<p><a href="https://developers.google.com/web/fundamentals/primers/service-workers/?hl=ja">Service Workerの紹介</a></p>
+<a class="header" href="#service-workerとは" id="service-workerとは"><h2>Service Workerとは？</h2></a>
+<p>上のリンクから</p>
+<blockquote>
+<p>Service Worker はブラウザが Web ページとは別にバックグラウンドで実行するスクリプトで、Web ページやユーザーのインタラクションを必要としない機能を Web にもたらします。 既に現在、<a href="https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web?hl=ja">プッシュ通知</a>や<a href="https://developers.google.com/web/updates/2015/12/background-sync?hl=ja">バックグラウンド同期</a>が提供されています。 さらに将来は定期的な同期、ジオフェンシングなども導入されるでしょう。 このチュートリアルで説明する機能は、ネットワーク リクエストへの介入や処理機能と、レスポンスのキャッシュをプログラムから操作できる機能です。</p>
+</blockquote>
+<p>プログレッシブ ウェブアプリというWebアプリの作り方に利用されている。
+<a href="https://codelabs.developers.google.com/codelabs/your-first-pwapp-ja/#0">はじめてのプログレッシブ ウェブアプリ</a></p>
+<a class="header" href="#前提条件" id="前提条件"><h2>前提条件</h2></a>
+<ul>
+<li>Service Workerを対応しているブラウザを使う</li>
+<li>HTTPSが必要</li>
+</ul>
+<p>Chromeが現時点で全ての機能を対応しているので、検証にはそれを使うのが良さそう。
+GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
+<a class="header" href="#ライフサイクル" id="ライフサイクル"><h2>ライフサイクル</h2></a>
+<p>Service Workerには以下のようなライフサイクルがある。(画像も上のサイトから引用)</p>
+<p>！<a href="https://developers.google.com/web/fundamentals/primers/service-workers/images/sw-lifecycle.png?hl=ja%E3%80%80%E2%80%9D%E5%BC%95%E7%94%A8%E3%81%97%E3%81%9F%E7%94%BB%E5%83%8F%E2%80%9D"></a></p>
+<a class="header" href="#インストール" id="インストール"><h3>インストール</h3></a>
+<p>はじめのインストールにはWebページ上のJavascriptを利用する必要がある。</p>
+<pre><code class="language-js">if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+</code></pre>
+<p>基本的な流れは以下のものになる</p>
+<p>ただし <strong>Service　Workerを登録するタイミングによっては処理落ちする可能性があるので、全ての初期化処理が終わってからインストールした方がいい。</strong></p>
+<ol>
+<li>ブラウザが対応しているかチェック</li>
+<li>Service　Workerとして実行するJaveScriptファイルを指定</li>
+</ol>
+<p>一度インストールされるとキャッシュされるため、以降再度ページにアクセスしてもキャッシュされたものが使われる。</p>
+<p>キャッシュされたものがある状態で<code>navigator.serviceWorker.register()</code>を呼び出しても何もしないので安心。</p>
+<p>参考サイト
+<a href="https://developers.google.com/web/fundamentals/primers/service-workers/registration?hl=ja">Service Worker 登録</a></p>
+<a class="header" href="#ファイルの更新" id="ファイルの更新"><h3>ファイルの更新</h3></a>
+<p>何らかの作業でインストールしているService　Workerファイルの内容が変わった時は自動的に更新してくれる。(ただし、ファイルサイズが変わったときだけ)</p>
+<p>更新の際は以下の流れを取る。<strong>注意点として再度ページを開かないと新しいものが実行されない。</strong></p>
+<blockquote>
+<ol>
+<li>Service Worker の JavaScript ファイルを更新します。 ユーザーがサイトに移動してきたとき、ブラウザは Service Worker を定義するスクリプト ファイルをバックグラウンドで再度ダウンロードしようとします。 現在ブラウザが保持しているファイルとダウンロードしようとするファイルにバイトの差異がある場合、それは「新しい」と認識されます。</li>
+<li>新しい Service Worker がスタートし、install イベントが起こります。</li>
+<li>この時点では、まだ古い Service Worker が現在のページを制御しているため、新しい Service Worker は waiting 状態になります。</li>
+<li>開かれているページが閉じると、古い Service Worker は終了し、新しい Service Worker がページを制御するようになります。</li>
+<li>新しい Service Worker がページを制御するようになると、activate イベントが起こります。</li>
+</ol>
+</blockquote>
+<p>installイベントのときにキャッシュ管理を行うと古い方の処理に影響がでてしまうため、activateイベントの際にキャッシュ管理を行うのを推奨している。</p>
+<a class="header" href="#service-workerファイルの場所とfetchイベントの関係" id="service-workerファイルの場所とfetchイベントの関係"><h3>Service Workerファイルの場所とfetchイベントの関係</h3></a>
+<p><code>navigator.serviceWorker.register()</code>でService Workerをインストールするが、その際のファイルのパスによってService　Workerが受け取る<code>fetch</code>イベントが変わってくることに注意。</p>
+<p>ファイルパスはドメインと関連しており、例えば<code>/example/sw.js</code>にあるService　WorkerはURLに<code>/example</code>が含まれているページからの<code>fetch</code>イベントを受け取る。</p>
+<p><code>/sw.js</code>だと、そのドメイン全てのページからの<code>fetch</code>イベントを受け取るようになる。</p>
+<a class="header" href="#service-workerのコールバック" id="service-workerのコールバック"><h2>Service Workerのコールバック</h2></a>
+<a class="header" href="#installイベント" id="installイベント"><h3>installイベント</h3></a>
+<a class="header" href="#fetchイベント" id="fetchイベント"><h3>fetchイベント</h3></a>
+<a class="header" href="#fetchイベント-1" id="fetchイベント-1"><h3>fetchイベント</h3></a>
+<a class="header" href="#有効になっているservice-workerの確認" id="有効になっているservice-workerの確認"><h2>有効になっているService　Workerの確認</h2></a>
+<a class="header" href="#chrome" id="chrome"><h3>Chrome</h3></a>
+<p><code>chrome://inspect/#service-workers</code>から確認できる。</p>
+<a class="header" href="#firefox" id="firefox"><h3>Firefox</h3></a>
+<p><code>about:debugging#workers</code>から確認できる。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../web/top.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../js/top.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../web/top.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../js/top.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
