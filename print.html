@@ -506,7 +506,7 @@ export default {
 <p><a href="https://ja.nuxtjs.org/api/configuration-css/">css プロパティ</a>
 <a href="https://ja.nuxtjs.org/faq/pre-processors/">プリプロセッサを使うには？</a></p>
 <a class="header" href="#nuxtjsを使わずにそれっぽい環境を構築する" id="nuxtjsを使わずにそれっぽい環境を構築する"><h1>Nuxt.jsを使わずにそれっぽい環境を構築する</h1></a>
-<p>Nuxt.jsとTypeScriptを組み合わせていく内によくわからないことになったので、Vue.jsのみでNuxt.jsと同じ環境っぽいものを構築す方法をメモする</p>
+<p>Nuxt.jsとTypeScriptを組み合わせていく内によくわからないことになったので、Vue.jsのみでNuxt.jsと同じ環境っぽいものを構築する方法をメモする</p>
 <a class="header" href="#目標" id="目標"><h2>目標</h2></a>
 <p>以下の機能が使える環境を目指す</p>
 <ul>
@@ -586,7 +586,6 @@ module.exports = {
   // 一つのファイルにまとめる際にルートとなるファイルの指定
   entry: {
     app: './src/index.js',
-    // print: './src/print.js'
   },
   // 出力先の指定
   output: {
@@ -648,14 +647,67 @@ var config = {
 }
 
 module.exports = (env, argv) =&gt; {
-  swtich(argv.mode) {
+  switch(argv.mode) {
     case 'development':
       config.devtool = 'source-map';
       break;
     case 'production':
     break;
   }
+  return config;
 }
+</code></pre>
+<p>それか、<a href="https://webpack.js.org/guides/production/#setup">こちらのページ</a>から、以下のような複数のwebpackの設定ファイルを用意する方法もある。</p>
+<p>個人的にはこちらの方が好み。</p>
+<ul>
+<li>共通の設定を書いたファイル(webpack.common.js)</li>
+<li>開発時の設定ファイル(webpack.dev.js)</li>
+<li>公開時の設定ファイル(webpack.prod.js)</li>
+</ul>
+<p><code>webpack.common.js</code>を他のファイルからimportして使っている形になる。
+また、内部で<code>webpack-merge</code>パッケージを使っているのでインストールする必要がある。</p>
+<pre><code class="language-js">// webpack.common.js
+// 共通の設定
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+  entry: {
+    app: './src/index.js'
+  },
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({
+      title: 'Production'
+    })
+  ],
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
+</code></pre>
+<pre><code class="language-js">//webpack.dev.js
+//開発時の設定
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist'
+  }
+});
+</code></pre>
+<pre><code class="language-js">//webpack.prod.js
+//公開時の設定
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'production'
+});
 </code></pre>
 <a class="header" href="#webpack-hmr" id="webpack-hmr"><h2>webpack HMR</h2></a>
 <p>watch機能を使うと変更があった時、ブラウザで毎回ページを更新し直さないとその確認ができない。</p>
@@ -679,7 +731,6 @@ module.exports = {
     // ...
     new webpack.HotModuleReplacementPlugin(),
   ],
-
   // ...
 };
 </code></pre>
@@ -698,6 +749,19 @@ if (module.hot) {
 }
 
 </code></pre>
+<a class="header" href="#csssassのminimumize" id="csssassのminimumize"><h2>CSS/SASSのMinimumize</h2></a>
+<p><code>optimize-css-assets-webpack-plugin</code>がなぜか使えなかったので、代わりに<code>cssnano</code>と<code>postcss</code>を使う。</p>
+<p>なので、webpackとは別工程でCSSの生成を管理することになる。</p>
+<p>また、SASSも使うので、変換の流れは以下のようなものになる。</p>
+<ol>
+<li>SASS -&gt; CSS変換</li>
+<li>nanocssでファイルサイズを削減</li>
+<li>webpackによるプロジェクトへの組み込み</li>
+</ol>
+<p>webpack以外の工程は以下のコマンドで行える。</p>
+<pre><code class="language-js">sass sass/:src/css &amp;&amp; postcss src/css/**/*.css --replace
+</code></pre>
+<p>sassとpostcssは共にファイル更新機能があるが、Vue.jsでインラインCSSをメインに使うかもしれないので、今のところは手動でコンパイルしていく。</p>
 <a class="header" href="#css" id="css"><h1>CSS</h1></a>
 <a class="header" href="#fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ" id="fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ"><h2>Fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ。</h2></a>
 <p>Fontawesomeアイコン専用というわけではなく、なんにでも使える方法</p>
