@@ -1,6 +1,6 @@
 # Nuxt.jsを使わずにそれっぽい環境を構築する
 
-Nuxt.jsとTypeScriptを組み合わせていく内によくわからないことになったので、Vue.jsのみでNuxt.jsと同じ環境っぽいものを構築す方法をメモする
+Nuxt.jsとTypeScriptを組み合わせていく内によくわからないことになったので、Vue.jsのみでNuxt.jsと同じ環境っぽいものを構築する方法をメモする
 
 ## 目標
 
@@ -114,7 +114,6 @@ module.exports = {
   // 一つのファイルにまとめる際にルートとなるファイルの指定
   entry: {
     app: './src/index.js',
-    // print: './src/print.js'
   },
   // 出力先の指定
   output: {
@@ -187,14 +186,75 @@ var config = {
 }
 
 module.exports = (env, argv) => {
-  swtich(argv.mode) {
+  switch(argv.mode) {
     case 'development':
       config.devtool = 'source-map';
       break;
     case 'production':
     break;
   }
+  return config;
 }
+```
+
+それか、[こちらのページ](https://webpack.js.org/guides/production/#setup)から、以下のような複数のwebpackの設定ファイルを用意する方法もある。
+
+個人的にはこちらの方が好み。
+
+- 共通の設定を書いたファイル(webpack.common.js)
+- 開発時の設定ファイル(webpack.dev.js)
+- 公開時の設定ファイル(webpack.prod.js)
+
+`webpack.common.js`を他のファイルからimportして使っている形になる。
+また、内部で`webpack-merge`パッケージを使っているのでインストールする必要がある。
+
+```js
+// webpack.common.js
+// 共通の設定
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+  entry: {
+    app: './src/index.js'
+  },
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({
+      title: 'Production'
+    })
+  ],
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
+```
+
+```js
+//webpack.dev.js
+//開発時の設定
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist'
+  }
+});
+```
+
+```js
+//webpack.prod.js
+//公開時の設定
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'production'
+});
 ```
 
 ## webpack HMR
@@ -225,7 +285,6 @@ module.exports = {
     // ...
     new webpack.HotModuleReplacementPlugin(),
   ],
-
   // ...
 };
 ```
@@ -247,3 +306,22 @@ if (module.hot) {
 }
 
 ```
+## CSS/SASSのMinimumize
+
+`optimize-css-assets-webpack-plugin`がなぜか使えなかったので、代わりに`cssnano`と`postcss`を使う。
+
+なので、webpackとは別工程でCSSの生成を管理することになる。
+
+また、SASSも使うので、変換の流れは以下のようなものになる。
+
+1. SASS -> CSS変換
+1. nanocssでファイルサイズを削減
+1. webpackによるプロジェクトへの組み込み
+
+webpack以外の工程は以下のコマンドで行える。
+
+```js
+sass sass/:src/css && postcss src/css/**/*.css --replace
+```
+
+sassとpostcssは共にファイル更新機能があるが、Vue.jsでインラインCSSをメインに使うかもしれないので、今のところは手動でコンパイルしていく。
