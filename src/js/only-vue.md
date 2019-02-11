@@ -325,3 +325,66 @@ sass sass/:src/css && postcss src/css/**/*.css --replace
 ```
 
 sassとpostcssは共にファイル更新機能があるが、Vue.jsでインラインCSSをメインに使うかもしれないので、今のところは手動でコンパイルしていく。
+
+## ダイナミックインポート
+
+EMACScript2015から`import`を式の中にかけたり、Promiseみたいに使えるようになった。
+
+これによって実行時に必要なものだけをブラウザに読み込めたりと便利になったそうだ。
+
+この新しく追加された`import`の機能のことをダイナミックインポートと呼ばれている。
+
+[webpack code-splitting](https://webpack.js.org/guides/code-splitting/)
+[Webpack and dynamic import](https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234)
+
+importのところにある`/* webpackChunkName: "lodash" */`はwebpackのマジックコメントという機能である。
+
+[module-methods magic-comments](https://webpack.js.org/api/module-methods/#magic-comments)
+
+```js
+import printMe from './print.js'
+
+function getComponent() {
+  // コメントはwebpackのマジックコメント
+  return import(/* webpackChunkName: "lodash" */ 'lodash').then(({default: _}) => {
+    let element = document.createElement('div');
+    element.innerHTML = _.join(['Hello', 'webpack']);
+    printMe();// 今までのimportも使える
+    return element;
+  }).catch(error => 'An error occurred while loading the component');
+}
+
+getComponent().then(component => {
+  document.body.appendChild(component)
+})
+```
+
+async化もできる。
+
+```js
+async function getComponent() {
+  let element = document.createElement('div');
+
+  const {default: _ } = await import(/* webpackChunkName: "lodash" */ 'lodash');
+  element.innerHTML = _.join(['Hello', 'webpack']);
+
+  return element;
+}
+
+getComponent().then(component => {
+  document.body.appendChild(component)
+}).catch(error => 'An error occurred while loading the component');
+```
+### webpackのモジュール解析ツール
+
+生成したモジュールの構成を解析してくれるツールをwebpack側で提供してくれている。
+
+それらのツールを使う際は次のコマンドで生成するファイルが必要になる。
+```js
+webpack --profile --json > stats.json
+```
+
+- [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer)
+- [webpack-chart](https://alexkuz.github.io/webpack-chart/)
+- [Webpack Visualizer](https://chrisbateman.github.io/webpack-visualizer/)
+- [Bundle optimize helper](https://webpack.jakoblind.no/optimize)
