@@ -397,6 +397,55 @@ if (module.hot) {
 <pre><code class="language-js">sass sass/:src/css &amp;&amp; postcss src/css/**/*.css --replace
 </code></pre>
 <p>sassとpostcssは共にファイル更新機能があるが、Vue.jsでインラインCSSをメインに使うかもしれないので、今のところは手動でコンパイルしていく。</p>
+<a class="header" href="#ダイナミックインポート" id="ダイナミックインポート"><h2>ダイナミックインポート</h2></a>
+<p>EMACScript2015から<code>import</code>を式の中にかけたり、Promiseみたいに使えるようになった。</p>
+<p>これによって実行時に必要なものだけをブラウザに読み込めたりと便利になったそうだ。</p>
+<p>この新しく追加された<code>import</code>の機能のことをダイナミックインポートと呼ばれている。</p>
+<p><a href="https://webpack.js.org/guides/code-splitting/">webpack code-splitting</a>
+<a href="https://medium.com/front-end-weekly/webpack-and-dynamic-imports-doing-it-right-72549ff49234">Webpack and dynamic import</a></p>
+<p>importのところにある<code>/* webpackChunkName: &quot;lodash&quot; */</code>はwebpackのマジックコメントという機能である。</p>
+<p><a href="https://webpack.js.org/api/module-methods/#magic-comments">module-methods magic-comments</a></p>
+<pre><code class="language-js">import printMe from './print.js'
+
+function getComponent() {
+  // コメントはwebpackのマジックコメント
+  return import(/* webpackChunkName: &quot;lodash&quot; */ 'lodash').then(({default: _}) =&gt; {
+    let element = document.createElement('div');
+    element.innerHTML = _.join(['Hello', 'webpack']);
+    printMe();// 今までのimportも使える
+    return element;
+  }).catch(error =&gt; 'An error occurred while loading the component');
+}
+
+getComponent().then(component =&gt; {
+  document.body.appendChild(component)
+})
+</code></pre>
+<p>async化もできる。</p>
+<pre><code class="language-js">async function getComponent() {
+  let element = document.createElement('div');
+
+  const {default: _ } = await import(/* webpackChunkName: &quot;lodash&quot; */ 'lodash');
+  element.innerHTML = _.join(['Hello', 'webpack']);
+
+  return element;
+}
+
+getComponent().then(component =&gt; {
+  document.body.appendChild(component)
+}).catch(error =&gt; 'An error occurred while loading the component');
+</code></pre>
+<a class="header" href="#webpackのモジュール解析ツール" id="webpackのモジュール解析ツール"><h3>webpackのモジュール解析ツール</h3></a>
+<p>生成したモジュールの構成を解析してくれるツールをwebpack側で提供してくれている。</p>
+<p>それらのツールを使う際は次のコマンドで生成するファイルが必要になる。</p>
+<pre><code class="language-js">webpack --profile --json &gt; stats.json
+</code></pre>
+<ul>
+<li><a href="https://github.com/webpack-contrib/webpack-bundle-analyzer">webpack-bundle-analyzer</a></li>
+<li><a href="https://alexkuz.github.io/webpack-chart/">webpack-chart</a></li>
+<li><a href="https://chrisbateman.github.io/webpack-visualizer/">Webpack Visualizer</a></li>
+<li><a href="https://webpack.jakoblind.no/optimize">Bundle optimize helper</a></li>
+</ul>
 
                     </main>
 
