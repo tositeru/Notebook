@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Vue/Nuxt - Note to siteru</title>
+        <title>Browser Storage - Note to siteru</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/vue-nuxt.html" class="active"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.3.</strong> Browser Storage</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li><li><a href="../js/browser-storage.html" class="active"><strong aria-hidden="true">3.3.</strong> Browser Storage</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -140,126 +140,48 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#vuejsnuxtjs" id="vuejsnuxtjs"><h1>Vue.js/Nuxt.js</h1></a>
-<a class="header" href="#プロジェクト構築" id="プロジェクト構築"><h2>プロジェクト構築</h2></a>
-<p>vue-cliを使う</p>
-<p>開発環境の準備</p>
-<pre><code class="language-bash"># install yarn
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo &quot;deb https://dl.yarnpkg.com/debian/ stable main&quot; | sudo tee /etc/apt/sources.list.d/yarn.list
+                        <a class="header" href="#browser-storage" id="browser-storage"><h1>Browser Storage</h1></a>
+<a class="header" href="#local-storage" id="local-storage"><h2>Local Storage</h2></a>
+<p>手軽にデータを記録することができる。</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">Local Storage</a>は開発者ツールから簡単に書き換えできるので、重要なデータを記録することには使わないこと。</p>
+<p>代わりに、IDBやSimpleDBなどのJavaScriptモジュールを使うこと。</p>
+<a class="header" href="#使い方" id="使い方"><h2>使い方</h2></a>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage">Storage</a>インタフェースを使う。</p>
+<p>使い方は簡単で、記録したいデータのキーとその値を指定するだけでいい。
+ただし、自動的に文字列に変換される。</p>
+<pre><code class="language-js">// set
+window.localStorage.setItem('key1', 100)；
+window.localStorage.setItem('color', &quot;#FF0000&quot;)；
 
-sudo apt-get update &amp;&amp; sudo apt-get install yarn
+// get
+let color = window.localStorage.getItem('color')； //&lt;- &quot;#FF0000&quot;
 
-# install vue
-sudo yarn -g install vue-cli
-</code></pre>
-<p>プロジェクトの作成</p>
-<p>TypeScriptを使うため<a href="https://github.com/nuxt-community/typescript-template">typescript-template</a>を使っている</p>
-<pre><code class="language-bash"># install vue and create project using typescript
-sudo npm install -g vue-cli
-vue init nuxt-community/typescript-template &lt;project-name&gt;
-cd &lt;project-name&gt;
-yarn
-</code></pre>
-<p>開発時の作成しているページの確認</p>
-<pre><code class="language-bash">yarn run dev
-</code></pre>
-<p>今回はGithub pageを作るために使っているので静的ページの作成する。以下のコマンドで作れる。</p>
-<pre><code class="language-bash">yarn run generate
-</code></pre>
-<p>注意点として、<code>vue init nuxt-community/typescript-template</code>を使って作ったプロジェクトはサーバーサイドレンダリングを使うように設定されている。</p>
-<p>静的ページを作成する時はサーバーは使わないので、Nuxt.jsのモードを<code>spa</code>に指定する必要がある。</p>
-<p>その方法は<code>nuxt.config.js</code>の<code>export</code>に<code>mode: 'spa'</code>を追記することでできる。</p>
-<pre><code class="language-js">//nuxt.config.js
-export default {
-  mode: 'spa',
-  // ... 以下、他の設定
+for(let index=0; window.localStorage.length; ++index) {
+    let value = window.localStorage.key(index); // get with index
+    console.log(value);
 }
+
+window.localStorage.removeItem('color');
+
+window.localStorage.clear();
 </code></pre>
-<a class="header" href="#sassを使う" id="sassを使う"><h2>SASSを使う</h2></a>
-<p>SASSを使う時はまず<code>node-sass</code>と<code>sass-loader</code>をインストールする</p>
-<pre><code class="language-bash">yarn add --dev node-sass sass-loader
-</code></pre>
-<p>SASSの定義にはファイルを使うかVueのプリプロセッサを使うかの二通りの方法がある</p>
-<p><strong>ファイルを使う方法</strong></p>
-<p><code>nuxt.config.js</code>ファイル内でSASSファイルを指定すればいい。</p>
-<pre><code class="language-js">export default {
-  css: [
-    '@/assets/css/main.sass'
-  ]
-}
-</code></pre>
-<p><strong>プリプロセッサを使う方法</strong></p>
-<p>こちらはVueファイルに埋め込む形になる。</p>
-<pre><code class="language-html">//直接指定できる
-&lt;style lang=&quot;sass&quot;&gt;
-.red {
-  color: red;
-  .inner {
-    background-color: black;
-  }
-}
-&lt;\/style&gt;
-// ファイルを読み込むこともできる
-&lt;style lang=&quot;sass&quot; src=&quot;#/styles/hoge.sass&quot;&gt;&lt;/style&gt;
-</code></pre>
-<a class="header" href="#eslintとprettier" id="eslintとprettier"><h2>ESLintとPrettier</h2></a>
-<p>インストールには以下のコマンドを使う</p>
-<pre><code class="language-bash">yarn add --save-dev babel-eslint eslint eslint-config-prettier eslint-loader eslint-plugin-vue eslint-plugin-prettier prettier
-</code></pre>
-<p>その後に<code>.eslintrc.js</code>をルートディレクトリに置くことでESLintの設定ができる。</p>
-<p><code>nuxt.config.js</code>の<code>build</code>を修正することで、ホットリロードモードの時にESLintを実行することができるので、必ず有効化すること。</p>
-<pre><code class="language-js">build: {
-  //ここで webpack config を拡張できます
-  extend(config, ctx) {
-    // Run ESLint on save
-    if (ctx.isDev &amp;&amp; ctx.isClient) {
-      config.module.rules.push({
-        enforce: &quot;pre&quot;,
-        test: /\.(js|vue)$/,
-        loader: &quot;eslint-loader&quot;,
-        exclude: /(node_modules)/
-      })
-    }
-  }
-}
-</code></pre>
-<p><a href="https://ja.nuxtjs.org/guide/development-tools/#eslint-%E3%81%A8-prettier">eslint-と-prettier</a></p>
-<a class="header" href="#ファイルパスにおいてのとの扱い" id="ファイルパスにおいてのとの扱い"><h2>ファイルパスにおいての~と@の扱い</h2></a>
-<p><code>~</code>と<code>@</code>はWebpackが認識するパス記法のエイリアスになっている。</p>
-<p>エイリアスには以下のものがある。</p>
-<ul>
-<li><code>~</code>,<code>@</code>: <a href="https://ja.nuxtjs.org/api/configuration-srcdir">srcDir</a>を表す。</li>
-<li><code>~~</code>,<code>@@</code>: <a href="https://ja.nuxtjs.org/api/configuration-rootdir">rootDir</a>を表す。</li>
-</ul>
-<p><a href="https://ja.nuxtjs.org/api/configuration-srcdir">srcDir</a>と<a href="https://ja.nuxtjs.org/api/configuration-rootdir">rootDir</a>は<code>nuxt.config.js</code>で設定できる。</p>
-<a class="header" href="#imgタグに画像のurlを指定する時の注意点nuxtjs" id="imgタグに画像のurlを指定する時の注意点nuxtjs"><h2>imgタグに画像のURLを指定する時の注意点(Nuxt.js)</h2></a>
-<p>v-bind:srcで設定するときと、直接srcを書き込む時でパスの指定方法が異なる。</p>
-<p>webpackが関係している問題。<sub>(が、別のうまい方法がある気がする。)</sub></p>
-<p><strong>v-bind:srcのとき</strong></p>
-<p>staticディレクトリに画像を保存した状態で下のコードみたいに書く</p>
-<pre><code class="language-js">&lt;img v-bind:src=&quot;`images/${path}`&quot;&gt;
-</code></pre>
-<p><a href="https://github.com/nuxt/nuxt.js/issues/448">How to link img src to a rendered list #448</a></p>
-<p><strong>直接srcを書き込む時</strong></p>
-<p>この場合はassetsディレクトリに画像を保存した状態で以下のように書く。</p>
-<pre><code class="language-js">&lt;img src=&quot;~assets/images/QR_URL_itch.png&quot;&gt;
-</code></pre>
-<p><a href="https://ja.nuxtjs.org/api/configuration-css/">css プロパティ</a>
-<a href="https://ja.nuxtjs.org/faq/pre-processors/">プリプロセッサを使うには？</a></p>
+<p>ページで定められたプロトコルに違反するとSecurityErrorという例外を投げる。</p>
+<p>関係するページ
+<a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#Definition_of_an_origin">Same-origin policy</a></p>
+<a class="header" href="#session-storage" id="session-storage"><h2>Session Storage</h2></a>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../js/top.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../js/only-vue.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../js/only-vue.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../css/top.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -271,13 +193,13 @@ export default {
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../js/top.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../js/only-vue.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../js/only-vue.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../css/top.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
