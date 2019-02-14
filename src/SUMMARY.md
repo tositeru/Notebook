@@ -10,4 +10,5 @@
 - [Javascript](./js/top.md)
     - [Vue/Nuxt](./js/vue-nuxt.md)
     - [Only-Vue](./js/only-vue.md)
+    - [Browser Storage](./js/browser-storage.md)
 - [CSS](./css/top.md)
