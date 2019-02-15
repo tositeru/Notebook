@@ -163,3 +163,57 @@ staticディレクトリに画像を保存した状態で下のコードみた�
 
 [css プロパティ](https://ja.nuxtjs.org/api/configuration-css/)
 [プリプロセッサを使うには？](https://ja.nuxtjs.org/faq/pre-processors/)
+
+## .VueファイルでSASS／SCSSを使う
+
+[プリプロセッサの使用](https://vue-loader-v14.vuejs.org/ja/configurations/pre-processors.html)
+
+.Vueファイル内でCSSを定義する時にlang属性を付けるとSASS/SCSSなど使えるようになる。
+
+その際にはyarnなどで別個でsass-loaderとnode-sassパッケージをインストールする必要がある。
+
+```html
+<style lang="sass">
+  /* ここにSassを書きます */
+</style>
+```
+
+## プロジェクト環境の構築
+
+```bash
+yarn create nuxt-app my-project
+#　いろいろな設定を行う
+
+# vue
+yarn add -D vue-propetry-decorator vue-eslint-parser
+
+# typescript
+yarn add -D nuxt-ts ts-loader typescript
+```
+
+### ESLint対応
+ESLintをVueに対応させるには`vue-eslint-parser`をインストールする必要がある。
+
+[vue-eslint-parser](https://github.com/mysticatea/vue-eslint-parser)
+
+```
+yarn add -D vue-eslint-parser
+```
+
+あとは`.exlintrc.js`も修正すればOK。
+`eslint`を実行する時に`.vue`も対象に含めるために、`--ext`オプションを付けるようにすること。
+(Nuxt.jsではデフォルトでそうなっている)
+
+```js
+module.exports = {
+  // ...
+  parser: "vue-eslint-parser",
+  // ...
+  extends: [
+    // ...
+    'eslint:recommended',
+    // ...
+  ],
+  // ...
+} 
+```
