@@ -446,6 +446,46 @@ getComponent().then(component =&gt; {
 <li><a href="https://chrisbateman.github.io/webpack-visualizer/">Webpack Visualizer</a></li>
 <li><a href="https://webpack.jakoblind.no/optimize">Bundle optimize helper</a></li>
 </ul>
+<a class="header" href="#typescript" id="typescript"><h2>TypeScript</h2></a>
+<p>TypeScriptを使う時は以下のパッケージをインストールする</p>
+<pre><code class="language-bash">yan add -D typescript ts-loader
+</code></pre>
+<p>インストールが終わったらTypeScriptの設定ファイルをプロジェクトに追加する。</p>
+<pre><code class="language-json">{
+  &quot;compilerOptions&quot;: {
+    &quot;outDir&quot;: &quot;./dist/&quot;,
+    &quot;sourceMap&quot;: true, // ソースマップを有効化するにはwebpack側にで設定をすること
+    &quot;noImplicitAny&quot;: true,
+    &quot;module&quot;: &quot;es6&quot;,
+    &quot;target&quot;: &quot;es5&quot;,
+    &quot;jsx&quot;: &quot;react&quot;,
+    &quot;allowJs&quot;: true
+  }
+}
+</code></pre>
+<p>Webpackの設定ファイルも修正する。</p>
+<pre><code class="language-js">const path = require('path');
+
+module.exports = {
+  entry: './src/index.ts',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ]
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
+</code></pre>
 
                     </main>
 

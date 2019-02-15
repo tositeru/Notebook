@@ -506,6 +506,252 @@ export default {
 </code></pre>
 <p><a href="https://ja.nuxtjs.org/api/configuration-css/">css プロパティ</a>
 <a href="https://ja.nuxtjs.org/faq/pre-processors/">プリプロセッサを使うには？</a></p>
+<a class="header" href="#vueファイルでsassscssを使う" id="vueファイルでsassscssを使う"><h2>.VueファイルでSASS／SCSSを使う</h2></a>
+<p><a href="https://vue-loader-v14.vuejs.org/ja/configurations/pre-processors.html">プリプロセッサの使用</a></p>
+<p>.Vueファイル内でCSSを定義する時にlang属性を付けるとSASS/SCSSなど使えるようになる。</p>
+<p>その際にはyarnなどで別個でsass-loaderとnode-sassパッケージをインストールする必要がある。</p>
+<pre><code class="language-html">&lt;style lang=&quot;sass&quot;&gt;
+  /* ここにSassを書きます */
+&lt;/style&gt;
+</code></pre>
+<a class="header" href="#プロジェクト環境の構築" id="プロジェクト環境の構築"><h2>プロジェクト環境の構築</h2></a>
+<pre><code class="language-bash">yarn create nuxt-app my-project
+#　いろいろな設定を行う
+
+# vue
+yarn add -D vue-propetry-decorator vue-eslint-parser
+
+# typescript
+yarn add -D nuxt-ts ts-loader typescript
+</code></pre>
+<a class="header" href="#eslint対応" id="eslint対応"><h3>ESLint対応</h3></a>
+<p>ESLintをVueに対応させるには<code>vue-eslint-parser</code>をインストールする必要がある。</p>
+<p><a href="https://github.com/mysticatea/vue-eslint-parser">vue-eslint-parser</a></p>
+<pre><code class="language-bash">yarn add -D vue-eslint-parser
+</code></pre>
+<p>あとは<code>.exlintrc.js</code>も修正すればOK。
+<code>eslint</code>を実行する時に<code>.vue</code>も対象に含めるために、<code>--ext</code>オプションを付けるようにすること。
+(Nuxt.jsではデフォルトでそうなっている)</p>
+<pre><code class="language-js">module.exports = {
+  // ...
+  parser: &quot;vue-eslint-parser&quot;,
+  // ...
+  extends: [
+    // ...
+    'eslint:recommended',
+    // ...
+  ],
+  // ...
+} 
+</code></pre>
+<a class="header" href="#テスト" id="テスト"><h2>テスト</h2></a>
+<p><code>@vue/test-utils</code>と<code>ava</code>を使って行う。
+どちらも<code>nuxt-app</code>で自動的にインストールできるが、後からインストールする時は以下のコマンドを使う。</p>
+<p>それと<code>jsdom</code>が必要になるので忘れずにインストールすること。</p>
+<pre><code class="language-bash">yarn add -D @vue/test-utils ava jsdom
+</code></pre>
+<p>※2019/2/15現在
+jsdomが原因によるエラーが起きてVueコンポーネントをインポートするとエラーが発生する状態にある</p>
+<p>その際はどこかで以下のコードを追加する必要がある。
+ava.config.jsのrequireプロパティに指定したテスト前に実行されるスクリプトに追記するのがお手軽。</p>
+<p><a href="https://github.com/vuejs/vue-test-utils/issues/936">jsdom-global in mocha example may break modules bundled by rollup</a></p>
+<pre><code class="language-js">window.Date = Date
+</code></pre>
+<p><code>ava</code>をテスト実行用に使用し、<code>@vue/test-utils</code>でVueコンポーネントの検証に使う形になる。</p>
+<a class="header" href="#ava" id="ava"><h3>AVA</h3></a>
+<p><a href="https://github.com/avajs/ava/blob/master/docs/06-configuration.md">AVA Configuration</a></p>
+<p><code>ava</code>を使ったテストは以下の形になる。</p>
+<pre><code class="language-js">import test from 'ava';
+
+// 現在テストしているファイル名を表示する
+console.log('Test currently being run:', test.meta.file)
+
+//基本
+test('test name', t =&gt; {
+  //組み込みのアサーション関数
+  t.pass('successed') //テストを成功させる
+  t.fail('failed') //テストに失敗させる
+  t.truthy(value, 'message')
+  t.falsy(value, 'message')
+  t.is(value, expected, 'message')
+  t.not(value, expected, 'message')
+  t.deepEqual(value, expected, 'message')
+  t.notDeepEqual(value, expected, 'message')
+  t.regex('abcde', /[a-e]+/)
+  t.notRegex('abcde', /[A-E]+/)
+
+  //前に記録したsnapshotとの比較を行うテスト
+  // snapshotについてはあとで
+  t.shapshot(expected, 'message')
+  t.shapshot(expected, {id: 'specify snapshot name'}, 'message')
+
+  // 例外のテスト
+  const error = t.throws(()=&gt; {
+    throw new ExpectedExceptionType('')
+  }, ExpectedExceptionType, 'message')
+  //例外を投げない
+  t.notThrows(() =&gt; {}, 'message')
+  // asyncを使った例外のテスト。個々にあるもの以外にもパラメータがいくつかある
+  await t.throwsAsync(async () =&gt; {
+    throw new ExpectedExceptionType('check message')
+  }, {instanceOf: ExpectedExceptionType, message: 'check message'})
+  //例外を投げない
+  await t.notThrowsAsync(promise);
+
+})
+
+//promiseを使ったもの
+test('used promise test', t =&gt; {
+  return somePromise().then(result =&gt; {
+    t.is(result, 'apple')
+  })
+})
+
+//asyncを使ったもの
+test('used async test', t =&gt; {
+  const result = await somePromise();
+  t.is(result, 'apple')
+})
+
+//AVAにはビルドインのobservablesがある。
+test('used observable test', t =&gt; {
+  t.plan(3);
+  return Observable.of(1, 2, 3, 4, 5, 6)
+    .filter(n =&gt; {
+      return n % 2 == 0;
+    })
+    .map(() =&gt; t.pass())
+})
+
+// onlyがついたものがあるとonlyがあるものだけがテストされる
+test.only('only run this test', t =&gt; {
+  t.pass()
+})
+
+// スキップするテスト
+test.skip('skip this test', t =&gt; {
+  
+})
+
+// 同時に実行させないテストの定義
+// 並列に実行されるものの前にテストされる
+test.serial('pass', t =&gt; {
+  t.pass()
+})
+
+//Node.jsスタイルのエラーファーストコールバック
+test.cb('Node.js-style error-first callback API', t =&gt; {
+  fs.readFile('data.txt', t.end)
+})
+</code></pre>
+<p>各テストにはHookを付けることもできる。</p>
+<pre><code class="language-js">// テスト予定のものを定義
+test.todo('todo')
+test.only.todo('todo')
+
+//全てのテストの前/後処理
+test.before(t =&gt; {})
+test.after(t =&gt; {})
+
+//各テストの前/後処理
+test.beforeEach(t =&gt; {})
+test.afterEach(t =&gt; {})
+
+//afterXXXの後ろにalwaysを付けると失敗しても必ず実行される
+test.after.always(t =&gt; {})
+test.afterEach.always(t =&gt; {})
+
+// serialを付けるとserialなテストのみに対しての処理になる
+test.serial.before.always(t =&gt; {})
+test.serial.after.always(t =&gt; {})
+
+</code></pre>
+<a class="header" href="#snapshot" id="snapshot"><h4>Snapshot</h4></a>
+<p><a href="https://github.com/avajs/ava/blob/master/docs/04-snapshot-testing.md">Snapshot testing</a></p>
+<p>AVAではファイルにある内容とテスト中の値を比較することができる。
+この機能のことを<strong>Snapshot</strong>と呼ぶ。</p>
+<p><a href="https://jestjs.io/docs/en/snapshot-testing">Jest</a>が発祥だそうだ。</p>
+<p>Snapshotを使うと、1回目はテスト中に渡した値を元にテストファイルと同じ名前を持った2種類のファイルを作られ、渡した値がそこに記録される。</p>
+<p>そして2回目以降は1回目に記録した値と比較され、異なっているとテストに失敗する。</p>
+<p>例えば、<code>main.js</code>というファイルで使うなら、以下のファイルが新しく作られる。</p>
+<ul>
+<li>snapshots/main.js.snap : 比較対象となるファイル。手で書くのではなくテスト実行中のデータを保存する</li>
+<li>snapshots/main.js.md   : 上のファイルの内容</li>
+</ul>
+<p>比較内容を更新したい時は以下のコマンドで行える。</p>
+<pre><code class="language-bash">ava --update-snapshots
+</code></pre>
+<p>デフォルトだと生成されるディレクトリは<code>main.js</code>と同じディレクトリに作られるが、設定で生成先を変更することができる。</p>
+<pre><code class="language-js">//ava.config.js
+export default {
+  // ...
+  snapshotDir: &quot;ava-snapshots&quot;,
+  // ...
+}
+</code></pre>
+<a class="header" href="#vue-test-utils" id="vue-test-utils"><h3>Vue Test Utils</h3></a>
+<p><a href="https://vue-test-utils.vuejs.org/api/wrapper/#properties">Wrapper(Vue Test Utils)</a></p>
+<p>この中のselectorについては下で説明する。</p>
+<pre><code class="language-js">import {mount, shallowMount} from '@vue/test-utils'
+import test from 'ava'
+import TargetVueComponent from './' //todo ルートパスの書き方。
+
+test('test title', t =&gt; {
+  const wrapper = mount(TargetVueComponent) // Vueコンポーネントを作成。
+  // 大規模なコンポーネントで子要素にアクセスしない時はshallowMountを使うと効率的
+  const shallowWrapper = shallowMount(TargetVueComponent) // 子コンポーネントを作成せずに作成。
+
+  let instance = wrapper.vm // 実体はvmの中にある
+  wrapper.html() // 生のHTMLソース
+  wrapper.text() // テキスト
+  wrapper.props() // VueコンポーネントのProps
+  wrapper.attibutes().id // Domノードの属性にアクセスする
+  wrapper.attibutes('id')
+  wrapper.classes() // DomノードのCSSクラスのリスト
+  wrapper.classes('bar') // barを取得
+
+  wrapper.trigger('click', { /*引数*/}) // イベント実行
+  wrapper.$emit('custom-event', 123) // イベント発行
+
+  //状態確認
+  wrapper.exists() //作成に成功したか？
+  wrapper.is('div') // 指定したselectorがあるか？
+  wrapper.isEmpty() // 子要素がないとtrue
+  wrapper.isVueInstance() // Vueインスタンスか？
+  wrapper.isVisible() // v-showで非表示になっているか？
+
+  // 検索
+  let exist = wrapper.contains('div') // コンポーネントの中にdivタグがあるか？
+  let div = wrapper.find('div') // コンポーネントの内のdivタグを探す
+  let divList = wrapper.findAll('div') // コンポーネントの内のdivタグを探す
+  t.is(wrapper.isVueInstance(), true) // Vueインスタンスかチェック
+
+  // 値設定
+  // Vue関係
+  wrapper.setMethods({clickMethod: hoge()})
+  wrapper.setData({hoge: 'foo'})
+  wrapper.setProps({foo: 'bar'}) //VueのPropsを設定
+  // form関係
+  wrapper.find('input[type=&quot;radio&quot;]').setChecked() // ラジオボタンをチェックする
+  wrapper.findAll('option').at(1).setSelected() // option要素を選択する
+  wrapper.find('input').setValue('set to input element') // input要素に値を設定。v-modelにバインドされている
+})
+
+</code></pre>
+<a class="header" href="#selector" id="selector"><h3>Selector</h3></a>
+<p>'@vue/test-utils'には<a href="https://vue-test-utils.vuejs.org/api/selectors.html">Selector</a>があり、関数のいくつかはそれを利用できる。</p>
+<p><code>Selector</code>を使うと以下のものが検索できる。</p>
+<ul>
+<li>タグ</li>
+<li>CSSクラス</li>
+<li>タグの属性</li>
+<li>タグid</li>
+<li>Vueコンポーネント
+<ul>
+<li><a href="https://jp.vuejs.org/v2/api/index.html#ref">$ref</a>による検索もできる</li>
+</ul>
+</li>
+</ul>
 <a class="header" href="#nuxtjsを使わずにそれっぽい環境を構築する" id="nuxtjsを使わずにそれっぽい環境を構築する"><h1>Nuxt.jsを使わずにそれっぽい環境を構築する</h1></a>
 <p>Nuxt.jsとTypeScriptを組み合わせていく内によくわからないことになったので、Vue.jsのみでNuxt.jsと同じ環境っぽいものを構築する方法をメモする</p>
 <a class="header" href="#目標" id="目標"><h2>目標</h2></a>
@@ -812,7 +1058,48 @@ getComponent().then(component =&gt; {
 <li><a href="https://chrisbateman.github.io/webpack-visualizer/">Webpack Visualizer</a></li>
 <li><a href="https://webpack.jakoblind.no/optimize">Bundle optimize helper</a></li>
 </ul>
+<a class="header" href="#typescript" id="typescript"><h2>TypeScript</h2></a>
+<p>TypeScriptを使う時は以下のパッケージをインストールする</p>
+<pre><code class="language-bash">yan add -D typescript ts-loader
+</code></pre>
+<p>インストールが終わったらTypeScriptの設定ファイルをプロジェクトに追加する。</p>
+<pre><code class="language-json">{
+  &quot;compilerOptions&quot;: {
+    &quot;outDir&quot;: &quot;./dist/&quot;,
+    &quot;sourceMap&quot;: true, // ソースマップを有効化するにはwebpack側にで設定をすること
+    &quot;noImplicitAny&quot;: true,
+    &quot;module&quot;: &quot;es6&quot;,
+    &quot;target&quot;: &quot;es5&quot;,
+    &quot;jsx&quot;: &quot;react&quot;,
+    &quot;allowJs&quot;: true
+  }
+}
+</code></pre>
+<p>Webpackの設定ファイルも修正する。</p>
+<pre><code class="language-js">const path = require('path');
+
+module.exports = {
+  entry: './src/index.ts',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ]
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
+</code></pre>
 <a class="header" href="#browser-storage" id="browser-storage"><h1>Browser Storage</h1></a>
+<p><a href="https://developer.mozilla.org/ja/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API">Web Storage API を使用する</a></p>
 <a class="header" href="#local-storage" id="local-storage"><h2>Local Storage</h2></a>
 <p>手軽にデータを記録することができる。</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">Local Storage</a>は開発者ツールから簡単に書き換えできるので、重要なデータを記録することには使わないこと。</p>
@@ -821,7 +1108,9 @@ getComponent().then(component =&gt; {
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage">Storage</a>インタフェースを使う。</p>
 <p>使い方は簡単で、記録したいデータのキーとその値を指定するだけでいい。
 ただし、自動的に文字列に変換される。</p>
-<pre><code class="language-js">// set
+<p>一応現在使用できるか確認をしておいたほうがいい。</p>
+<pre><code class="language-js">
+// set
 window.localStorage.setItem('key1', 100)；
 window.localStorage.setItem('color', &quot;#FF0000&quot;)；
 
@@ -841,6 +1130,9 @@ window.localStorage.clear();
 <p>関係するページ
 <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#Definition_of_an_origin">Same-origin policy</a></p>
 <a class="header" href="#session-storage" id="session-storage"><h2>Session Storage</h2></a>
+<p>こちらも<a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage">Storage</a>インタフェースを使う。</p>
+<p><code>window.sessionStorage</code>からアクセスできる。</p>
+<p><code>window.sessionStorage</code>に保存されたデータはページのセッション終了時に消される。</p>
 <a class="header" href="#css" id="css"><h1>CSS</h1></a>
 <a class="header" href="#fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ" id="fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ"><h2>Fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ。</h2></a>
 <p>Fontawesomeアイコン専用というわけではなく、なんにでも使える方法</p>
