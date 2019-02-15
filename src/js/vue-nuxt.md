@@ -217,3 +217,245 @@ module.exports = {
   // ...
 } 
 ```
+
+## テスト
+
+`@vue/test-utils`と`ava`を使って行う。
+どちらも`nuxt-app`で自動的にインストールできるが、後からインストールする時は以下のコマンドを使う。
+
+それと`jsdom`が必要になるので忘れずにインストールすること。
+
+``` bash
+yarn add -D @vue/test-utils ava jsdom
+```
+
+※2019/2/15現在
+jsdomが原因によるエラーが起きてVueコンポーネントをインポートするとエラーが発生する状態にある
+
+その際はどこかで以下のコードを追加する必要がある。
+ava.config.jsのrequireプロパティに指定したテスト前に実行されるスクリプトに追記するのがお手軽。
+
+[jsdom-global in mocha example may break modules bundled by rollup](https://github.com/vuejs/vue-test-utils/issues/936)
+```js
+window.Date = Date
+```
+
+`ava`をテスト実行用に使用し、`@vue/test-utils`でVueコンポーネントの検証に使う形になる。
+
+### AVA
+
+
+[AVA Configuration](https://github.com/avajs/ava/blob/master/docs/06-configuration.md)
+
+`ava`を使ったテストは以下の形になる。
+
+```js
+import test from 'ava';
+
+// 現在テストしているファイル名を表示する
+console.log('Test currently being run:', test.meta.file)
+
+//基本
+test('test name', t => {
+  //組み込みのアサーション関数
+  t.pass('successed') //テストを成功させる
+  t.fail('failed') //テストに失敗させる
+  t.truthy(value, 'message')
+  t.falsy(value, 'message')
+  t.is(value, expected, 'message')
+  t.not(value, expected, 'message')
+  t.deepEqual(value, expected, 'message')
+  t.notDeepEqual(value, expected, 'message')
+  t.regex('abcde', /[a-e]+/)
+  t.notRegex('abcde', /[A-E]+/)
+
+  //前に記録したsnapshotとの比較を行うテスト
+  // snapshotについてはあとで
+  t.shapshot(expected, 'message')
+  t.shapshot(expected, {id: 'specify snapshot name'}, 'message')
+
+  // 例外のテスト
+  const error = t.throws(()=> {
+    throw new ExpectedExceptionType('')
+  }, ExpectedExceptionType, 'message')
+  //例外を投げない
+  t.notThrows(() => {}, 'message')
+  // asyncを使った例外のテスト。個々にあるもの以外にもパラメータがいくつかある
+  await t.throwsAsync(async () => {
+    throw new ExpectedExceptionType('check message')
+  }, {instanceOf: ExpectedExceptionType, message: 'check message'})
+  //例外を投げない
+  await t.notThrowsAsync(promise);
+
+})
+
+//promiseを使ったもの
+test('used promise test', t => {
+  return somePromise().then(result => {
+    t.is(result, 'apple')
+  })
+})
+
+//asyncを使ったもの
+test('used async test', t => {
+  const result = await somePromise();
+  t.is(result, 'apple')
+})
+
+//AVAにはビルドインのobservablesがある。
+test('used observable test', t => {
+  t.plan(3);
+  return Observable.of(1, 2, 3, 4, 5, 6)
+    .filter(n => {
+      return n % 2 == 0;
+    })
+    .map(() => t.pass())
+})
+
+// onlyがついたものがあるとonlyがあるものだけがテストされる
+test.only('only run this test', t => {
+  t.pass()
+})
+
+// スキップするテスト
+test.skip('skip this test', t => {
+  
+})
+
+// 同時に実行させないテストの定義
+// 並列に実行されるものの前にテストされる
+test.serial('pass', t => {
+  t.pass()
+})
+
+//Node.jsスタイルのエラーファーストコールバック
+test.cb('Node.js-style error-first callback API', t => {
+  fs.readFile('data.txt', t.end)
+})
+```
+
+各テストにはHookを付けることもできる。
+
+```js
+// テスト予定のものを定義
+test.todo('todo')
+test.only.todo('todo')
+
+//全てのテストの前/後処理
+test.before(t => {})
+test.after(t => {})
+
+//各テストの前/後処理
+test.beforeEach(t => {})
+test.afterEach(t => {})
+
+//afterXXXの後ろにalwaysを付けると失敗しても必ず実行される
+test.after.always(t => {})
+test.afterEach.always(t => {})
+
+// serialを付けるとserialなテストのみに対しての処理になる
+test.serial.before.always(t => {})
+test.serial.after.always(t => {})
+
+```
+
+#### Snapshot
+
+[Snapshot testing](https://github.com/avajs/ava/blob/master/docs/04-snapshot-testing.md)
+
+AVAではファイルにある内容とテスト中の値を比較することができる。
+この機能のことを**Snapshot**と呼ぶ。
+
+[Jest](https://jestjs.io/docs/en/snapshot-testing)が発祥だそうだ。
+
+Snapshotを使うと、1回目はテスト中に渡した値を元にテストファイルと同じ名前を持った2種類のファイルを作られ、渡した値がそこに記録される。
+
+そして2回目以降は1回目に記録した値と比較され、異なっているとテストに失敗する。
+
+例えば、`main.js`というファイルで使うなら、以下のファイルが新しく作られる。
+
+- snapshots/main.js.snap : 比較対象となるファイル。手で書くのではなくテスト実行中のデータを保存する
+- snapshots/main.js.md   : 上のファイルの内容
+
+比較内容を更新したい時は以下のコマンドで行える。
+
+``` bash
+ava --update-snapshots
+```
+
+デフォルトだと生成されるディレクトリは`main.js`と同じディレクトリに作られるが、設定で生成先を変更することができる。
+
+``` js
+//ava.config.js
+export default {
+  // ...
+  snapshotDir: "ava-snapshots",
+  // ...
+}
+```
+
+### Vue Test Utils
+
+[Wrapper(Vue Test Utils)](https://vue-test-utils.vuejs.org/api/wrapper/#properties)
+
+この中のselectorについては下で説明する。
+
+```js
+import {mount, shallowMount} from '@vue/test-utils'
+import test from 'ava'
+import TargetVueComponent from './' //todo ルートパスの書き方。
+
+test('test title', t => {
+  const wrapper = mount(TargetVueComponent) // Vueコンポーネントを作成。
+  // 大規模なコンポーネントで子要素にアクセスしない時はshallowMountを使うと効率的
+  const shallowWrapper = shallowMount(TargetVueComponent) // 子コンポーネントを作成せずに作成。
+
+  let instance = wrapper.vm // 実体はvmの中にある
+  wrapper.html() // 生のHTMLソース
+  wrapper.text() // テキスト
+  wrapper.props() // VueコンポーネントのProps
+  wrapper.attibutes().id // Domノードの属性にアクセスする
+  wrapper.attibutes('id')
+  wrapper.classes() // DomノードのCSSクラスのリスト
+  wrapper.classes('bar') // barを取得
+
+  wrapper.trigger('click', { /*引数*/}) // イベント実行
+  wrapper.$emit('custom-event', 123) // イベント発行
+
+  //状態確認
+  wrapper.exists() //作成に成功したか？
+  wrapper.is('div') // 指定したselectorがあるか？
+  wrapper.isEmpty() // 子要素がないとtrue
+  wrapper.isVueInstance() // Vueインスタンスか？
+  wrapper.isVisible() // v-showで非表示になっているか？
+
+  // 検索
+  let exist = wrapper.contains('div') // コンポーネントの中にdivタグがあるか？
+  let div = wrapper.find('div') // コンポーネントの内のdivタグを探す
+  let divList = wrapper.findAll('div') // コンポーネントの内のdivタグを探す
+  t.is(wrapper.isVueInstance(), true) // Vueインスタンスかチェック
+
+  // 値設定
+  // Vue関係
+  wrapper.setMethods({clickMethod: hoge()})
+  wrapper.setData({hoge: 'foo'})
+  wrapper.setProps({foo: 'bar'}) //VueのPropsを設定
+  // form関係
+  wrapper.find('input[type="radio"]').setChecked() // ラジオボタンをチェックする
+  wrapper.findAll('option').at(1).setSelected() // option要素を選択する
+  wrapper.find('input').setValue('set to input element') // input要素に値を設定。v-modelにバインドされている
+})
+
+```
+
+### Selector
+'@vue/test-utils'には[Selector](https://vue-test-utils.vuejs.org/api/selectors.html)があり、関数のいくつかはそれを利用できる。
+
+`Selector`を使うと以下のものが検索できる。
+
+- タグ
+- CSSクラス
+- タグの属性
+- タグid
+- Vueコンポーネント
+    - [$ref](https://jp.vuejs.org/v2/api/index.html#ref)による検索もできる
