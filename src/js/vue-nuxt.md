@@ -196,7 +196,7 @@ ESLintをVueに対応させるには`vue-eslint-parser`をインストールす�
 
 [vue-eslint-parser](https://github.com/mysticatea/vue-eslint-parser)
 
-```
+``` bash
 yarn add -D vue-eslint-parser
 ```
 
