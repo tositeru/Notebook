@@ -388,3 +388,52 @@ webpack --profile --json > stats.json
 - [webpack-chart](https://alexkuz.github.io/webpack-chart/)
 - [Webpack Visualizer](https://chrisbateman.github.io/webpack-visualizer/)
 - [Bundle optimize helper](https://webpack.jakoblind.no/optimize)
+
+## TypeScript
+TypeScriptを使う時は以下のパッケージをインストールする
+
+```bash
+yan add -D typescript ts-loader
+```
+
+インストールが終わったらTypeScriptの設定ファイルをプロジェクトに追加する。
+
+```json
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true, // ソースマップを有効化するにはwebpack側にで設定をすること
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true
+  }
+}
+```
+
+Webpackの設定ファイルも修正する。
+
+```js
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.ts',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ]
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
+```
