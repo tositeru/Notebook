@@ -1339,7 +1339,7 @@ let config = {
 <li>config     : リクエストした時axiosに渡した設定</li>
 <li>request    : このレスポンスに対応しているリクエストの内容</li>
 </ul>
-<p>##　エラーハンドリング</p>
+<a class="header" href="#エラーハンドリング" id="エラーハンドリング"><h2>エラーハンドリング</h2></a>
 <p>エラーが起きた時に引数として渡される変数を使うとリクエストかレスポンスどちらでエラーが起きたか判別できる。</p>
 <p>下で登場している<code>error</code>のメンバ</p>
 <ul>
@@ -1369,7 +1369,7 @@ let config = {
     console.log(error.config);
   });
 </code></pre>
-<p>##　キャンセル</p>
+<a class="header" href="#キャンセル" id="キャンセル"><h2>キャンセル</h2></a>
 <p>リクエストをキャンセルすることができる。</p>
 <p>キャンセルする時はリクエストを送る際に設定の<code>cancelToken</code>に<code>axios.CancelToke.source.token</code>を渡す必要がある。</p>
 <p>渡した後に<code>source.cancel()</code>を呼び出すことでキャンセルできる。</p>
