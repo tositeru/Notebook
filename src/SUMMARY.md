@@ -11,4 +11,6 @@
     - [Vue/Nuxt](./js/vue-nuxt.md)
     - [Only-Vue](./js/only-vue.md)
     - [Browser Storage](./js/browser-storage.md)
+    - [Vue Router](./js/vue-router.md)
+    - [axios](./js/axios.md)
 - [CSS](./css/top.md)
