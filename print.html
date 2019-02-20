@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.3.</strong> Browser Storage</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.3.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.4.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.5.</strong> axios</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -397,7 +397,9 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <ul>
 <li><a href="js/./vue-nuxt.html">Vue/Nuxt</a></li>
 <li><a href="js/./only-vue.html">Only-Vue</a></li>
+<li><a href="js/./vue-router.html">Vue Router</a></li>
 <li><a href="js/./browser-storage.html">Browser Storage</a></li>
+<li><a href="js/./axios.html">axios</a></li>
 </ul>
 <a class="header" href="#vuejsnuxtjs" id="vuejsnuxtjs"><h1>Vue.js/Nuxt.js</h1></a>
 <a class="header" href="#プロジェクト構築" id="プロジェクト構築"><h2>プロジェクト構築</h2></a>
@@ -1133,6 +1135,325 @@ window.localStorage.clear();
 <p>こちらも<a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage">Storage</a>インタフェースを使う。</p>
 <p><code>window.sessionStorage</code>からアクセスできる。</p>
 <p><code>window.sessionStorage</code>に保存されたデータはページのセッション終了時に消される。</p>
+<a class="header" href="#vue-router" id="vue-router"><h1>Vue Router</h1></a>
+<p><a href="https://github.com/vuejs/vue-router">Vue.js公式ルータ</a>。
+Vue.jsを使うならこれも使うべき。</p>
+<p>Nuxt.jsの内部でも使われている。
+Nuxt.jsで設定したい時は<code>nuxt.config.js</code>のrouterプロパティを使うといい。</p>
+<p><a href="https://router.vuejs.org/ja/">ドキュメント</a></p>
+<a class="header" href="#インストール-1" id="インストール-1"><h2>インストール</h2></a>
+<pre><code class="language-bash">yarn add -D vue-router
+</code></pre>
+<p>モジュールシステムを使う時は<code>Vue.use()</code>を使って明示的にルータをインストールする必要がある。</p>
+<pre><code class="language-js">import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+</code></pre>
+<a class="header" href="#使い方-2" id="使い方-2"><h2>使い方</h2></a>
+<p>Js側で設定を行い、<code>a</code>タグを&lt;router-link&gt;に置き換える形になる。</p>
+<a class="header" href="#router-link" id="router-link"><h3>&lt;router-link&gt;</h3></a>
+<p><a href="https://router.vuejs.org/ja/api/#router-link">router-link</a></p>
+<p><code>a</code>タグの上位互換。
+HTML5で追加された<a href="https://developer.mozilla.org/ja/docs/Web/API/History">History API</a>を使ってくれるので、Vue.jsを使うならこちらを使ったほうがいい。</p>
+<pre><code class="language-html">&lt;!-- router.push()を使う --&gt;
+&lt;router-link to=&quot;/foo&quot;&gt;Go to Foo&lt;/router-link&gt;
+
+&lt;!-- replaceを付けると履歴に残さず、URLを変更する(中でrouter.replace()を使う) --&gt;
+&lt;router-link to=&quot;/foo&quot; replace&gt;Replace to Foo&lt;/router-link&gt;
+
+&lt;!-- appendを付けると現在のURLに対する相対パスになる --&gt;
+&lt;router-link to=&quot;/foo&quot; append&gt;Replace to XXX/Foo&lt;/router-link&gt;
+
+&lt;!-- exactを付けるとパスが完全に一致したときにだけアクティブクラス化になる --&gt;
+&lt;router-link to=&quot;/foo&quot; exact&gt;Go to Foo(with exact)&lt;/router-link&gt;
+
+&lt;!-- 好きなタグでaタグをラップできる --&gt;
+&lt;router-link tag=&quot;li&quot; to=&quot;/foo&quot;&gt;
+  &lt;a&gt;/foo&lt;/a&gt;
+&lt;/router-link&gt;
+</code></pre>
+<p>ただしjs側でコードを書く必要があるので、そのコードは下の方で示す。</p>
+<pre><code class="language-js">// 公式ドキュメントから
+// 0. モジュールシステムを使っている場合 (例: vue-cli 経由で)、Vue と VueRouter をインポートし、`Vue.use(VueRouter)` を呼び出します。
+
+// 1. ルートコンポーネントを定義します
+// 他のファイルからインポートすることもできます
+const Foo = { template: '&lt;div&gt;foo&lt;/div&gt;' }
+const Bar = { template: '&lt;div&gt;bar&lt;/div&gt;' }
+
+// 2. ルートをいくつか定義します
+// 各ルートは 1 つのコンポーネントとマッピングされる必要があります。
+// このコンポーネントは実際の `Vue.extend()`、
+// またはコンポーネントオプションのオブジェクトでも構いません。
+// ネストされたルートに関しては後で説明します
+const routes = [
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar }
+]
+
+// 3. ルーターインスタンスを作成して、ルートオプションを渡します
+// 追加のオプションをここで指定できますが、
+// この例ではシンプルにしましょう
+const router = new VueRouter({
+  routes // `routes: routes` の短縮表記
+})
+
+// 4. root となるインスタンスを作成してマウントします
+// アプリケーション全体がルーターを認知できるように、
+// ルーターをインジェクトすることを忘れないでください。
+const app = new Vue({
+  router
+}).$mount('#app')
+
+// これで開始です!
+
+</code></pre>
+<a class="header" href="#アクティブクラス" id="アクティブクラス"><h3>アクティブクラス</h3></a>
+<a class="header" href="#axios" id="axios"><h1>axios</h1></a>
+<p>ブラウザとNode.jsでHttpリクエストをラップしてくれているモジュール。
+将来的には<a href="https://developer.mozilla.org/ja/docs/Web/API/Fetch_API">Fetch API</a>に置き換わるかもしれないが、これを書いている時点でまだ完全にサポートされていないのでAxiosが好んで使われている。</p>
+<p><a href="https://github.com/axios/axios">axios</a></p>
+<a class="header" href="#使い方-3" id="使い方-3"><h2>使い方</h2></a>
+<p>すごくわかりやすい。</p>
+<p>Promise/Asyncに対応している。</p>
+<pre><code class="language-js">const axios = require('axios')
+
+// Promise
+axios.get('example.com')
+  .then(response =&gt; {
+    // 成功した時
+  })
+  .catch(error =&gt; {
+    // 失敗した時
+  })
+  .then(() =&gt; {
+    // 成功/失敗にかかわらず最後に実行するコード
+  })
+
+//Async/Await
+async function getData() {
+  try {
+    const reponse = await axios.get('example.com');
+    console.log(reponse)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+// パラメータ付き
+axios.get('example.com/user?id=123')
+axios.get('example.com/user', {param: {id: 123}})
+
+// POSTリクエスト
+axios.post('example.com/user', {userName: 'XXX', password: 'YYY'})
+
+</code></pre>
+<a class="header" href="#リクエストの設定" id="リクエストの設定"><h2>リクエストの設定</h2></a>
+<pre><code class="language-js">
+//axiosでは以下の関数で全てのHttpリクエストを実行できる。
+//　axios.get()などはこれの省略形
+// configについては下を参照
+axios(config)
+
+//　axios.defaultに値を設定すると、グローバル設定となり全てのリクエストに反映される。
+let config = {
+  //  以下の設定でURLは https://example.com/user?id=123　になる。
+  method: 'get',
+  url: 'user',
+  baseURL: 'https://example.com',
+  params: {
+    param: {id: 123}
+  },
+  //以下、色々な設定
+
+  // ヘッダーの追加設定
+  headers: {'X-Requested-With': 'XMLHttpRequest'},
+  
+  // リクエストの本体部分
+  data: { hoge: 'foo'},
+
+  // タイムアウト(ミリ秒)
+  timeout: 1000,
+
+  //レスポンスの設定
+  responseType: 'json',
+  responseEncoding: 'utf8',
+
+  // CSRF対策で使われるもの
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  // リクエストを送る前にparamsをURLのクエリ文字列に変換する処理をカスタマイズする時に使う。
+  paramsSerializer: function(params) {},
+
+  //認証関係
+  // オリジン間リソース共有 (CORS)で使われるパラメータ
+  withCredentials: false, // &lt;- default
+
+  //HTTP Basic auth
+  auth: {
+    username: 'janedoe',
+    password: 's00pers3cret'
+  },
+
+  //アップロード/ダウンロード実行中のイベント
+  onUploadProgress: function(progressEvent) {}
+  onDownLoadProgress: function(progressEvent) {}
+
+  //Httpリクエストの内容のデータサイズの上限(byte単位)
+  maxContentLength: 2000,
+
+  // リクエストのキャンセルする時に使うキャンセルトークンの設定
+  cancelToken: new CancelToken(function (cancel) {
+  })
+
+  //リクエストのレスポンスステートの検証
+  validateStatus: function(status) {
+    return status &gt;= 200 &amp;&amp; status &lt; 300;
+  },
+
+  // その他
+  maxRedirects: 5, // default
+  socketPath: null, // default
+  httpAgent: new http.Agent({ keepAlive: true }),
+  httpsAgent: new https.Agent({ keepAlive: true }),
+  proxy: {
+    host: '127.0.0.1',
+    port: 9000,
+    auth: {
+      username: 'mikeymike',
+      password: 'rapunz3l'
+    }
+  },
+}
+
+</code></pre>
+<a class="header" href="#レスポンスの内容" id="レスポンスの内容"><h2>レスポンスの内容</h2></a>
+<p>Httpリクエストに成功した時のresponseの値は以下の要素を持つ</p>
+<ul>
+<li>data       : レスポンスデータ。ここにリクエストの結果が入っている。</li>
+<li>status     : HTTPステータス</li>
+<li>statusText : ステータスのテキスト</li>
+<li>headers    : レスポンスのヘッダー情報</li>
+<li>config     : リクエストした時axiosに渡した設定</li>
+<li>request    : このレスポンスに対応しているリクエストの内容</li>
+</ul>
+<p>##　エラーハンドリング</p>
+<p>エラーが起きた時に引数として渡される変数を使うとリクエストかレスポンスどちらでエラーが起きたか判別できる。</p>
+<p>下で登場している<code>error</code>のメンバ</p>
+<ul>
+<li>response</li>
+<li>request</li>
+<li>message</li>
+<li>config</li>
+</ul>
+<pre><code class="language-js">axios.get('/user/12345')
+  .catch(function (error) {
+    if (error.response) {
+      //レスポンスの結果がエラーの時
+      //設定の　validateStatus　でエラーになるHttpステータスの範囲を変更できる。
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      //レスポンスが受け取れなかった時
+      //error.requestは環境に応じて以下のインスタンスを取る
+      //  ブラウザ： XMLHttpRequest
+      //  node.js: http.ClientRequest
+      console.log(error.request);
+    } else {
+      //リクエストを準備している時にエラーが起きた時
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+  });
+</code></pre>
+<p>##　キャンセル</p>
+<p>リクエストをキャンセルすることができる。</p>
+<p>キャンセルする時はリクエストを送る際に設定の<code>cancelToken</code>に<code>axios.CancelToke.source.token</code>を渡す必要がある。</p>
+<p>渡した後に<code>source.cancel()</code>を呼び出すことでキャンセルできる。</p>
+<p>キャンセルした時はエラーが発生したと扱われ、キャンセルであることを見分けるには<code>axios.isCancel(error)</code>を使うといい。</p>
+<pre><code class="language-js">const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+axios.get('/user/12345', {
+  cancelToken: source.token
+}).catch(function (thrown) {
+  if (axios.isCancel(thrown)) {
+    console.log('Request canceled', thrown.message);
+  } else {
+    // handle error
+  }
+});
+
+axios.post('/user/12345', {
+  name: 'new name'
+}, {
+  cancelToken: source.token
+})
+
+source.cancel('Operation canceled by the user.');
+</code></pre>
+<p>また以下のような方法もある。</p>
+<pre><code class="language-js">const CancelToken = axios.CancelToken;
+let cancel;
+
+axios.get('/user/12345', {
+  cancelToken: new CancelToken(function executor(c) {
+    // An executor function receives a cancel function as a parameter
+    cancel = c;
+  })
+});
+
+// cancel the request
+cancel();
+</code></pre>
+<a class="header" href="#複数のリクエストをまとめて送る" id="複数のリクエストをまとめて送る"><h2>複数のリクエストをまとめて送る</h2></a>
+<pre><code class="language-js">//複数のリクエストをまとめて送ることもできる。
+// そのとき、送るリクエストは関数の戻り値にすること
+function getUser() { return axios.get('url1'); }
+function getPost() { return axios.get('url2'); }
+axios.all([getUser, getPost])
+  .then(axios.spread((user, post) =&gt; {
+    // レスポンスの処理
+  }))
+  .catch()
+</code></pre>
+<a class="header" href="#割り込み処理" id="割り込み処理"><h2>割り込み処理</h2></a>
+<p><code>axios.interceptors</code>を使うとリクエスト/レスポンスに割り込み処理を挟むことができる。</p>
+<pre><code class="language-js">// リクエストへの割り込み
+axios.interceptors.request.use(function (config) {
+    // 送る前
+    return config;
+  }, function (error) {
+    // エラーが起きた時
+    return Promise.reject(error);
+  });
+
+// レスポンスへの割り込み
+axios.interceptors.response.use(function (response) {
+    // レスポンスを処理する前
+    return response;
+  }, function (error) {
+    // エラーが起きた時
+    return Promise.reject(error);
+  });
+</code></pre>
+<p><code>axios.interceptors.request.use()</code>と<code>axios.interceptors.response.use()</code>に空の関数を渡すことで、後から登録した関数を取り除くことができる</p>
+<a class="header" href="#リクエストのインスタンス化" id="リクエストのインスタンス化"><h2>リクエストのインスタンス化</h2></a>
+<p><code>axios.create()</code>を使うことでリクエストのインスタンスを作ることもできる
+引数には設定を渡すことができる。</p>
+<p>あとから設定を変える時は<code>instance.defaults</code>を使うとできるが、リクエストを投げる時にも設定を指定でき、そちらが優先される。</p>
+<p>また、インスタンスにも割り込み処理を登録できる。(<code>interceptors</code>)</p>
+<pre><code class="language-js">let instance = axios.create()
+instance.defaults.timeout = 1000
+instance.get({timeout: 5000}) //GETリクエスト
+
+instance.interceptors.request.use(config =&gt; {
+  //割り込み処理
+})
+</code></pre>
 <a class="header" href="#css" id="css"><h1>CSS</h1></a>
 <a class="header" href="#fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ" id="fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ"><h2>Fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ。</h2></a>
 <p>Fontawesomeアイコン専用というわけではなく、なんにでも使える方法</p>

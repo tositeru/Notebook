@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>string formatter - Note to siteru</title>
+        <title>Vue Router - Note to siteru</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html" class="active"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.3.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html"><strong aria-hidden="true">3.4.</strong> Vue Router</a></li><li><a href="../js/axios.html"><strong aria-hidden="true">3.5.</strong> axios</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.3.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html" class="active"><strong aria-hidden="true">3.4.</strong> Vue Router</a></li><li><a href="../js/axios.html"><strong aria-hidden="true">3.5.</strong> axios</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -140,24 +140,94 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p>TODO</p>
-<p>What?</p>
-<ul>
-<li>string formater %T and %q</li>
-</ul>
+                        <a class="header" href="#vue-router" id="vue-router"><h1>Vue Router</h1></a>
+<p><a href="https://github.com/vuejs/vue-router">Vue.js公式ルータ</a>。
+Vue.jsを使うならこれも使うべき。</p>
+<p>Nuxt.jsの内部でも使われている。
+Nuxt.jsで設定したい時は<code>nuxt.config.js</code>のrouterプロパティを使うといい。</p>
+<p><a href="https://router.vuejs.org/ja/">ドキュメント</a></p>
+<a class="header" href="#インストール" id="インストール"><h2>インストール</h2></a>
+<pre><code class="language-bash">yarn add -D vue-router
+</code></pre>
+<p>モジュールシステムを使う時は<code>Vue.use()</code>を使って明示的にルータをインストールする必要がある。</p>
+<pre><code class="language-js">import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+</code></pre>
+<a class="header" href="#使い方" id="使い方"><h2>使い方</h2></a>
+<p>Js側で設定を行い、<code>a</code>タグを&lt;router-link&gt;に置き換える形になる。</p>
+<a class="header" href="#router-link" id="router-link"><h3>&lt;router-link&gt;</h3></a>
+<p><a href="https://router.vuejs.org/ja/api/#router-link">router-link</a></p>
+<p><code>a</code>タグの上位互換。
+HTML5で追加された<a href="https://developer.mozilla.org/ja/docs/Web/API/History">History API</a>を使ってくれるので、Vue.jsを使うならこちらを使ったほうがいい。</p>
+<pre><code class="language-html">&lt;!-- router.push()を使う --&gt;
+&lt;router-link to=&quot;/foo&quot;&gt;Go to Foo&lt;/router-link&gt;
+
+&lt;!-- replaceを付けると履歴に残さず、URLを変更する(中でrouter.replace()を使う) --&gt;
+&lt;router-link to=&quot;/foo&quot; replace&gt;Replace to Foo&lt;/router-link&gt;
+
+&lt;!-- appendを付けると現在のURLに対する相対パスになる --&gt;
+&lt;router-link to=&quot;/foo&quot; append&gt;Replace to XXX/Foo&lt;/router-link&gt;
+
+&lt;!-- exactを付けるとパスが完全に一致したときにだけアクティブクラス化になる --&gt;
+&lt;router-link to=&quot;/foo&quot; exact&gt;Go to Foo(with exact)&lt;/router-link&gt;
+
+&lt;!-- 好きなタグでaタグをラップできる --&gt;
+&lt;router-link tag=&quot;li&quot; to=&quot;/foo&quot;&gt;
+  &lt;a&gt;/foo&lt;/a&gt;
+&lt;/router-link&gt;
+</code></pre>
+<p>ただしjs側でコードを書く必要があるので、そのコードは下の方で示す。</p>
+<pre><code class="language-js">// 公式ドキュメントから
+// 0. モジュールシステムを使っている場合 (例: vue-cli 経由で)、Vue と VueRouter をインポートし、`Vue.use(VueRouter)` を呼び出します。
+
+// 1. ルートコンポーネントを定義します
+// 他のファイルからインポートすることもできます
+const Foo = { template: '&lt;div&gt;foo&lt;/div&gt;' }
+const Bar = { template: '&lt;div&gt;bar&lt;/div&gt;' }
+
+// 2. ルートをいくつか定義します
+// 各ルートは 1 つのコンポーネントとマッピングされる必要があります。
+// このコンポーネントは実際の `Vue.extend()`、
+// またはコンポーネントオプションのオブジェクトでも構いません。
+// ネストされたルートに関しては後で説明します
+const routes = [
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar }
+]
+
+// 3. ルーターインスタンスを作成して、ルートオプションを渡します
+// 追加のオプションをここで指定できますが、
+// この例ではシンプルにしましょう
+const router = new VueRouter({
+  routes // `routes: routes` の短縮表記
+})
+
+// 4. root となるインスタンスを作成してマウントします
+// アプリケーション全体がルーターを認知できるように、
+// ルーターをインジェクトすることを忘れないでください。
+const app = new Vue({
+  router
+}).$mount('#app')
+
+// これで開始です!
+
+</code></pre>
+<a class="header" href="#アクティブクラス" id="アクティブクラス"><h3>アクティブクラス</h3></a>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../golang/testing-package.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../js/browser-storage.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../web/top.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../js/axios.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -169,13 +239,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../golang/testing-package.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../js/browser-storage.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../web/top.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../js/axios.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>axios - Note to siteru</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.3.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html"><strong aria-hidden="true">3.4.</strong> Vue Router</a></li><li><a href="../js/axios.html" class="active"><strong aria-hidden="true">3.5.</strong> axios</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Note to siteru</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#axios" id="axios"><h1>axios</h1></a>
+<p>ブラウザとNode.jsでHttpリクエストをラップしてくれているモジュール。
+将来的には<a href="https://developer.mozilla.org/ja/docs/Web/API/Fetch_API">Fetch API</a>に置き換わるかもしれないが、これを書いている時点でまだ完全にサポートされていないのでAxiosが好んで使われている。</p>
+<p><a href="https://github.com/axios/axios">axios</a></p>
+<a class="header" href="#使い方" id="使い方"><h2>使い方</h2></a>
+<p>すごくわかりやすい。</p>
+<p>Promise/Asyncに対応している。</p>
+<pre><code class="language-js">const axios = require('axios')
+
+// Promise
+axios.get('example.com')
+  .then(response =&gt; {
+    // 成功した時
+  })
+  .catch(error =&gt; {
+    // 失敗した時
+  })
+  .then(() =&gt; {
+    // 成功/失敗にかかわらず最後に実行するコード
+  })
+
+//Async/Await
+async function getData() {
+  try {
+    const reponse = await axios.get('example.com');
+    console.log(reponse)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+// パラメータ付き
+axios.get('example.com/user?id=123')
+axios.get('example.com/user', {param: {id: 123}})
+
+// POSTリクエスト
+axios.post('example.com/user', {userName: 'XXX', password: 'YYY'})
+
+</code></pre>
+<a class="header" href="#リクエストの設定" id="リクエストの設定"><h2>リクエストの設定</h2></a>
+<pre><code class="language-js">
+//axiosでは以下の関数で全てのHttpリクエストを実行できる。
+//　axios.get()などはこれの省略形
+// configについては下を参照
+axios(config)
+
+//　axios.defaultに値を設定すると、グローバル設定となり全てのリクエストに反映される。
+let config = {
+  //  以下の設定でURLは https://example.com/user?id=123　になる。
+  method: 'get',
+  url: 'user',
+  baseURL: 'https://example.com',
+  params: {
+    param: {id: 123}
+  },
+  //以下、色々な設定
+
+  // ヘッダーの追加設定
+  headers: {'X-Requested-With': 'XMLHttpRequest'},
+  
+  // リクエストの本体部分
+  data: { hoge: 'foo'},
+
+  // タイムアウト(ミリ秒)
+  timeout: 1000,
+
+  //レスポンスの設定
+  responseType: 'json',
+  responseEncoding: 'utf8',
+
+  // CSRF対策で使われるもの
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  // リクエストを送る前にparamsをURLのクエリ文字列に変換する処理をカスタマイズする時に使う。
+  paramsSerializer: function(params) {},
+
+  //認証関係
+  // オリジン間リソース共有 (CORS)で使われるパラメータ
+  withCredentials: false, // &lt;- default
+
+  //HTTP Basic auth
+  auth: {
+    username: 'janedoe',
+    password: 's00pers3cret'
+  },
+
+  //アップロード/ダウンロード実行中のイベント
+  onUploadProgress: function(progressEvent) {}
+  onDownLoadProgress: function(progressEvent) {}
+
+  //Httpリクエストの内容のデータサイズの上限(byte単位)
+  maxContentLength: 2000,
+
+  // リクエストのキャンセルする時に使うキャンセルトークンの設定
+  cancelToken: new CancelToken(function (cancel) {
+  })
+
+  //リクエストのレスポンスステートの検証
+  validateStatus: function(status) {
+    return status &gt;= 200 &amp;&amp; status &lt; 300;
+  },
+
+  // その他
+  maxRedirects: 5, // default
+  socketPath: null, // default
+  httpAgent: new http.Agent({ keepAlive: true }),
+  httpsAgent: new https.Agent({ keepAlive: true }),
+  proxy: {
+    host: '127.0.0.1',
+    port: 9000,
+    auth: {
+      username: 'mikeymike',
+      password: 'rapunz3l'
+    }
+  },
+}
+
+</code></pre>
+<a class="header" href="#レスポンスの内容" id="レスポンスの内容"><h2>レスポンスの内容</h2></a>
+<p>Httpリクエストに成功した時のresponseの値は以下の要素を持つ</p>
+<ul>
+<li>data       : レスポンスデータ。ここにリクエストの結果が入っている。</li>
+<li>status     : HTTPステータス</li>
+<li>statusText : ステータスのテキスト</li>
+<li>headers    : レスポンスのヘッダー情報</li>
+<li>config     : リクエストした時axiosに渡した設定</li>
+<li>request    : このレスポンスに対応しているリクエストの内容</li>
+</ul>
+<p>##　エラーハンドリング</p>
+<p>エラーが起きた時に引数として渡される変数を使うとリクエストかレスポンスどちらでエラーが起きたか判別できる。</p>
+<p>下で登場している<code>error</code>のメンバ</p>
+<ul>
+<li>response</li>
+<li>request</li>
+<li>message</li>
+<li>config</li>
+</ul>
+<pre><code class="language-js">axios.get('/user/12345')
+  .catch(function (error) {
+    if (error.response) {
+      //レスポンスの結果がエラーの時
+      //設定の　validateStatus　でエラーになるHttpステータスの範囲を変更できる。
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      //レスポンスが受け取れなかった時
+      //error.requestは環境に応じて以下のインスタンスを取る
+      //  ブラウザ： XMLHttpRequest
+      //  node.js: http.ClientRequest
+      console.log(error.request);
+    } else {
+      //リクエストを準備している時にエラーが起きた時
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+  });
+</code></pre>
+<p>##　キャンセル</p>
+<p>リクエストをキャンセルすることができる。</p>
+<p>キャンセルする時はリクエストを送る際に設定の<code>cancelToken</code>に<code>axios.CancelToke.source.token</code>を渡す必要がある。</p>
+<p>渡した後に<code>source.cancel()</code>を呼び出すことでキャンセルできる。</p>
+<p>キャンセルした時はエラーが発生したと扱われ、キャンセルであることを見分けるには<code>axios.isCancel(error)</code>を使うといい。</p>
+<pre><code class="language-js">const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+axios.get('/user/12345', {
+  cancelToken: source.token
+}).catch(function (thrown) {
+  if (axios.isCancel(thrown)) {
+    console.log('Request canceled', thrown.message);
+  } else {
+    // handle error
+  }
+});
+
+axios.post('/user/12345', {
+  name: 'new name'
+}, {
+  cancelToken: source.token
+})
+
+source.cancel('Operation canceled by the user.');
+</code></pre>
+<p>また以下のような方法もある。</p>
+<pre><code class="language-js">const CancelToken = axios.CancelToken;
+let cancel;
+
+axios.get('/user/12345', {
+  cancelToken: new CancelToken(function executor(c) {
+    // An executor function receives a cancel function as a parameter
+    cancel = c;
+  })
+});
+
+// cancel the request
+cancel();
+</code></pre>
+<a class="header" href="#複数のリクエストをまとめて送る" id="複数のリクエストをまとめて送る"><h2>複数のリクエストをまとめて送る</h2></a>
+<pre><code class="language-js">//複数のリクエストをまとめて送ることもできる。
+// そのとき、送るリクエストは関数の戻り値にすること
+function getUser() { return axios.get('url1'); }
+function getPost() { return axios.get('url2'); }
+axios.all([getUser, getPost])
+  .then(axios.spread((user, post) =&gt; {
+    // レスポンスの処理
+  }))
+  .catch()
+</code></pre>
+<a class="header" href="#割り込み処理" id="割り込み処理"><h2>割り込み処理</h2></a>
+<p><code>axios.interceptors</code>を使うとリクエスト/レスポンスに割り込み処理を挟むことができる。</p>
+<pre><code class="language-js">// リクエストへの割り込み
+axios.interceptors.request.use(function (config) {
+    // 送る前
+    return config;
+  }, function (error) {
+    // エラーが起きた時
+    return Promise.reject(error);
+  });
+
+// レスポンスへの割り込み
+axios.interceptors.response.use(function (response) {
+    // レスポンスを処理する前
+    return response;
+  }, function (error) {
+    // エラーが起きた時
+    return Promise.reject(error);
+  });
+</code></pre>
+<p><code>axios.interceptors.request.use()</code>と<code>axios.interceptors.response.use()</code>に空の関数を渡すことで、後から登録した関数を取り除くことができる</p>
+<a class="header" href="#リクエストのインスタンス化" id="リクエストのインスタンス化"><h2>リクエストのインスタンス化</h2></a>
+<p><code>axios.create()</code>を使うことでリクエストのインスタンスを作ることもできる
+引数には設定を渡すことができる。</p>
+<p>あとから設定を変える時は<code>instance.defaults</code>を使うとできるが、リクエストを投げる時にも設定を指定でき、そちらが優先される。</p>
+<p>また、インスタンスにも割り込み処理を登録できる。(<code>interceptors</code>)</p>
+<pre><code class="language-js">let instance = axios.create()
+instance.defaults.timeout = 1000
+instance.get({timeout: 5000}) //GETリクエスト
+
+instance.interceptors.request.use(config =&gt; {
+  //割り込み処理
+})
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../js/vue-router.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../css/top.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../js/vue-router.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../css/top.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
