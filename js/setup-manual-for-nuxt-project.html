@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Setup Manual for Nuxt's Project - Note to siteru</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/setup-manual-for-nuxt-project.html" class="active"><strong aria-hidden="true">3.1.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.2.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.3.</strong> Only-Vue</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.4.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html"><strong aria-hidden="true">3.5.</strong> Vue Router</a></li><li><a href="../js/axios.html"><strong aria-hidden="true">3.6.</strong> axios</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Note to siteru</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#nuxtプロジェクトのセットアップマニュアル" id="nuxtプロジェクトのセットアップマニュアル"><h1>Nuxtプロジェクトのセットアップマニュアル</h1></a>
+<a class="header" href="#インストール" id="インストール"><h2>インストール</h2></a>
+<p>プロジェクトディレクトリの親ディレクトリから始める。</p>
+<pre><code class="language-bash">yarn create nuxt-app &lt;project-name&gt;
+  Uses a custom server framework &gt; express
+  Choose features to install &gt; Progressive Web App(PWA) Support, Linter / Formatter, Prettier, Axios
+  Use a custom UI framework &gt; bulma
+  Use a custom test framework &gt; ava
+  Choose rendering mode &gt; Universal
+  Choose a package manager &gt; yarn
+
+cd &lt;project-name&gt;
+yarn add body-parser express-session path sqlite whatwg-getch sequelize
+yarn add -D jsdom nodemon redirect-ssl sass-loader vue-eslint-parser
+</code></pre>
+<a class="header" href="#設定" id="設定"><h2>設定</h2></a>
+<a class="header" href="#packagejson" id="packagejson"><h3>package.json</h3></a>
+<ul>
+<li><code>scripts.lint</code>に<code>--fix</code>オプションを追加</li>
+<li><code>scripts</code>に<code>test:update-snapshots: ava --update-snapshots</code>を追加</li>
+</ul>
+<a class="header" href="#nuxt" id="nuxt"><h3>nuxt</h3></a>
+<p><code>nuxt.config.js</code>の<code>build.extend(config, ctx)</code>を以下の内容に変更</p>
+<pre><code class="language-js">if (ctx.isDev &amp;&amp; ctx.isClient) {
+  config.mode = 'development' // 追加
+
+  config.module.rules.push({
+    enforce: 'pre',
+    test: /\.(js|vue)$/,
+    loader: 'eslint-loader',
+    exclude: /(node_modules)/
+  })
+}
+</code></pre>
+<a class="header" href="#https" id="https"><h4>https</h4></a>
+<p>次にhttpsの設定を行う。
+開発用に秘密鍵と公開鍵を作成するが、公開するときにはこれらは使わないこと</p>
+<p>以下のコマンドでキーを作成する</p>
+<pre><code class="language-bash">openssl req -newkey rsa:2048 -nodes -keyout develop.key -x509 -days 365 -out develop.crt
+</code></pre>
+<p><code>nuxt.config.js</code>の<code>server</code>に以下のものを追記</p>
+<pre><code class="language-js">// ...
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'develop.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'develop.crt')),
+    }
+  },
+// ...
+</code></pre>
+<p><em>設定しただけだとHTTPS化しないので、<code>server/index.js</code>の内容を書き換える。</em>
+Node.jsの<code>https</code>を利用する形になる。</p>
+<pre><code class="language-js">// server/index.js
+// ... 
+// Listen the server
+//app.listen(port, host) // &lt;- もともとあったコード
+let server = https.createServer(nuxt.options.server.https, app)
+server.listen(port, host)
+// ... 
+</code></pre>
+<a class="header" href="#ava" id="ava"><h3>ava</h3></a>
+<a class="header" href="#avaconfigjs" id="avaconfigjs"><h4>ava.config.js</h4></a>
+<p><code>ava.config.js</code>に以下の項目を追加。
+テスト用のファイルの拡張子には<code>.test.js</code>を付ける。</p>
+<pre><code class="language-js">export default {
+  // ...
+  files: [
+    &quot;test/**/*.test.js&quot;
+  ],
+  snapshotDir: &quot;ava-snapshots&quot;,
+  // ...
+}
+</code></pre>
+<a class="header" href="#jsdomを使うことによる不具合の修正" id="jsdomを使うことによる不具合の修正"><h4>jsdomを使うことによる不具合の修正</h4></a>
+<p><em>将来的には不要になるかもしれない。</em></p>
+<p><code>test/helpers/setup.js</code>の末尾に次のコードを追加</p>
+<pre><code class="language-js">// fix a overrided Date class by jsdom
+// https://github.com/vuejs/vue-test-utils/issues/936
+window.Date = Date
+</code></pre>
+<a class="header" href="#確認" id="確認"><h4>確認</h4></a>
+<p>ここまで来たら、動作チェックをする。</p>
+<pre><code class="language-bash">yarn test
+</code></pre>
+<p>以下のエラーが発生した時は、jsdomの設定を見直す。</p>
+<pre><code class="language-js">TypeError: Super expression must either be null or a function
+
+  _inherits (node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:1957:11)
+  node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:40358:5
+  node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:40378:4
+  createCommonjsModule (node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:193:35)
+  Object.&lt;anonymous&gt; (node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:40350:18)
+  compile (node_modules/require-extension-hooks/src/hook.js:75:10)
+  hook (node_modules/require-extension-hooks/src/hook.js:32:3)
+  actuallyCompile (node_modules/@vue/component-compiler-utils/dist/compileTemplate.js:100:24)
+  compileTemplate (node_modules/@vue/component-compiler-utils/dist/compileTemplate.js:31:16)
+  getCompiledTemplate (node_modules/require-extension-hooks-vue/src/index.js:123:20)
+</code></pre>
+<p><em>成功したら、<code>test/specs</code>を削除する。</em></p>
+<a class="header" href="#サーバーサイドの拡張をするとき" id="サーバーサイドの拡張をするとき"><h3>サーバーサイドの拡張をするとき</h3></a>
+<p><code>yarn nuxt-app</code>でexpressを使用してプロジェクトを作成するとプロジェクトディレクトリに<code>server</code>というディレクトリができる。
+ファイルの更新があった時自動で更新してくれるため、そのディレクトリにサーバーサイドのコードを追加していく形を取る。</p>
+<p>ただし、<code>server/index.js</code>というファイルが<code>yarn nuxt-app</code>によって作られているので、混乱が生じないようにコードは<code>server</code>の子ディレクトリを新しく作ってそこに追加していく形を取る。</p>
+<p>新しくサーバーサイドのファイルを作った時は<code>nuxt.config.js</code>の<code>serverMiddleware</code>にそのファイルを追加していくこと。</p>
+<pre><code class="language-js">// ...
+  serverMiddleware: [
+    &quot;~/server/child1/index.js&quot;,
+  ],
+// ...
+</code></pre>
+<p>以下のサーバーサイドのファイルのテンプレートを使用する。</p>
+<pre><code class="language-js">//~/server/child1/index.js
+import express from 'express'
+import utils from '../utils' // server/utils.jsへのパス
+
+app = express()
+
+export default {
+  path: utils.makeMiddlewarePath(__dirname), // ディレクトリ構造にあったパスを設定する
+  handler: app,
+}
+</code></pre>
+<a class="header" href="#認証機能" id="認証機能"><h4>認証機能</h4></a>
+<p>サーバーサイド側で認証機能を作りたいには以下の設定も追加する。</p>
+<pre><code class="language-js">  serverMiddleware: {
+    bodyParser.json(),
+    session({
+      secret: 'super-secret-key',
+      resave: false,
+      saveUninitialized: false,
+      cookie: { maxAge: 60000 }
+    }),
+  },
+</code></pre>
+<a class="header" href="#確認-1" id="確認-1"><h2>確認</h2></a>
+<p>設定が終わったら、次のコマンドが上手く動作するか確認する。</p>
+<pre><code class="language-bash">yarn dev
+yarn build &amp;&amp; yarn start
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../js/top.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../js/vue-nuxt.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../js/top.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../js/vue-nuxt.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

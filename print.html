@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.1.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.2.</strong> Only-Vue</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.3.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.4.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.5.</strong> axios</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.1.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.2.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.3.</strong> Only-Vue</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.4.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.5.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.6.</strong> axios</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -395,12 +395,152 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <p><code>about:debugging#workers</code>から確認できる。</p>
 <a class="header" href="#javascript" id="javascript"><h1>JavaScript</h1></a>
 <ul>
+<li><a href="js/./setup-manual-for-nuxt-project.html">Setup Manual for Nuxt's Project</a></li>
 <li><a href="js/./vue-nuxt.html">Vue/Nuxt</a></li>
 <li><a href="js/./only-vue.html">Only-Vue</a></li>
 <li><a href="js/./vue-router.html">Vue Router</a></li>
 <li><a href="js/./browser-storage.html">Browser Storage</a></li>
 <li><a href="js/./axios.html">axios</a></li>
 </ul>
+<a class="header" href="#nuxtプロジェクトのセットアップマニュアル" id="nuxtプロジェクトのセットアップマニュアル"><h1>Nuxtプロジェクトのセットアップマニュアル</h1></a>
+<a class="header" href="#インストール-1" id="インストール-1"><h2>インストール</h2></a>
+<p>プロジェクトディレクトリの親ディレクトリから始める。</p>
+<pre><code class="language-bash">yarn create nuxt-app &lt;project-name&gt;
+  Uses a custom server framework &gt; express
+  Choose features to install &gt; Progressive Web App(PWA) Support, Linter / Formatter, Prettier, Axios
+  Use a custom UI framework &gt; bulma
+  Use a custom test framework &gt; ava
+  Choose rendering mode &gt; Universal
+  Choose a package manager &gt; yarn
+
+cd &lt;project-name&gt;
+yarn add body-parser express-session path sqlite whatwg-getch sequelize
+yarn add -D jsdom nodemon redirect-ssl sass-loader vue-eslint-parser
+</code></pre>
+<a class="header" href="#設定" id="設定"><h2>設定</h2></a>
+<a class="header" href="#packagejson" id="packagejson"><h3>package.json</h3></a>
+<ul>
+<li><code>scripts.lint</code>に<code>--fix</code>オプションを追加</li>
+<li><code>scripts</code>に<code>test:update-snapshots: ava --update-snapshots</code>を追加</li>
+</ul>
+<a class="header" href="#nuxt" id="nuxt"><h3>nuxt</h3></a>
+<p><code>nuxt.config.js</code>の<code>build.extend(config, ctx)</code>を以下の内容に変更</p>
+<pre><code class="language-js">if (ctx.isDev &amp;&amp; ctx.isClient) {
+  config.mode = 'development' // 追加
+
+  config.module.rules.push({
+    enforce: 'pre',
+    test: /\.(js|vue)$/,
+    loader: 'eslint-loader',
+    exclude: /(node_modules)/
+  })
+}
+</code></pre>
+<a class="header" href="#https" id="https"><h4>https</h4></a>
+<p>次にhttpsの設定を行う。
+開発用に秘密鍵と公開鍵を作成するが、公開するときにはこれらは使わないこと</p>
+<p>以下のコマンドでキーを作成する</p>
+<pre><code class="language-bash">openssl req -newkey rsa:2048 -nodes -keyout develop.key -x509 -days 365 -out develop.crt
+</code></pre>
+<p><code>nuxt.config.js</code>の<code>server</code>に以下のものを追記</p>
+<pre><code class="language-js">// ...
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'develop.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'develop.crt')),
+    }
+  },
+// ...
+</code></pre>
+<p><em>設定しただけだとHTTPS化しないので、<code>server/index.js</code>の内容を書き換える。</em>
+Node.jsの<code>https</code>を利用する形になる。</p>
+<pre><code class="language-js">// server/index.js
+// ... 
+// Listen the server
+//app.listen(port, host) // &lt;- もともとあったコード
+let server = https.createServer(nuxt.options.server.https, app)
+server.listen(port, host)
+// ... 
+</code></pre>
+<a class="header" href="#ava" id="ava"><h3>ava</h3></a>
+<a class="header" href="#avaconfigjs" id="avaconfigjs"><h4>ava.config.js</h4></a>
+<p><code>ava.config.js</code>に以下の項目を追加。
+テスト用のファイルの拡張子には<code>.test.js</code>を付ける。</p>
+<pre><code class="language-js">export default {
+  // ...
+  files: [
+    &quot;test/**/*.test.js&quot;
+  ],
+  snapshotDir: &quot;ava-snapshots&quot;,
+  // ...
+}
+</code></pre>
+<a class="header" href="#jsdomを使うことによる不具合の修正" id="jsdomを使うことによる不具合の修正"><h4>jsdomを使うことによる不具合の修正</h4></a>
+<p><em>将来的には不要になるかもしれない。</em></p>
+<p><code>test/helpers/setup.js</code>の末尾に次のコードを追加</p>
+<pre><code class="language-js">// fix a overrided Date class by jsdom
+// https://github.com/vuejs/vue-test-utils/issues/936
+window.Date = Date
+</code></pre>
+<a class="header" href="#確認" id="確認"><h4>確認</h4></a>
+<p>ここまで来たら、動作チェックをする。</p>
+<pre><code class="language-bash">yarn test
+</code></pre>
+<p>以下のエラーが発生した時は、jsdomの設定を見直す。</p>
+<pre><code class="language-js">TypeError: Super expression must either be null or a function
+
+  _inherits (node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:1957:11)
+  node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:40358:5
+  node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:40378:4
+  createCommonjsModule (node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:193:35)
+  Object.&lt;anonymous&gt; (node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:40350:18)
+  compile (node_modules/require-extension-hooks/src/hook.js:75:10)
+  hook (node_modules/require-extension-hooks/src/hook.js:32:3)
+  actuallyCompile (node_modules/@vue/component-compiler-utils/dist/compileTemplate.js:100:24)
+  compileTemplate (node_modules/@vue/component-compiler-utils/dist/compileTemplate.js:31:16)
+  getCompiledTemplate (node_modules/require-extension-hooks-vue/src/index.js:123:20)
+</code></pre>
+<p><em>成功したら、<code>test/specs</code>を削除する。</em></p>
+<a class="header" href="#サーバーサイドの拡張をするとき" id="サーバーサイドの拡張をするとき"><h3>サーバーサイドの拡張をするとき</h3></a>
+<p><code>yarn nuxt-app</code>でexpressを使用してプロジェクトを作成するとプロジェクトディレクトリに<code>server</code>というディレクトリができる。
+ファイルの更新があった時自動で更新してくれるため、そのディレクトリにサーバーサイドのコードを追加していく形を取る。</p>
+<p>ただし、<code>server/index.js</code>というファイルが<code>yarn nuxt-app</code>によって作られているので、混乱が生じないようにコードは<code>server</code>の子ディレクトリを新しく作ってそこに追加していく形を取る。</p>
+<p>新しくサーバーサイドのファイルを作った時は<code>nuxt.config.js</code>の<code>serverMiddleware</code>にそのファイルを追加していくこと。</p>
+<pre><code class="language-js">// ...
+  serverMiddleware: [
+    &quot;~/server/child1/index.js&quot;,
+  ],
+// ...
+</code></pre>
+<p>以下のサーバーサイドのファイルのテンプレートを使用する。</p>
+<pre><code class="language-js">//~/server/child1/index.js
+import express from 'express'
+import utils from '../utils' // server/utils.jsへのパス
+
+app = express()
+
+export default {
+  path: utils.makeMiddlewarePath(__dirname), // ディレクトリ構造にあったパスを設定する
+  handler: app,
+}
+</code></pre>
+<a class="header" href="#認証機能" id="認証機能"><h4>認証機能</h4></a>
+<p>サーバーサイド側で認証機能を作りたいには以下の設定も追加する。</p>
+<pre><code class="language-js">  serverMiddleware: {
+    bodyParser.json(),
+    session({
+      secret: 'super-secret-key',
+      resave: false,
+      saveUninitialized: false,
+      cookie: { maxAge: 60000 }
+    }),
+  },
+</code></pre>
+<a class="header" href="#確認-1" id="確認-1"><h2>確認</h2></a>
+<p>設定が終わったら、次のコマンドが上手く動作するか確認する。</p>
+<pre><code class="language-bash">yarn dev
+yarn build &amp;&amp; yarn start
+</code></pre>
 <a class="header" href="#vuejsnuxtjs" id="vuejsnuxtjs"><h1>Vue.js/Nuxt.js</h1></a>
 <a class="header" href="#プロジェクト構築" id="プロジェクト構築"><h2>プロジェクト構築</h2></a>
 <p>vue-cliを使う</p>
@@ -460,7 +600,7 @@ export default {
     background-color: black;
   }
 }
-&lt;\/style&gt;
+&lt;/style&gt;
 // ファイルを読み込むこともできる
 &lt;style lang=&quot;sass&quot; src=&quot;#/styles/hoge.sass&quot;&gt;&lt;/style&gt;
 </code></pre>
@@ -560,7 +700,7 @@ ava.config.jsのrequireプロパティに指定したテスト前に実行され
 <pre><code class="language-js">window.Date = Date
 </code></pre>
 <p><code>ava</code>をテスト実行用に使用し、<code>@vue/test-utils</code>でVueコンポーネントの検証に使う形になる。</p>
-<a class="header" href="#ava" id="ava"><h3>AVA</h3></a>
+<a class="header" href="#ava-1" id="ava-1"><h3>AVA</h3></a>
 <p><a href="https://github.com/avajs/ava/blob/master/docs/06-configuration.md">AVA Configuration</a></p>
 <p><code>ava</code>を使ったテストは以下の形になる。</p>
 <pre><code class="language-js">import test from 'ava';
@@ -579,7 +719,7 @@ test('test name', t =&gt; {
   t.not(value, expected, 'message')
   t.deepEqual(value, expected, 'message')
   t.notDeepEqual(value, expected, 'message')
-  t.regex('abcde', /[a-e]+/)
+  t.regex('abcde',/[a-e]+/)
   t.notRegex('abcde', /[A-E]+/)
 
   //前に記録したsnapshotとの比較を行うテスト
@@ -810,7 +950,7 @@ yarn install
 <p>サイトで使用するファイルを設定した形でまとめてくれるツール。</p>
 <p>複数のJavaScriptファイルを一つにまとめたり、リソースを埋め込んだりできる。</p>
 <p>それ以外にも開発環境として便利な機能があって、Javascriptでサイトを使うなら是非使いたいツールである。</p>
-<a class="header" href="#設定" id="設定"><h3>設定</h3></a>
+<a class="header" href="#設定-1" id="設定-1"><h3>設定</h3></a>
 <p><code>webpack.config.js</code>ファイルをプロジェクトのルートディレクトリに置いておくと認識してくれる。</p>
 <p>無い場合はデフォルトのものが使用される。
 <a href="https://github.com/webpack/webpack/blob/master/lib/WebpackOptionsDefaulter.js">デフォルトの設定</a></p>
@@ -1141,7 +1281,7 @@ Vue.jsを使うならこれも使うべき。</p>
 <p>Nuxt.jsの内部でも使われている。
 Nuxt.jsで設定したい時は<code>nuxt.config.js</code>のrouterプロパティを使うといい。</p>
 <p><a href="https://router.vuejs.org/ja/">ドキュメント</a></p>
-<a class="header" href="#インストール-1" id="インストール-1"><h2>インストール</h2></a>
+<a class="header" href="#インストール-2" id="インストール-2"><h2>インストール</h2></a>
 <pre><code class="language-bash">yarn add -D vue-router
 </code></pre>
 <p>モジュールシステムを使う時は<code>Vue.use()</code>を使って明示的にルータをインストールする必要がある。</p>
