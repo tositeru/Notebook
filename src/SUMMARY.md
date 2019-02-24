@@ -8,6 +8,7 @@
 - [Web](./web/top.md)
     - [Service Worker](./web/service-worker.md)
 - [Javascript](./js/top.md)
+    - [Setup Manual for Nuxt's Project](./js/setup-manual-for-nuxt-project.md)
     - [Vue/Nuxt](./js/vue-nuxt.md)
     - [Only-Vue](./js/only-vue.md)
     - [Browser Storage](./js/browser-storage.md)

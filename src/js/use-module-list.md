@@ -3,25 +3,29 @@
 気がつくと両手で数え切れないほどモジュールを使っているのでその一覧。
 
 - webpack
-- sass-loader
+    - sass-loader
+    - node-sass
 - babel
 - vue.js
 - @vue/test-utils
 - nuxt.js
-- jsdom
+    - connect : Node.js用のHTTPサーバーフレームワーク
+    - @nuxtjs/pwa : Nuxt.js用のProgressive Web Appsモジュール
+    - consola : Node.jsのログ出力を拡張したもの。便利。Nuxtをインストールするとプロジェクトに追加しなくても使える。
 - eslint
 - vue-eslint-parser
 - vue-property-decorator
 - prettier
-- node-sass
-- axios　：　HTTPリクエスト
-- qs　：　URLのクエリ文字列の変換を安全に行うパッケージ
-- ava
-- bulma
-- pwa
-- cross-env
-- express
-- express-session
-- body-parser
-- whatwg-fetch
+- axios ： HTTPリクエスト
+- qs ： URLのクエリ文字列の変換を安全に行うパッケージ
+- ava : ユニットテストフレームワーク
+    - jsdom
+- bulma : cssオンリーのCSSフレームワーク
+- cross-env : OS間の環境変数の違いを吸収してくれるモジュール
+- express : Node.js用の最小限で柔軟なWebフレームワーク
+    - express-session
+    - body-parser
+    - whatwg-fetch
 - redirect-ssl
+- sqlite : https://github.com/kriasoft/node-sqlite
+- Sequelize

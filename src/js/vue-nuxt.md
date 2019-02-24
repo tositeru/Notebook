@@ -89,7 +89,7 @@ export default {
     background-color: black;
   }
 }
-<\/style>
+</style>
 // ファイルを読み込むこともできる
 <style lang="sass" src="#/styles/hoge.sass"></style>
 ```
@@ -266,7 +266,7 @@ test('test name', t => {
   t.not(value, expected, 'message')
   t.deepEqual(value, expected, 'message')
   t.notDeepEqual(value, expected, 'message')
-  t.regex('abcde', /[a-e]+/)
+  t.regex('abcde',/[a-e]+/)
   t.notRegex('abcde', /[A-E]+/)
 
   //前に記録したsnapshotとの比較を行うテスト
