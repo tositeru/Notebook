@@ -22,6 +22,7 @@ Vue.js用のMaterial Component Framework
 ### ディスプレイサイズ
 
 Vuetifyのグリッドシステムにはディスプレイのサイズに合わせて複数の単位が存在し、Breakpointと呼ばれている。
+
 詳しくは以下を参照。
 
 [Breakpoints](https://vuetifyjs.com/ja/framework/breakpoints)
@@ -30,6 +31,7 @@ Vuetifyのグリッドシステムにはディスプレイのサイズに合わ�
 ### Breakpoints
 
 以下のものがある。
+
 \*がついている数値はデスクトップ上で-16pxされる。
 
 - xs - < 600px
@@ -81,11 +83,12 @@ axis一覧
 - x : X軸
 - y : Y軸
 
-##　テキストアライメント
+## テキストアライメント
 
 `text-{breakpoint}-{position}`の形式で指定できる。
 
 `{breakpoint}`で指定したサイズ以上で適応される。
+
 そうでなかったら、左詰めになる。
 
 ```html
@@ -96,46 +99,45 @@ axis一覧
 <p class="text-xs-right">Right align on all viewport sizes</p>
 ```
 
-##　タイポグラフィ
+## タイポグラフィ
 
 VuetifyではMaterial Design用のフォントサイズを用意している。
 
-- .display-4 - Good for <h1>
-- .display-3 - Good for <h2>
-- .display-2 - Good for <h3>
-- .display-1 - Good for <h4>
-- .headline - Good for <h5>
-- .title - Good for <h6>
-- .subheading - Good for supporting text
-- .body-2 - Regular body text with additional weight
-- .body-1 - Regular body text
-- .caption - Smaller size text
+> - .display-4 - Good for `<h1>`
+> - .display-3 - Good for `<h2>`
+> - .display-2 - Good for `<h3>`
+> - .display-1 - Good for `<h4>`
+> - .headline - Good for `<h5>`
+> - .title - Good for `<h6>`
+> - .subheading - Good for supporting text
+> - .body-2 - Regular body text with additional weight
+> - .body-1 - Regular body text
+> - .caption - Smaller size text
 
 線の細さもある
 
-
-- .font-weight-thin - Sets font-weight to 100
-- .font-weight-light - Sets font-weight to 300
-- .font-weight-regular - Sets font-weight to 400
-- .font-weight-medium - Sets font-weight to 500
-- .font-weight-bold - Sets font-weight to 700
-- .font-weight-black - Sets font-weight to 900
+> - .font-weight-thin - Sets font-weight to 100
+> - .font-weight-light - Sets font-weight to 300
+> - .font-weight-regular - Sets font-weight to 400
+> - .font-weight-medium - Sets font-weight to 500
+> - .font-weight-bold - Sets font-weight to 700
+> - .font-weight-black - Sets font-weight to 900
 
 斜体には以下のものを使う
 
-- .font-italic
+> - .font-italic
 
 cssの`text-transform`にも対応している。
 
-- .text-capitalize - Sets text-transform to capitalize
-- .text-lowercase - Sets text-transform to lowercase
-- .text-none - Sets text-transform to none
-- .text-uppercase - Sets text-transform to uppercase
+> - .text-capitalize - Sets text-transform to capitalize
+> - .text-lowercase - Sets text-transform to lowercase
+> - .text-none - Sets text-transform to none
+> - .text-uppercase - Sets text-transform to uppercase
 
 折り返し指定もある。
 
-- .text-no-wrap - Sets whitespace to no-wra
-- .text-truncate - Truncates overflowed text
+> - .text-no-wrap - Sets whitespace to no-wra
+> - .text-truncate - Truncates overflowed text
 
 ## 色
 
@@ -143,9 +145,11 @@ Vuetifyではクラスに設定するだけで簡単に色を変更できるよ�
 
 以下の形式を取る。
 `--`で区切られているが、順序は変わってもいい。(ただし{lighten|darken|accent}-{1-5}はセット)
+
 color以外は省略可能である。
 
 - {text|background}--{color}--{lighten|darken|accent}-{1-5}
+
 ※darkenとaccentの数値は{1-4}の範囲になる。
 
 定義は[こちら](https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/stylus/settings/_colors.styl)にある。
