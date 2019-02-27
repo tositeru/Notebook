@@ -141,23 +141,26 @@ cssの`text-transform`にも対応している。
 
 ## 色
 
-Vuetifyではクラスに設定するだけで簡単に色を変更できるようになっている。
+Vuetifyでは色をクラスに設定するだけで簡単に変更できるようになっている。
+
+[Colors](https://vuetifyjs.com/en/framework/colors)
 
 以下の形式を取る。
-`--`で区切られているが、順序は変わってもいい。(ただし{lighten|darken|accent}-{1-5}はセット)
+- {color} : 背景色の指定
+- {color}--{text} : テキストカラーの指定
 
-color以外は省略可能である。
+テキストカラーはSassのlighten/darkenに対応している。
+上の色指定と合わせて指定する。
 
-- {text|background}--{color}--{lighten|darken|accent}-{1-5}
+- text--{lighten|darken|accent}-{1-4}
 
-※darkenとaccentの数値は{1-4}の範囲になる。
-
-定義は[こちら](https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/stylus/settings/_colors.styl)にある。
+※lightenの数値は{1-5}の範囲になる。
+※accentは一部の色は対応していない。
 
 ```html
 <div class="red"></div>
 <span class="red--text"></span>
-<div class="red--lighten-5"></div>
+<div class="red-- text text--lighten-5"></div>
 ```
 
 Javascriptからも使用できる。
@@ -181,6 +184,8 @@ Vue.use(Vuetify, {
 })
 ```
 ### 色一覧
+
+定義は[こちら](https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/stylus/settings/_colors.styl)にある。
 
 - red
 - pink
