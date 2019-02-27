@@ -1369,18 +1369,23 @@ module.exports = {
 </ul>
 </blockquote>
 <a class="header" href="#色" id="色"><h2>色</h2></a>
-<p>Vuetifyではクラスに設定するだけで簡単に色を変更できるようになっている。</p>
-<p>以下の形式を取る。
-<code>--</code>で区切られているが、順序は変わってもいい。(ただし{lighten|darken|accent}-{1-5}はセット)</p>
-<p>color以外は省略可能である。</p>
+<p>Vuetifyでは色をクラスに設定するだけで簡単に変更できるようになっている。</p>
+<p><a href="https://vuetifyjs.com/en/framework/colors">Colors</a></p>
+<p>以下の形式を取る。</p>
 <ul>
-<li>{text|background}--{color}--{lighten|darken|accent}-{1-5}</li>
+<li>{color} : 背景色の指定</li>
+<li>{color}--{text} : テキストカラーの指定</li>
 </ul>
-<p>※darkenとaccentの数値は{1-4}の範囲になる。</p>
-<p>定義は<a href="https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/stylus/settings/_colors.styl">こちら</a>にある。</p>
+<p>テキストカラーはSassのlighten/darkenに対応している。
+上の色指定と合わせて指定する。</p>
+<ul>
+<li>text--{lighten|darken|accent}-{1-4}</li>
+</ul>
+<p>※lightenの数値は{1-5}の範囲になる。
+※accentは一部の色は対応していない。</p>
 <pre><code class="language-html">&lt;div class=&quot;red&quot;&gt;&lt;/div&gt;
 &lt;span class=&quot;red--text&quot;&gt;&lt;/span&gt;
-&lt;div class=&quot;red--lighten-5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;red-- text text--lighten-5&quot;&gt;&lt;/div&gt;
 </code></pre>
 <p>Javascriptからも使用できる。</p>
 <pre><code class="language-js">// src/index.js
@@ -1401,6 +1406,7 @@ Vue.use(Vuetify, {
 })
 </code></pre>
 <a class="header" href="#色一覧" id="色一覧"><h3>色一覧</h3></a>
+<p>定義は<a href="https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/stylus/settings/_colors.styl">こちら</a>にある。</p>
 <ul>
 <li>red</li>
 <li>pink</li>
