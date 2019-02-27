@@ -155,13 +155,13 @@
 </ul>
 <p>個人的にはv-layoutが一番使用されると思う。</p>
 <a class="header" href="#ディスプレイサイズ" id="ディスプレイサイズ"><h3>ディスプレイサイズ</h3></a>
-<p>Vuetifyのグリッドシステムにはディスプレイのサイズに合わせて複数の単位が存在し、Breakpointと呼ばれている。
-詳しくは以下を参照。</p>
+<p>Vuetifyのグリッドシステムにはディスプレイのサイズに合わせて複数の単位が存在し、Breakpointと呼ばれている。</p>
+<p>詳しくは以下を参照。</p>
 <p><a href="https://vuetifyjs.com/ja/framework/breakpoints">Breakpoints</a>
 <a href="https://vuetifyjs.com/ja/framework/display">Display</a></p>
 <a class="header" href="#breakpoints" id="breakpoints"><h3>Breakpoints</h3></a>
-<p>以下のものがある。
-*がついている数値はデスクトップ上で-16pxされる。</p>
+<p>以下のものがある。</p>
+<p>*がついている数値はデスクトップ上で-16pxされる。</p>
 <ul>
 <li>xs - &lt; 600px</li>
 <li>sm - 600px &gt; &lt; 960px</li>
@@ -208,31 +208,34 @@
 <li>x : X軸</li>
 <li>y : Y軸</li>
 </ul>
-<p>##　テキストアライメント</p>
+<a class="header" href="#テキストアライメント" id="テキストアライメント"><h2>テキストアライメント</h2></a>
 <p><code>text-{breakpoint}-{position}</code>の形式で指定できる。</p>
-<p><code>{breakpoint}</code>で指定したサイズ以上で適応される。
-そうでなかったら、左詰めになる。</p>
+<p><code>{breakpoint}</code>で指定したサイズ以上で適応される。</p>
+<p>そうでなかったら、左詰めになる。</p>
 <pre><code class="language-html">&lt;p class=&quot;text-lg-right&quot;&gt;Right align on large viewport sizes&lt;/p&gt;
 &lt;p class=&quot;text-md-center&quot;&gt;Center align on medium viewport sizes&lt;/p&gt;
 &lt;p class=&quot;text-sm-left&quot;&gt;Left align on small viewport sizes&lt;/p&gt;
 &lt;p class=&quot;text-xs-center&quot;&gt;Center align on all viewport sizes&lt;/p&gt;
 &lt;p class=&quot;text-xs-right&quot;&gt;Right align on all viewport sizes&lt;/p&gt;
 </code></pre>
-<p>##　タイポグラフィ</p>
+<a class="header" href="#タイポグラフィ" id="タイポグラフィ"><h2>タイポグラフィ</h2></a>
 <p>VuetifyではMaterial Design用のフォントサイズを用意している。</p>
+<blockquote>
 <ul>
-<li>.display-4 - Good for <h1></li>
-<li>.display-3 - Good for <h2></li>
-<li>.display-2 - Good for <h3></li>
-<li>.display-1 - Good for <h4></li>
-<li>.headline - Good for <h5></li>
-<li>.title - Good for <h6></li>
+<li>.display-4 - Good for <code>&lt;h1&gt;</code></li>
+<li>.display-3 - Good for <code>&lt;h2&gt;</code></li>
+<li>.display-2 - Good for <code>&lt;h3&gt;</code></li>
+<li>.display-1 - Good for <code>&lt;h4&gt;</code></li>
+<li>.headline - Good for <code>&lt;h5&gt;</code></li>
+<li>.title - Good for <code>&lt;h6&gt;</code></li>
 <li>.subheading - Good for supporting text</li>
 <li>.body-2 - Regular body text with additional weight</li>
 <li>.body-1 - Regular body text</li>
 <li>.caption - Smaller size text</li>
 </ul>
+</blockquote>
 <p>線の細さもある</p>
+<blockquote>
 <ul>
 <li>.font-weight-thin - Sets font-weight to 100</li>
 <li>.font-weight-light - Sets font-weight to 300</li>
@@ -241,31 +244,38 @@
 <li>.font-weight-bold - Sets font-weight to 700</li>
 <li>.font-weight-black - Sets font-weight to 900</li>
 </ul>
+</blockquote>
 <p>斜体には以下のものを使う</p>
+<blockquote>
 <ul>
 <li>.font-italic</li>
 </ul>
+</blockquote>
 <p>cssの<code>text-transform</code>にも対応している。</p>
+<blockquote>
 <ul>
 <li>.text-capitalize - Sets text-transform to capitalize</li>
 <li>.text-lowercase - Sets text-transform to lowercase</li>
 <li>.text-none - Sets text-transform to none</li>
 <li>.text-uppercase - Sets text-transform to uppercase</li>
 </ul>
+</blockquote>
 <p>折り返し指定もある。</p>
+<blockquote>
 <ul>
 <li>.text-no-wrap - Sets whitespace to no-wra</li>
 <li>.text-truncate - Truncates overflowed text</li>
 </ul>
+</blockquote>
 <a class="header" href="#色" id="色"><h2>色</h2></a>
 <p>Vuetifyではクラスに設定するだけで簡単に色を変更できるようになっている。</p>
 <p>以下の形式を取る。
-<code>--</code>で区切られているが、順序は変わってもいい。(ただし{lighten|darken|accent}-{1-5}はセット)
-color以外は省略可能である。</p>
+<code>--</code>で区切られているが、順序は変わってもいい。(ただし{lighten|darken|accent}-{1-5}はセット)</p>
+<p>color以外は省略可能である。</p>
 <ul>
-<li>{text|background}--{color}--{lighten|darken|accent}-{1-5}
-※darkenとaccentの数値は{1-4}の範囲になる。</li>
+<li>{text|background}--{color}--{lighten|darken|accent}-{1-5}</li>
 </ul>
+<p>※darkenとaccentの数値は{1-4}の範囲になる。</p>
 <p>定義は<a href="https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/stylus/settings/_colors.styl">こちら</a>にある。</p>
 <pre><code class="language-html">&lt;div class=&quot;red&quot;&gt;&lt;/div&gt;
 &lt;span class=&quot;red--text&quot;&gt;&lt;/span&gt;
