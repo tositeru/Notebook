@@ -1,5 +1,6 @@
 # JavaScript
 
+- [Use Module List](./use-module-list.md)
 - [Setup Manual for Nuxt's Project](./setup-manual-for-nuxt-project.md)
 - [Vue/Nuxt](./vue-nuxt.md)
 - [Only-Vue](./only-vue.md)
