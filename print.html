@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.1.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.2.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.3.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.4.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.5.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.6.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.7.</strong> axios</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -395,6 +395,7 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <p><code>about:debugging#workers</code>から確認できる。</p>
 <a class="header" href="#javascript" id="javascript"><h1>JavaScript</h1></a>
 <ul>
+<li><a href="js/./use-module-list.html">Use Module List</a></li>
 <li><a href="js/./setup-manual-for-nuxt-project.html">Setup Manual for Nuxt's Project</a></li>
 <li><a href="js/./vue-nuxt.html">Vue/Nuxt</a></li>
 <li><a href="js/./only-vue.html">Only-Vue</a></li>
@@ -402,6 +403,57 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <li><a href="js/./vuetify.html">Vuetify</a></li>
 <li><a href="js/./browser-storage.html">Browser Storage</a></li>
 <li><a href="js/./axios.html">axios</a></li>
+</ul>
+<a class="header" href="#使用しているモジュール一覧" id="使用しているモジュール一覧"><h1>使用しているモジュール一覧</h1></a>
+<p>気がつくと両手で数え切れないほどモジュールを使っているのでその一覧。</p>
+<ul>
+<li>webpack
+<ul>
+<li>sass-loader</li>
+<li>node-sass</li>
+</ul>
+</li>
+<li>babel</li>
+<li>vue.js</li>
+<li>vuetify</li>
+<li>vuetify-loader</li>
+<li>@vue/test-utils</li>
+<li>nuxt.js
+<ul>
+<li>connect : Node.js用のHTTPサーバーフレームワーク</li>
+<li>@nuxtjs/pwa : Nuxt.js用のProgressive Web Appsモジュール</li>
+<li>consola : Node.jsのログ出力を拡張したもの。便利。Nuxtをインストールするとプロジェクトに追加しなくても使える。</li>
+<li>@nuxtjs/vuetify</li>
+</ul>
+</li>
+<li>eslint</li>
+<li>vue-eslint-parser</li>
+<li>vue-property-decorator</li>
+<li>prettier</li>
+<li>axios ： HTTPリクエスト</li>
+<li>qs ： URLのクエリ文字列の変換を安全に行うパッケージ</li>
+<li>ava : ユニットテストフレームワーク
+<ul>
+<li>jsdom</li>
+</ul>
+</li>
+<li>bulma : cssオンリーのCSSフレームワーク</li>
+<li>cross-env : OS間の環境変数の違いを吸収してくれるモジュール</li>
+<li>express : Node.js用の最小限で柔軟なWebフレームワーク
+<ul>
+<li>express-session</li>
+<li>body-parser</li>
+<li>whatwg-fetch</li>
+</ul>
+</li>
+<li>redirect-ssl</li>
+<li>sqlite : https://github.com/kriasoft/node-sqlite</li>
+<li>Sequelize</li>
+<li>pub
+<ul>
+<li>pub-plain-loader</li>
+</ul>
+</li>
 </ul>
 <a class="header" href="#nuxtプロジェクトのセットアップマニュアル" id="nuxtプロジェクトのセットアップマニュアル"><h1>Nuxtプロジェクトのセットアップマニュアル</h1></a>
 <a class="header" href="#インストール-1" id="インストール-1"><h2>インストール</h2></a>
