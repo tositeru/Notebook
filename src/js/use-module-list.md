@@ -7,11 +7,14 @@
     - node-sass
 - babel
 - vue.js
+- vuetify
+- vuetify-loader
 - @vue/test-utils
 - nuxt.js
     - connect : Node.js用のHTTPサーバーフレームワーク
     - @nuxtjs/pwa : Nuxt.js用のProgressive Web Appsモジュール
     - consola : Node.jsのログ出力を拡張したもの。便利。Nuxtをインストールするとプロジェクトに追加しなくても使える。
+    - @nuxtjs/vuetify
 - eslint
 - vue-eslint-parser
 - vue-property-decorator
@@ -29,3 +32,5 @@
 - redirect-ssl
 - sqlite : https://github.com/kriasoft/node-sqlite
 - Sequelize
+- pub
+    - pub-plain-loader

@@ -11,6 +11,7 @@
     - [Setup Manual for Nuxt's Project](./js/setup-manual-for-nuxt-project.md)
     - [Vue/Nuxt](./js/vue-nuxt.md)
     - [Only-Vue](./js/only-vue.md)
+    - [Vuetify](./js/vuetify.md)
     - [Browser Storage](./js/browser-storage.md)
     - [Vue Router](./js/vue-router.md)
     - [axios](./js/axios.md)
