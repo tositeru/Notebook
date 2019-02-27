@@ -1,0 +1,383 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Vuetify - Note to siteru</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.1.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.2.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.3.</strong> Only-Vue</a></li><li><a href="../js/vuetify.html" class="active"><strong aria-hidden="true">3.4.</strong> Vuetify</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.5.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html"><strong aria-hidden="true">3.6.</strong> Vue Router</a></li><li><a href="../js/axios.html"><strong aria-hidden="true">3.7.</strong> axios</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Note to siteru</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#vuetify" id="vuetify"><h1>Vuetify</h1></a>
+<p>Vue.js用のMaterial Component Framework</p>
+<p><a href="https://vuetifyjs.com/ja/">公式サイト</a></p>
+<a class="header" href="#grid-system" id="grid-system"><h2>Grid System</h2></a>
+<p>12分割グリッドと<a href="https://developer.mozilla.org/ja/docs/Web/CSS/flex">Flex</a>を利用したレイアウトが提供されている。</p>
+<p>グリッドはv-containerとv-layout、v-flexを組み合わせて表現され、v-containerを親として左から右にかけて親子関係がある。</p>
+<p>一応必ず組み合わせなくても動作はするし、入れ子にすることもできるため親子関係が逆転しても問題なく動作する。
+が、それぞれ役割があるのでうっかりそれを忘れると痛い目にあう。</p>
+<ul>
+<li>v-container: ページ中央にセンタリングする。 <code>fluid</code>プロパティを渡すと横幅をフルに展開する。</li>
+<li>v-layout:　子要素の並び方の制御を行う。セクションの分割に使用する。</li>
+<li>v-flex:　主にセクションの横幅やオフセットを指定するために使用する。<code>flex: 1 1 auto</code>を自動的に設定してくれる。</li>
+</ul>
+<p>個人的にはv-layoutが一番使用されると思う。</p>
+<a class="header" href="#ディスプレイサイズ" id="ディスプレイサイズ"><h3>ディスプレイサイズ</h3></a>
+<p>Vuetifyのグリッドシステムにはディスプレイのサイズに合わせて複数の単位が存在し、Breakpointと呼ばれている。
+詳しくは以下を参照。</p>
+<p><a href="https://vuetifyjs.com/ja/framework/breakpoints">Breakpoints</a>
+<a href="https://vuetifyjs.com/ja/framework/display">Display</a></p>
+<a class="header" href="#breakpoints" id="breakpoints"><h3>Breakpoints</h3></a>
+<p>以下のものがある。
+*がついている数値はデスクトップ上で-16pxされる。</p>
+<ul>
+<li>xs - &lt; 600px</li>
+<li>sm - 600px &gt; &lt; 960px</li>
+<li>md - 960px &gt; &lt; 1264*</li>
+<li>lg - 1264 &gt; &lt; 1904px*</li>
+<li>xl - &gt; 1904px*</li>
+</ul>
+<p>vuetifyでは<code>$vuetify.breakpoint</code>オブジェクトを提供しており、現在のディスプレイを簡単に取得できるようになっている。</p>
+<pre><code class="language-js">{
+  xs: boolean
+  xsOnly: boolean
+  sm: boolean
+  smOnly: boolean
+  smAndDown: boolean
+  smAndUp: boolean
+  md: boolean
+  mdOnly: boolean
+  mdAndDown: boolean
+  mdAndUp: boolean
+  lg: boolean
+  lgOnly: boolean
+  lgAndDown: boolean
+  lgAndUp: boolean
+  xl: boolean
+  xlOnly: boolean
+  name: ('xs' | 'sm' | 'md' | 'lg' | 'xl')
+  width: number
+  height: number
+  thresholds: { xs: number, sm: number, md: number, lg: number }
+  scrollbarWidth: number
+}
+</code></pre>
+<a class="header" href="#非表示設定" id="非表示設定"><h3>非表示設定</h3></a>
+<p><code>hidden-{breakpoint}-{condition}</code>を使うことでディスプレイのサイズに合わせて要素を非表示にすることができる。</p>
+<p>condition一覧</p>
+<ul>
+<li>only : 指定したbreakpointのみ非表示にする</li>
+<li>and-down : 指定したbreakpoint以下のものを非表示にする</li>
+<li>and-up : 指定したbreakpoint以上のものを非表示にする</li>
+</ul>
+<p><code>overflow-hidden</code>または<code>overflow-{axis}-hidden</code>ではみ出したものを非表示にできる。</p>
+<p>axis一覧</p>
+<ul>
+<li>x : X軸</li>
+<li>y : Y軸</li>
+</ul>
+<p>##　テキストアライメント</p>
+<p><code>text-{breakpoint}-{position}</code>の形式で指定できる。</p>
+<p><code>{breakpoint}</code>で指定したサイズ以上で適応される。
+そうでなかったら、左詰めになる。</p>
+<pre><code class="language-html">&lt;p class=&quot;text-lg-right&quot;&gt;Right align on large viewport sizes&lt;/p&gt;
+&lt;p class=&quot;text-md-center&quot;&gt;Center align on medium viewport sizes&lt;/p&gt;
+&lt;p class=&quot;text-sm-left&quot;&gt;Left align on small viewport sizes&lt;/p&gt;
+&lt;p class=&quot;text-xs-center&quot;&gt;Center align on all viewport sizes&lt;/p&gt;
+&lt;p class=&quot;text-xs-right&quot;&gt;Right align on all viewport sizes&lt;/p&gt;
+</code></pre>
+<p>##　タイポグラフィ</p>
+<p>VuetifyではMaterial Design用のフォントサイズを用意している。</p>
+<ul>
+<li>.display-4 - Good for <h1></li>
+<li>.display-3 - Good for <h2></li>
+<li>.display-2 - Good for <h3></li>
+<li>.display-1 - Good for <h4></li>
+<li>.headline - Good for <h5></li>
+<li>.title - Good for <h6></li>
+<li>.subheading - Good for supporting text</li>
+<li>.body-2 - Regular body text with additional weight</li>
+<li>.body-1 - Regular body text</li>
+<li>.caption - Smaller size text</li>
+</ul>
+<p>線の細さもある</p>
+<ul>
+<li>.font-weight-thin - Sets font-weight to 100</li>
+<li>.font-weight-light - Sets font-weight to 300</li>
+<li>.font-weight-regular - Sets font-weight to 400</li>
+<li>.font-weight-medium - Sets font-weight to 500</li>
+<li>.font-weight-bold - Sets font-weight to 700</li>
+<li>.font-weight-black - Sets font-weight to 900</li>
+</ul>
+<p>斜体には以下のものを使う</p>
+<ul>
+<li>.font-italic</li>
+</ul>
+<p>cssの<code>text-transform</code>にも対応している。</p>
+<ul>
+<li>.text-capitalize - Sets text-transform to capitalize</li>
+<li>.text-lowercase - Sets text-transform to lowercase</li>
+<li>.text-none - Sets text-transform to none</li>
+<li>.text-uppercase - Sets text-transform to uppercase</li>
+</ul>
+<p>折り返し指定もある。</p>
+<ul>
+<li>.text-no-wrap - Sets whitespace to no-wra</li>
+<li>.text-truncate - Truncates overflowed text</li>
+</ul>
+<a class="header" href="#色" id="色"><h2>色</h2></a>
+<p>Vuetifyではクラスに設定するだけで簡単に色を変更できるようになっている。</p>
+<p>以下の形式を取る。
+<code>--</code>で区切られているが、順序は変わってもいい。(ただし{lighten|darken|accent}-{1-5}はセット)
+color以外は省略可能である。</p>
+<ul>
+<li>{text|background}--{color}--{lighten|darken|accent}-{1-5}
+※darkenとaccentの数値は{1-4}の範囲になる。</li>
+</ul>
+<p>定義は<a href="https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/stylus/settings/_colors.styl">こちら</a>にある。</p>
+<pre><code class="language-html">&lt;div class=&quot;red&quot;&gt;&lt;/div&gt;
+&lt;span class=&quot;red--text&quot;&gt;&lt;/span&gt;
+&lt;div class=&quot;red--lighten-5&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>Javascriptからも使用できる。</p>
+<pre><code class="language-js">// src/index.js
+
+// Libraries
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+
+// Helpers
+import colors from 'vuetify/es5/util/colors'
+
+Vue.use(Vuetify, {
+  theme: {
+    primary: colors.red.darken1, // #E53935
+    secondary: colors.red.lighten4, // #FFCDD2
+    accent: colors.indigo.base // #3F51B5
+  }
+})
+</code></pre>
+<a class="header" href="#色一覧" id="色一覧"><h3>色一覧</h3></a>
+<ul>
+<li>red</li>
+<li>pink</li>
+<li>purple</li>
+<li>deep-purple</li>
+<li>indigo</li>
+<li>blue</li>
+<li>light-blue</li>
+<li>cyan</li>
+<li>teal</li>
+<li>green</li>
+<li>light-green</li>
+<li>lime</li>
+<li>yellow</li>
+<li>amber</li>
+<li>orange</li>
+<li>deep-orange</li>
+</ul>
+<p>accentがないもの</p>
+<ul>
+<li>brown</li>
+<li>blue-gray</li>
+<li>grey</li>
+</ul>
+<p>固定</p>
+<ul>
+<li>black</li>
+<li>white</li>
+<li>transparent</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../js/only-vue.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../js/browser-storage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../js/only-vue.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../js/browser-storage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
