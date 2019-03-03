@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -403,6 +403,7 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <li><a href="js/./vuetify.html">Vuetify</a></li>
 <li><a href="js/./browser-storage.html">Browser Storage</a></li>
 <li><a href="js/./axios.html">axios</a></li>
+<li><a href="js/./nodejs.html">node.js</a></li>
 </ul>
 <a class="header" href="#使用しているモジュール一覧" id="使用しているモジュール一覧"><h1>使用しているモジュール一覧</h1></a>
 <p>気がつくと両手で数え切れないほどモジュールを使っているのでその一覧。</p>
@@ -1842,6 +1843,99 @@ instance.get({timeout: 5000}) //GETリクエスト
 instance.interceptors.request.use(config =&gt; {
   //割り込み処理
 })
+</code></pre>
+<a class="header" href="#nodejs" id="nodejs"><h1>node.js</h1></a>
+<ul>
+<li><a href="js/./nodejs/http.html">HTTP</a></li>
+</ul>
+<a class="header" href="#nodejs-http" id="nodejs-http"><h1>Nodejs HTTP</h1></a>
+<p>Node.jsにおけるHTTPサーバーの使い方についてメモしていく</p>
+<p>Node.jsベースのHTTPサーバーのフレームワークの裏側ではこのようなコードがあることを覚えておく。</p>
+<p><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Anatomy of an HTTP Transaction</a></p>
+<a class="header" href="#基本" id="基本"><h2>基本</h2></a>
+<p>サーバーの作成にはNode.jsの<code>http</code>モジュールを使う。</p>
+<p><code>request</code>と<code>response</code>がHTTPリクエストとレスポンスに対応している。</p>
+<ul>
+<li><strong>request</strong>
+<ul>
+<li><a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">http.IncomingMessage</a></li>
+<li><a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">stream.Readable</a></li>
+</ul>
+</li>
+<li><strong>response</strong>
+<ul>
+<li><a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">http.ServerResponse</a></li>
+<li><a href="https://nodejs.org/api/stream.html#stream_class_stream_writable">stream.Writable</a></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-js">const http = require('http')
+
+const server = http.createServer((request, response) =&gt; {
+  //リクエストの基本情報を取得
+  const {method, url, headers} = request
+
+  //リクエストの本体を解析する
+  //on('data')とon('end')を組み合わせるのが定番のパターンになる
+  let body = [];
+  request.on('error', err =&gt; {
+    console.error(err)
+  }).on('data', chunk =&gt; {
+    body.push(chunk)
+  }).on('end', () =&gt; {
+    body = Buffer.concat(body).toString()
+
+    //レスポンスはここで行うの定番っぽい
+    response.on('error', err =&gt; {
+      console.error(err)
+    })
+
+    //リクエストのヘッダーを設定
+    response.writeHead(200, {
+      'Content-Type': 'application/json',
+      'X-Powered-By': 'bacon'
+    })
+    // 以下のように分割しても設定できる
+    response.status(200)
+    response.setHeader('Content-Type', 'application/json');
+    response.setHeader('X-Powered-By': 'bacon');
+
+    //リクエスト本体を書き込む
+    response.write('{Apple: 100, Orange: 200, Grope: 300}')
+    response.end()
+  })
+})
+
+//サーバーをHTTPリクエスト待ちにする
+server.listen(port, host)
+</code></pre>
+<a class="header" href="#例-echoサーバー" id="例-echoサーバー"><h2>例) Echoサーバー</h2></a>
+<p>参考ページはEchoサーバーの例を複数出してエラー処理について説明していた。</p>
+<p><code>error</code>イベントにコールバックを設定することでエラー処理をカスタマイズできる。</p>
+<p>以下、最終的なコード例</p>
+<pre><code class="language-js">const http = require('http');
+
+http.createServer((request, response) =&gt; {
+  //エラーが起きたときのイベント設定
+  request.on('error', (err) =&gt; {
+    console.error(err);
+    response.statusCode = 400;
+    response.end();
+  });
+  response.on('error', (err) =&gt; {
+    console.error(err);
+  });
+
+  //処理本体
+  if (request.method === 'POST' &amp;&amp; request.url === '/echo') {
+    //エラー処理とは無関係だが
+    // requestとresponseはそれぞれnode.jsのReadableStreamとWritableStreamから派生しているのでこうゆうこともできる
+    request.pipe(response);
+  } else {
+    response.statusCode = 404;
+    response.end();
+  }
+}).listen(8080);
 </code></pre>
 <a class="header" href="#css" id="css"><h1>CSS</h1></a>
 <a class="header" href="#fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ" id="fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ"><h2>Fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ。</h2></a>
