@@ -18,4 +18,5 @@
     - [axios](./js/axios.md)
     - [node.js](./js/nodejs.md)
         - [http](./js/nodejs/http.md)
+    - [Sequelize](./js/sequelize.md)
 - [CSS](./css/top.md)
