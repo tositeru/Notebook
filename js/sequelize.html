@@ -143,6 +143,303 @@
                         <a class="header" href="#sequelize" id="sequelize"><h1>Sequelize</h1></a>
 <p>node.jsのためのPromiseベースのORMライブラリ。</p>
 <p>ORMはObject-relational mappingの略語でデータベースとオブジェクト指向の言語の間の橋渡しを行うもののことである。</p>
+<a class="header" href="#初期化" id="初期化"><h2>初期化</h2></a>
+<p>ローカルに建てるかURL越しからアクセスするか選択できる。</p>
+<p><code>dialect</code>オプションで使用するデータベースを指定する。指定できるデータベースは以下のもの。
+指定したデータベースによって使用できるオプションやSequelizeの機能に差が出てくる。</p>
+<ul>
+<li>mysql</li>
+<li>postgres</li>
+<li>sqlite</li>
+<li>mssql</li>
+</ul>
+<p><a href="http://docs.sequelizejs.com/class/lib/sequelize.js%7ESequelize.html#instance-constructor-constructor">Sequelize</a></p>
+<pre><code class="language-js">const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize('databaseName', {
+  dialect: 'mysql',
+  host: 'my.server.tld',
+  post: 9876
+})
+
+const sequelize = new Sequelize('www.example.com:9821/db_name', {
+  dialect: 'mysql', // 使用するデータベース
+})
+
+</code></pre>
+<p><strong>レプリケーションにも対応している。</strong></p>
+<pre><code class="language-js">const sequelize = new Sequelize('database', null, null, {
+  dialect: 'mysql',
+  port: 3306
+  replication: {
+    read: [
+      { host: '8.8.8.8', username: 'read-username', password: 'some-password' },
+      { host: '9.9.9.9', username: 'another-username', password: null }
+    ],
+    write: { host: '1.1.1.1', username: 'write-username', password: 'any-password' }
+  },
+  pool: { // If you want to override the options used for the read/write pool you can do so here
+    max: 20,
+    idle: 30000
+  },
+})
+</code></pre>
+<a class="header" href="#生クエリ" id="生クエリ"><h2>生クエリ</h2></a>
+<p><code>Sequelize.query()</code>で生のSQL文を実行できる。</p>
+<p>SQL文内のパラメータの置き換えを行うには<code>replacements</code>オプションを使う。</p>
+<ul>
+<li>?, 配列を渡す時に使う</li>
+<li>:&lt;name&gt;, オブジェクトを渡す時に使う。</li>
+</ul>
+<p><a href="http://docs.sequelizejs.com/class/lib/sequelize.js%7ESequelize.html#instance-method-query">Sequelize.query</a></p>
+<pre><code class="language-js">sequelize.query('SELECT * FROM Data', options)
+  .then(rows =&gt; console.log(rows))
+
+// パラメータ付き
+sequelize
+  .query(
+    'SELECT * FROM projects WHERE status = :status ',
+    { raw: true, replacements: { status: 'active' } }
+  )
+  .then(projects =&gt; {
+    console.log(projects)
+  })
+
+sequelize
+  .query('SELECT 1', {
+    // A function (or false) for logging your queries
+    // Will get called for every SQL query that gets send
+    // to the server.
+    logging: console.log,
+
+    // If plain is true, then sequelize will only return the first
+    // record of the result set. In case of false it will all records.
+    plain: false,
+
+    // Set this to true if you don't have a model definition for your query.
+    raw: false,
+
+    // The type of query you are executing. The query type affects how results are formatted before they are passed back.
+    type: Sequelize.QueryTypes.SELECT
+  })
+</code></pre>
+<a class="header" href="#モデル" id="モデル"><h2>モデル</h2></a>
+<p>ORMなので、テーブルの内容をモデルとしてマッピングできる。</p>
+<p>マッピングする内容はキーをカラム名、値をデータベースの型として持つオブジェクトを渡すことで指定できる。</p>
+<p><a href="http://docs.sequelizejs.com/class/lib/model.js%7EModel.html#static-method-init">定義オプション</a>
+<a href="http://docs.sequelizejs.com/variable/index.html#static-variable-DataTypes">指定できるデータベースの型はこちら</a></p>
+<p>モデルを使ったデータの検索、作成などはこちらを参照</p>
+<p><a href="http://docs.sequelizejs.com/manual/tutorial/models-usage.html">使用方法</a>
+<a href="http://docs.sequelizejs.com/manual/tutorial/querying.html">Query</a></p>
+<pre><code class="language-js">const Users = sequelize.define('users', {
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
+  description: Sequelize.TEXT
+})
+
+Users.sync() //テーブルの同期。なければ作成する
+Users.drop() //テーブル削除
+
+// 作成
+//テーブルに追加せずインスタンス作成
+let instanceNonPersistent = Users.build({firstName: 'hoge', lastName: 'foo', description: 'bar rab'})
+//こちらはテーブルに追加する
+let instance = Users.create({firstName: 'hoge', lastName: 'foo', description: 'bar rab'})
+
+//検索
+let instance2 = Users.findById(10)
+
+//データ更新
+instance.update({description: 'foooooof'}).then(() =&gt; {})
+
+instance2.decription = 'hogehogehoge'
+instance2.save().then(() =&gt; {})
+
+// 現在のデータベースの内容と同期
+instance.reload()
+
+instance2.destroy()
+
+//複数個に対する処理
+Users.bulkCreate()
+Users.update([{}, ...])
+Users.destroy([user, user2,...])
+
+//イベントハンドリング
+Users.[sync|drop]().then(() =&gt; {
+  // OK
+}),catch(error =&gt; {console.error(error)})
+
+//クラスのようにメソッドを追加できる
+Users.classLevelMethod = function() {
+  return 'foo'
+}
+// インスタンス単位
+Users.prototype.instanceLevelMethod = function() { return 'bar'}
+
+</code></pre>
+<p>他のファイルに定義されたモデルを読み込むこともできる。</p>
+<p>例えば以下のような内容の<code>project.js</code>がある場合</p>
+<pre><code class="language-js">module.exports = (sequelize, DataTypes) =&gt; {
+  return sequelize.define(&quot;project&quot;, {
+    name: DataTypes.STRING,
+    description: DataTypes.TEXT
+  })
+}
+</code></pre>
+<p><code>sequelize.import()</code>を使うことでそのモデルを使うことができる。</p>
+<pre><code class="language-js">const Project = sequelize.import('project.js')
+</code></pre>
+<a class="header" href="#アクセサの定義" id="アクセサの定義"><h3>アクセサの定義</h3></a>
+<p>アクセサも定義できる。</p>
+<p>カラムにアクセスする時は以下の関数を使うこと</p>
+<ul>
+<li>this.getDataValue('name')</li>
+<li>this.setDataValue('name', value)</li>
+</ul>
+<a class="header" href="#定義の方法" id="定義の方法"><h4>定義の方法</h4></a>
+<ul>
+<li>カラム定義のオプションとして定義
+<pre><code class="language-js">const Users = sequelize.define('users', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    get() {
+      const firstName = this.getDataValue('firstName')
+      return 'firstName is ' + firstName
+    },
+    set(val) {
+      this.setDataValue('firstName', val.toUpperCase())
+    }
+  },
+  lastName: Sequelize.STRING,
+  description: Sequelize.TEXT
+})
+</code></pre>
+</li>
+<li><code>sequelize.define()</code>のオプションとして定義
+<pre><code class="language-js">const Users = sequelize.define('users', {
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
+  description: Sequelize.TEXT
+}, {
+  getterMethods: {
+    fullName() { return this.firstName + ' ' + this.lastName }
+  },
+  setterMethods: {
+    fullName(value ) {
+      const names = value.split(' ')
+
+      this.setDataValue('firstName', names.slice(0, -1).join(' '))
+      this.setDataValue('lastName', names.slice(-1).join(' '))
+    }
+  }
+})
+</code></pre>
+</li>
+</ul>
+<a class="header" href="#バリデーション" id="バリデーション"><h3>バリデーション</h3></a>
+<p>各カラムにはバリデーションを指定することができる。</p>
+<p>アクセサと同じくカラム単位または<code>sequelize.define()</code>のオプションとして定義できる。</p>
+<pre><code class="language-js">const ValidateMe = sequelize.define('foo', {
+  email: {
+    type: Sequelize.STRING,
+    validate: { isEmail: true }
+  }
+}, {
+  //モデル全体のバリデーション
+  validate: {
+    checkEntity() {
+      if (! (email typeof string)) {
+        throw new Error('!!Occur error!!')
+      }
+    }
+  }
+});
+</code></pre>
+<a class="header" href="#使用できるバリデータ一覧" id="使用できるバリデータ一覧"><h4>使用できるバリデータ一覧</h4></a>
+<p><a href="https://github.com/chriso/validator.js">validator.js</a>を内部で利用しているので、使用できるバリデータを確認する時はそちらも参照すること。</p>
+<pre><code class="language-js">const ValidateMe = sequelize.define('foo', {
+  foo: {
+    type: Sequelize.STRING,
+    validate: {
+      is: [&quot;^[a-z]+$&quot;,'i'],     // will only allow letters
+      is: /^[a-z]+$/i,          // same as the previous example using real RegExp
+      not: [&quot;[a-z]&quot;,'i'],       // will not allow letters
+      isEmail: true,            // checks for email format (foo@bar.com)
+      isUrl: true,              // checks for url format (http://foo.com)
+      isIP: true,               // checks for IPv4 (129.89.23.1) or IPv6 format
+      isIPv4: true,             // checks for IPv4 (129.89.23.1)
+      isIPv6: true,             // checks for IPv6 format
+      isAlpha: true,            // will only allow letters
+      isAlphanumeric: true,     // will only allow alphanumeric characters, so &quot;_abc&quot; will fail
+      isNumeric: true,          // will only allow numbers
+      isInt: true,              // checks for valid integers
+      isFloat: true,            // checks for valid floating point numbers
+      isDecimal: true,          // checks for any numbers
+      isLowercase: true,        // checks for lowercase
+      isUppercase: true,        // checks for uppercase
+      notNull: true,            // won't allow null
+      isNull: true,             // only allows null
+      notEmpty: true,           // don't allow empty strings
+      equals: 'specific value', // only allow a specific value
+      contains: 'foo',          // force specific substrings
+      notIn: [['foo', 'bar']],  // check the value is not one of these
+      isIn: [['foo', 'bar']],   // check the value is one of these
+      notContains: 'bar',       // don't allow specific substrings
+      len: [2,10],              // only allow values with length between 2 and 10
+      isUUID: 4,                // only allow uuids
+      isDate: true,             // only allow date strings
+      isAfter: &quot;2011-11-05&quot;,    // only allow date strings after a specific date
+      isBefore: &quot;2011-11-05&quot;,   // only allow date strings before a specific date
+      max: 23,                  // only allow values &lt;= 23
+      min: 23,                  // only allow values &gt;= 23
+      isCreditCard: true,       // check for valid credit card numbers
+
+      // custom validations are also possible:
+      isEven(value) {
+        if (parseInt(value) % 2 != 0) {
+          throw new Error('Only even values are allowed!')
+          // we also are in the model's context here, so this.otherField
+          // would get the value of otherField if it existed
+        }
+      }
+    }
+  }
+});
+</code></pre>
+<a class="header" href="#自動追加されるカラム" id="自動追加されるカラム"><h3>自動追加されるカラム</h3></a>
+<p><code>sequelize.define()</code>を使いテーブルを定義するとデフォルトでID(<code>id</code>,主キー)と作成日時(<code>createdAt</code>)、更新日時(<code>updatedAt</code>)が追加される。</p>
+<a class="header" href="#タイムスタンプ" id="タイムスタンプ"><h4>タイムスタンプ</h4></a>
+<p>作成日時と更新日時は<code>timestamps</code>オプションに<code>false</code>を設定すると自動的には追加はされない。
+また<code>createdAt</code>や<code>updateAt</code>オプションに<code>false</code>を指定することでも追加されない。</p>
+<p>ただし作成日時と更新日時はマイグレーションを使用する時使われていることに注意。</p>
+<p><code>paranoid</code>オプションを<code>ture</code>にすることで削除日時(<code>deletedAt</code>)を追加することもできる。
+これがあるとデータを削除した時、その日時が記録されデータベース上からは削除されなくなる。</p>
+<p>ここで挙げたタイムスタンプで使われるカラムはオプションから作成される名前を変更することができる。
+また<code>timestamps</code>オプションが<code>false</code>なら、これらの機能は無効化される。</p>
+<ul>
+<li><code>createdAt</code>オプション, 文字列を与えると作成日時のカラム名を変更できる</li>
+<li><code>updateAt</code>オプション, 文字列を与えると更新日時のカラム名を変更できる</li>
+<li><code>paranoid</code>オプション, <code>true</code>なら削除日時(<code>deletedAt</code>)カラムを追加する。</li>
+<li><code>deletedAt</code>オプション, 文字列を与えると削除日時のカラム名を変更できる</li>
+</ul>
+<pre><code class="language-js">const Foo = sequelize.define('foo',  { /* bla */ }, {
+  // don't forget to enable timestamps!
+  timestamps: true,
+
+  // I don't want createdAt
+  createdAt: false,
+
+  // I want updatedAt to actually be called updateTimestamp
+  updatedAt: 'updateTimestamp',
+
+  // And deletedAt to be called destroyTime (remember to enable paranoid for this to work)
+  deletedAt: 'destroyTime',
+  paranoid: true
+})
+</code></pre>
+<a class="header" href="#モデル間関係" id="モデル間関係"><h2>モデル間関係</h2></a>
 <a class="header" href="#migrations" id="migrations"><h2>Migrations</h2></a>
 <p>データべースのマイグレーションを行うには<code>sequelize-cli</code>を使用する。</p>
 <p>マイグレーションを利用することでデータベースの変更を記録することができるので、データベースの修正はマイグレーションを通じて行うことを推奨する。</p>
@@ -207,7 +504,9 @@ jsファイルだと動的に設定を変えられるので、基本こちらを
 </code></pre>
 <a class="header" href="#モデル作成と修正" id="モデル作成と修正"><h3>モデル作成と修正</h3></a>
 <p><code>model:generate</code>でモデルを作成できる。</p>
-<p>テーブルの名前とその要素は<code>--name</code>と<code>--attributes</code>オプションで指定できる。</p>
+<p>テーブルの名前とその要素は<code>--name</code>と<code>--attributes</code>オプションで指定できる。
+<code>--attributes</code>オプションで指定できる型はSequelizeが用意している型と同じである。</p>
+<p><a href="http://docs.sequelizejs.com/variable/index.html#static-variable-DataTypes">DataType</a></p>
 <pre><code class="language-sh">node_modules/.bin/sequelize model:generate \
   --name User --attributes firstName:string,lastName:string,email:string
 </code></pre>
