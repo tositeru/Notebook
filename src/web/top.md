@@ -9,6 +9,7 @@
 
 ## TODO
 
+- IndexedDB
 - ServiceWorker API Cache
 - window.navigator
 - Stream API [Home page](https://streams.spec.whatwg.org/)

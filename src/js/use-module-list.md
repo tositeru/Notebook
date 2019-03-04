@@ -32,5 +32,6 @@
 - redirect-ssl
 - sqlite : https://github.com/kriasoft/node-sqlite
 - Sequelize
+- moment 
 - pub
     - pub-plain-loader
