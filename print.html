@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -146,7 +146,8 @@
 <li><a href="./golang/top.html">Golang</a></li>
 <li><a href="./web/top.html">Web</a></li>
 <li><a href="./js/top.html">Javascript</a></li>
-<li><a href="./css.top.html">CSS</a></li>
+<li><a href="./css/top.html">CSS</a></li>
+<li><a href="./docker/top.html">Docker</a></li>
 </ul>
 <a class="header" href="#golangについてのメモ" id="golangについてのメモ"><h1>Golangについてのメモ</h1></a>
 <ul>
@@ -458,6 +459,19 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <li>pub-plain-loader</li>
 </ul>
 </li>
+<li>uuid</li>
+<li>jsonwebtoken</li>
+<li>nodemailer : node.js用のメール送信モジュール
+<ul>
+<li>striptags : 文字列からhtmlタグを消してくれるもの</li>
+</ul>
+</li>
+</ul>
+<p>調べて使う予定のもの</p>
+<ul>
+<li>lerna : monorepoを簡単に実現できるようにした開発ツール</li>
+<li>shelljs : Node.jsからシェルコマンドを呼び出せるようにしてくれるモジュール</li>
+<li>CodeceptJS : E2Eテストツール</li>
 </ul>
 <a class="header" href="#nuxtプロジェクトのセットアップマニュアル" id="nuxtプロジェクトのセットアップマニュアル"><h1>Nuxtプロジェクトのセットアップマニュアル</h1></a>
 <a class="header" href="#インストール-1" id="インストール-1"><h2>インストール</h2></a>
@@ -2388,6 +2402,41 @@ Fontawesomeを指定したi {
 }
 
 </code></pre>
+<a class="header" href="#docker" id="docker"><h1>Docker</h1></a>
+<a class="header" href="#dockerfile-命令一覧" id="dockerfile-命令一覧"><h2>Dockerfile 命令一覧</h2></a>
+<a class="header" href="#copy" id="copy"><h3>COPY</h3></a>
+<p><a href="https://docs.docker.com/engine/reference/builder/#copy">COPY</a></p>
+<p>COPY [--chown=<user>:<group>] <src>... <dest>
+COPY [--chown=<user>:<group>] [&quot;<src>&quot;,... &quot;<dest>&quot;]</p>
+<p><src>から<dest>へファイル/ディレクトリをコピーする</p>
+<p><src>: コピーするファイル。
+<dest>: 出力先のディレクトリ。WORKDIRからの相対パスまたは絶対パス</p>
+<a class="header" href="#workdir" id="workdir"><h3>WORKDIR</h3></a>
+<p><a href="https://docs.docker.com/engine/reference/builder/#workdir">WORKDIR</a></p>
+<p>WORKDIR /path/to/workdir</p>
+<p>RUNやCMD、ENTRYPOINT、COPY、ADD等の作業ディレクトリを指定する</p>
+<a class="header" href="#cmd" id="cmd"><h3>CMD</h3></a>
+<p><a href="https://docs.docker.com/engine/reference/builder/#cmd">CMD</a></p>
+<p>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;] (exec form, this is the preferred form)
+CMD [&quot;param1&quot;,&quot;param2&quot;] (as default parameters to ENTRYPOINT)
+CMD command param1 param2 (shell form)</p>
+<a class="header" href="#error-error-while-removing-network-network-network-name-id-network-id-has-active-endpointsと出た時の対処法" id="error-error-while-removing-network-network-network-name-id-network-id-has-active-endpointsと出た時の対処法"><h2>ERROR: error while removing network: network &lt;network-name&gt; id &lt;network-id&gt; has active endpointsと出た時の対処法</h2></a>
+<p>何らかの理由で&lt;network-name&gt;がDockerコンテナと接続していることが原因。</p>
+<p><code>docker network inspect &lt;network-name&gt;</code></p>
+<p>で&lt;network-name&gt;の接続情報を表示し、接続しているコンテナを探す。</p>
+<p>情報はJSON形式で表示され、Containersキーに接続中のコンテナが記述されている。</p>
+<p>確認できたら<code>docker stop &lt;container-name&gt;</code>で接続中のコンテナを停止させ、再度&lt;network-network&gt;を停止させると無事目的を達成できる。</p>
+<pre><code class="language-bash">docker network inspect &lt;network-name&gt;
+docker stop &lt;container-name&gt;
+docker network rm &lt;network-name&gt;
+</code></pre>
+<a class="header" href="#起動しているdockerコンテナ環境を確認したい時" id="起動しているdockerコンテナ環境を確認したい時"><h2>起動しているDockerコンテナ環境を確認したい時</h2></a>
+<p><code>docker exec -it &lt;container-id&gt; bash</code></p>
+<p>CUIに慣れておくと作業がやりやすいと思う。</p>
+<a class="header" href="#全てのコンテナイメージを削除する" id="全てのコンテナイメージを削除する"><h1>全てのコンテナ/イメージを削除する</h1></a>
+<p>docker rm $(docker ps -a -q)</p>
+<a class="header" href="#delete-all-images" id="delete-all-images"><h1>Delete all images</h1></a>
+<p>docker rmi $(docker images -q)</p>
 
                     </main>
 
