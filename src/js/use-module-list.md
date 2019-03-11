@@ -35,3 +35,13 @@
 - moment 
 - pub
     - pub-plain-loader
+- uuid
+- jsonwebtoken
+- nodemailer : node.js用のメール送信モジュール
+    - striptags : 文字列からhtmlタグを消してくれるもの
+
+調べて使う予定のもの
+
+- lerna : monorepoを簡単に実現できるようにした開発ツール
+- shelljs : Node.jsからシェルコマンドを呼び出せるようにしてくれるモジュール
+- CodeceptJS : E2Eテストツール
