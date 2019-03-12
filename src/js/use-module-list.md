@@ -39,9 +39,10 @@
 - jsonwebtoken
 - nodemailer : node.js用のメール送信モジュール
     - striptags : 文字列からhtmlタグを消してくれるもの
+- shelljs : Node.jsからシェルコマンドを呼び出せるようにしてくれるモジュール
+- sleep : Sleepをnodejsで実現してくれるモジュール。テストコード上で使用する目的で使っている
 
 調べて使う予定のもの
 
 - lerna : monorepoを簡単に実現できるようにした開発ツール
-- shelljs : Node.jsからシェルコマンドを呼び出せるようにしてくれるモジュール
 - CodeceptJS : E2Eテストツール
