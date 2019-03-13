@@ -408,6 +408,29 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <li><a href="js/./nodejs.html">node.js</a></li>
 <li><a href="js/./sequelize.html">Sequelize</a></li>
 </ul>
+<a class="header" href="#ファイル書き込み時の注意点" id="ファイル書き込み時の注意点"><h2>ファイル書き込み時の注意点</h2></a>
+<p>直ちにファイルに書き込んでほしいときは<code>fs.fsync</code>を呼び出すこと。</p>
+<p><a href="https://qiita.com/kazupaka/items/b6479f3f8d13347bf867?utm_source=Qiita%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9&amp;utm_campaign=d4b326c10b-Qiita_newsletter_353_03_13_2019&amp;utm_medium=email&amp;utm_term=0_e44feaa081-d4b326c10b-34477805">参考記事</a></p>
+<p>ファイルの書き込み関数を使った後すぐに実際のファイルに保存されるわけではないので、すぐに書き込んでほしいときは<a href="https://node.readthedocs.io/en/latest/api/fs/#fsfsyncfd-callback">fs.fsyncSync</a>を使う。</p>
+<p>すぐに書き込まれないのはパフォーマンス上の都合で、これはOSレベルの話でほかの言語でも同じことである。</p>
+<p><code>fs.fsync</code>がファイル情報も書き出し、<code>fs.fdatasync</code>はデータのみをファイルに書き込む。
+そのため、純粋にデータのみを書き込んでほしいときは<code>fs.fdatasync</code>を使うといい。</p>
+<p>以下、参考記事から抜粋
+<code>fs.fsync</code>は非同期的に書き込むので、すぐに書き込んでほしいときは<code>fs.fsyncSync()</code>を使うこと。</p>
+<pre><code class="language-js">const fs = require('fs')
+
+fs.open('./fsync_test.txt', 'w', (err, fd) =&gt; {
+    fs.write(fd, 'fsync() test\n', () =&gt; {
+
+        // ここがポイント!!
+        fs.fsyncSync(fd);
+
+        response.writeHead(200, {'Content-Type': 'text/plain'})
+        response.end('Write success\n');
+        fs.close(fd, ()=&gt;{});
+    })
+})
+</code></pre>
 <a class="header" href="#使用しているモジュール一覧" id="使用しているモジュール一覧"><h1>使用しているモジュール一覧</h1></a>
 <p>気がつくと両手で数え切れないほどモジュールを使っているのでその一覧。</p>
 <ul>
