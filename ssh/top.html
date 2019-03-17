@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>node.js - Note to siteru</title>
+        <title>SSH - Note to siteru</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="../js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="../js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="../js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="../js/nodejs.html" class="active"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="../js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="../js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="../docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li><li><a href="../ssh/top.html"><strong aria-hidden="true">6.</strong> SSH</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="../js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="../js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="../js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="../js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="../js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="../js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="../docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li><li><a href="../ssh/top.html" class="active"><strong aria-hidden="true">6.</strong> SSH</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -140,25 +140,46 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#nodejs" id="nodejs"><h1>node.js</h1></a>
-<ul>
-<li><a href="./nodejs/http.html">HTTP</a></li>
-</ul>
+                        <a class="header" href="#ssh" id="ssh"><h1>SSH</h1></a>
+<a class="header" href="#permission-denied-publickey-と出たときの対処法" id="permission-denied-publickey-と出たときの対処法"><h2>permission denied (publickey). と出たときの対処法</h2></a>
+<p>sshキーの管理をしている<code>ssh-agent</code>が使おうとしているキーの場所がわからないためエラーが出ているみたい。
+なので、使うキーの場所を教えてあげると解決する。</p>
+<p>以下、Githubから引用</p>
+<pre><code class="language-bash">eval &quot;$(ssh-agent -s)&quot;
+ssh-add &lt;ssh-path&gt;
+</code></pre>
+<p>また余談になるが、ssh-agentのmanドキュメントによれば、<code>ssh</code>コマンドでも同じことができるそうだ。</p>
+<p>sshを実行する際にオプションに<code>AddKeysToAgent</code>を指定してあげるといいみたい。</p>
+<pre><code class="language-bash">ssh -o AddKeysToAgent=yes
+</code></pre>
+<p>いちいちオプションに指定するのが面倒な場合は設定ファイルに指定するといい。</p>
+<p>以下はsshが使用する設定の優先順位。</p>
+<ol>
+<li>コマンドライン引数 <code>ssh -o &lt;options&gt;</code></li>
+<li>ユーザー設定 ~/.ssh/config</li>
+<li>PC全体の設定 /etc/ssh/ssh_config</li>
+</ol>
+<p><code>AddKeysToAgent</code>については<code>man ssh_config</code>に書かれていた。</p>
+<p>ssh-agentが実行されている限り、設定したキーとそのパスワードは有効になる的なことが書かれている。</p>
+<p>man ssh_configから引用</p>
+<blockquote>
+<p>AddKeysToAgent<br><br>
+Specifies whether keys should be automatically added to a running ssh-agent(1). If this option is set to yes and a key is loaded from a file, the key and its passphrase are added
+to the agent with the default lifetime, as if by ssh-add(1).  If this option is set to ask, ssh(1) will require confirmation using the SSH_ASKPASS program before adding a key (see
+ssh-add(1) for details).  If this option is set to confirm, each use of the key must be confirmed, as if the -c option was specified to ssh-add(1).  If this option is set to no, no
+keys are added to the agent.  The argument must be yes, confirm, ask, or no (the default).</p>
+</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../js/axios.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../docker/top.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="../js/nodejs/http.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -168,15 +189,11 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../js/axios.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../docker/top.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a href="../js/nodejs/http.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 
