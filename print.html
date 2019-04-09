@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li><li><a href="ssh/top.html"><strong aria-hidden="true">6.</strong> SSH</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li><li><a href="js/openlayers/top.html"><strong aria-hidden="true">3.11.</strong> OpenLayers</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li><li><a href="ssh/top.html"><strong aria-hidden="true">6.</strong> SSH</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -408,6 +408,7 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <li><a href="js/./axios.html">axios</a></li>
 <li><a href="js/./nodejs.html">node.js</a></li>
 <li><a href="js/./sequelize.html">Sequelize</a></li>
+<li><a href="js/./openlayers/top.html">OpenLayers</a></li>
 </ul>
 <a class="header" href="#ファイル書き込み時の注意点" id="ファイル書き込み時の注意点"><h2>ファイル書き込み時の注意点</h2></a>
 <p>直ちにファイルに書き込んでほしいときは<code>fs.fsync</code>を呼び出すこと。</p>
@@ -2410,6 +2411,69 @@ module.exports = {
     return queryInterface.bulkDelete('Users', null, {});
   }
 };
+</code></pre>
+<a class="header" href="#openlayers" id="openlayers"><h1>OpenLayers</h1></a>
+<a class="header" href="#便利サイト" id="便利サイト"><h2>便利サイト</h2></a>
+<ul>
+<li><a href="http://geojson.io">geojson.io</a> 位置情報の編集に</li>
+<li><a href="https://epsg.io/">epsg.io</a> 好きな空間参照系の変換のときにproj4.jsと組み合わせて使う</li>
+</ul>
+<a class="header" href="#マーカーの見た目を変える方法" id="マーカーの見た目を変える方法"><h2>マーカーの見た目を変える方法</h2></a>
+<pre><code class="language-js">import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import Tile from 'ol/source/Tile.js'
+import OSM from 'ol/source/OSM.js'
+import proj from 'ol/proj.js'
+
+let feature = new Feature({
+  geometry: new Point()
+})
+let map = new ol.Map({
+  target: 'map',
+  layers: [
+    new Tile({
+        source: new OSM()
+    })
+  ],
+  view: new View({
+      center: proj.fromLonLat([139.745433,35.658581]),
+      zoom: 16
+  })
+})
+
+</code></pre>
+<a class="header" href="#geojsonからデータを読み込んで指定した空間参照系に変換するコード" id="geojsonからデータを読み込んで指定した空間参照系に変換するコード"><h2>GeoJSONからデータを読み込んで指定した空間参照系に変換するコード</h2></a>
+<pre><code class="language-js">import format from 'ol/format'
+
+const features = (new format.GeoJSON()).readFeatures(loadGeoJSONFileForTest())
+for (const f of features) {
+  const geom = f.getGeometry()
+  if (!geom) continue
+  geom.transform(/* from */ 'EPSG:4326', /* to */'EPSG:3857')
+}
+</code></pre>
+<p>ちなみにある座標値を変換したいときは<code>ol.proj.transform(coordinate, from, to)</code>を使うといい</p>
+<pre><code class="language-js">import proj from 'ol/proj'
+const coordinate = [123.123, 123.123]
+proj.transform(coordinate, /* from */ 'EPSG:4326', /* to */'EPSG:3857')
+</code></pre>
+<a class="header" href="#ドラッグアンドドロップで座標データを読み込ませたいときのコード" id="ドラッグアンドドロップで座標データを読み込ませたいときのコード"><h2>ドラッグアンドドロップで座標データを読み込ませたいときのコード</h2></a>
+<pre><code class="language-js">import DragAndDrop from 'ol/interaction/DragAndDrop'
+import source from 'ol/source'
+import layer from 'ol/layer'
+import format from 'ol/format'
+
+function initDragAndDrop(map) {
+  const source = new source.Vector()
+  const layer = new layer.Vector({
+    source: source
+  })
+  map.addLayer(layer)
+  map.addInteraction(new DragAndDrop({
+    source: source,
+    formatConstructors: [format.GeoJSON]
+  }))
+}
 </code></pre>
 <a class="header" href="#css" id="css"><h1>CSS</h1></a>
 <a class="header" href="#fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ" id="fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ"><h2>Fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ。</h2></a>
