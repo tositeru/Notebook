@@ -18,6 +18,12 @@
 - 指定したコンテナのログを確認する `docker logs <container-name>`
 - 指定したコンテナで起動しているプロセスを表示する `docker top <container-name>`
 
+### 全てのコンテナ/イメージを削除する                
+docker rm $(docker ps -a -q)
+
+### Delete all images
+docker rmi $(docker images -q)
+
 ## Dockerfileからイメージを作成
 
 次のコマンドでカレントディレクトリにある`Dockerfile`からイメージを作成する。
@@ -149,7 +155,7 @@ CMD command param1 param2 (shell form)
 
 情報はJSON形式で表示され、Containersキーに接続中のコンテナが記述されている。
 
-確認できたら`docker stop <container-name>`で接続中のコンテナを停止させ、再度<network-network>を停止させると無事目的を達成できる。
+確認できたら`docker stop <container-name>`で接続中のコンテナを停止させ、再度<network-name>を停止させると無事目的を達成できる。
 
 ```bash
 docker network inspect <network-name>
@@ -162,8 +168,3 @@ docker network rm <network-name>
 `docker exec -it <container-id> bash`
 
 CUIに慣れておくと作業がやりやすいと思う。
-
-# 全てのコンテナ/イメージを削除する                
-docker rm $(docker ps -a -q)
-# Delete all images
-docker rmi $(docker images -q)
