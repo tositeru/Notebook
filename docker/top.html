@@ -141,6 +141,103 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#docker" id="docker"><h1>Docker</h1></a>
+<a class="header" href="#操作早見表" id="操作早見表"><h2>操作早見表</h2></a>
+<ul>
+<li>インストール <code>docker pull mongo</code></li>
+<li>インストールされているイメージの確認 <code>docker image list</code></li>
+<li>公開されているイメージの検索 <code>docker search &lt;keyward&gt;</code></li>
+<li>実行 <code>docker run -name &lt;image-name&gt; mongo:&lt;tag&gt; -p &lt;hostOS port&gt;:&lt;conatiner port&gt;</code></li>
+<li>デーモンとして実行 <code>docker run -name &lt;image-name&gt; -d mongo:&lt;tag&gt;</code></li>
+<li>実行中のコンテナ確認 <code>docker ps</code></li>
+<li>実行中のコンテナ確認 <code>docker stats</code> or <code>docker stats --no-stream</code></li>
+<li>コンテナの停止 <code>docker stop &lt;container-name&gt;</code></li>
+<li>コンテナの再開 <code>docker restart &lt;container-name&gt;</code></li>
+<li>停止中のコンテナを取り除く <code>docker remove &lt;container-name&gt;</code></li>
+<li>実行中のコンテナ削除 <code>docker kill &lt;container-name&gt;</code></li>
+<li>コンテナの設定の更新 <code>docker update &lt;container-name&gt;</code></li>
+<li>指定したコンテナにコマンド実行する <code>docker exec &lt;container-name&gt; &lt;command&gt; &lt;args...&gt;</code></li>
+<li>指定したコンテナのログを確認する <code>docker logs &lt;container-name&gt;</code></li>
+<li>指定したコンテナで起動しているプロセスを表示する <code>docker top &lt;container-name&gt;</code></li>
+</ul>
+<a class="header" href="#全てのコンテナイメージを削除する" id="全てのコンテナイメージを削除する"><h3>全てのコンテナ/イメージを削除する</h3></a>
+<p>docker rm $(docker ps -a -q)</p>
+<a class="header" href="#delete-all-images" id="delete-all-images"><h3>Delete all images</h3></a>
+<p>docker rmi $(docker images -q)</p>
+<a class="header" href="#dockerfileからイメージを作成" id="dockerfileからイメージを作成"><h2>Dockerfileからイメージを作成</h2></a>
+<p>次のコマンドでカレントディレクトリにある<code>Dockerfile</code>からイメージを作成する。</p>
+<p><code>docker build -t &lt;repository-name&gt;:&lt;tag&gt; .</code></p>
+<a class="header" href="#data-volume" id="data-volume"><h2>Data Volume</h2></a>
+<p>通常コンテナを削除するとその中のデータも一緒に消されるが、データボリュームとして保存したものは削除されない。</p>
+<p><a href="https://docs.docker.com/storage/">Manage data in Docker</a></p>
+<p>データボリュームには二通りの方法がある。</p>
+<ul>
+<li>Volume Docker Areaという場所に保存する(Linuxだと/var/lib/docker/volumes)</li>
+<li>Bind mounts host OS上の好きなディレクトリに保存する</li>
+</ul>
+<p>Linuxでは<code>tmpfs</code>というメモリ上に保存する方法もある。</p>
+<a class="header" href="#volumes" id="volumes"><h3>Volumes</h3></a>
+<p>ボリュームは<code>docker volume create</code>で明示的に作成するかコンテナ作成時に一緒に作成できる。</p>
+<p>ボリュームはHost OS上に格納され、コンテナの中にボリュームがマウントされたときはボリュームがあるディレクトリもコンテナへマウントされる。
+これは実際にマウントと似ている。</p>
+<p>マウントされたボリュームはDockerによって管理され、Host OSから離れる。</p>
+<p>ボリュームは複数のコンテナへ同時にマウントされることも出来る。</p>
+<p><code>docker volume prune .</code>で使用していないボリュームを取り除くことも出来る。</p>
+<p>ボリュームをマウントするとき名前をつけるか無名のままでいくか選択できる。
+無名ボリュームにはDockerは他とかぶらないランダムな名前をつけてくれる。</p>
+<p>ボリュームも<strong>ボリュームドライバー</strong>の使用をサポートしている。</p>
+<p>例)</p>
+<ul>
+<li><code>docker volume create &lt;volume-name&gt;</code> 作成</li>
+<li><code>docker volume ls</code> リストアップ</li>
+<li><code>docker volume inspect &lt;volume-name&gt;</code> 詳しい情報の表示</li>
+<li><code>docker volume rm &lt;volume-name&gt;</code> 削除</li>
+</ul>
+<p><code>docker inspect &lt;container-name&gt;</code>で表示される<code>Mounts</code>項目でも使用しているボリュームを確認できる。</p>
+<a class="header" href="#使い方" id="使い方"><h4>使い方</h4></a>
+<p><code>-v,--volume</code>と<code>--mount</code>の二種類のオプションがある。</p>
+<p><code>--mount</code>はDocker 17.06からは追加されたもので単一のコンテナにボリュームを指定できる。</p>
+<p>両者に機能的な違いはないので、<strong>新しいユーザーには<code>--mount</code>のほうが単純なので使うことを勧めている。</strong></p>
+<p>・使い方</p>
+<ul>
+<li>
+<p><code>--mount</code> <code>,</code>区切りの複数のKey/Valueから成る。KeyとValueの間は<code>=</code>を入れる。
+指定できるKeyには以下のものがある。</p>
+<ol>
+<li><code>type</code> マウントのタイプ。<code>bind</code>、<code>volume</code>、<code>tmpfs</code>を指定できる。</li>
+<li><code>source</code>|<code>src</code> マウントのソース。 ボリューム名を指定する。無名ボリュームの場合は省略できる。</li>
+<li><code>destination</code>|<code>dst</code>|<code>target</code> コンテナ内でのマウント先となるファイル/ディレクトリパス</li>
+<li><code>readonly</code> 任意のオプション。読み取り専用としてBind mountsを設定する。</li>
+<li><code>volume-opt</code> 任意のオプション。複数あってもいい。Key/Valueのペアの形を取る。
+例) <code>docker run --mount 'type=volume,src=&lt;volume-name&gt;,dst=&lt;container-path&gt;,volume-driver=local'</code></li>
+</ol>
+</li>
+<li>
+<p><code>-v</code> <code>:</code>区切った3つのフィールドから成る。</p>
+<ol>
+<li>ボリューム名。無名ボリュームの場合は省略できる。</li>
+<li>マウント先となるコンテナ内のパス</li>
+<li>任意。<code>,</code>区切りのオプション。
+例)<code>docker run -v &lt;volume-name&gt;:&lt;container-path&gt;</code></li>
+</ol>
+</li>
+<li>
+<p><code>docker run -v &lt;volume-name&gt;:&lt;&gt; ...</code> ボリュームを指定してコンテナを実行</p>
+</li>
+<li>
+<p><code>docker run -v &lt;volume-name or id&gt; --volume-driver &lt;driver-name&gt;</code> ボリュームのドライバーも指定してコンテナを実行。が、<code>--mount</code>を使うことを推奨してる。</p>
+</li>
+<li>
+<p><code>docker run --volumes-from</code> 他のコンテナが使っているボリュームを使用してコンテナを実行</p>
+</li>
+</ul>
+<a class="header" href="#bind-mounts" id="bind-mounts"><h3>Bind mounts</h3></a>
+<p>昔からある方法。</p>
+<p>Bind mountを使うとHost OSのディレクトリやファイルはコンテナにマウントされる。
+マウントされたファイルなどはHost OS上のフルパスによって参照される。</p>
+<p>これらのファイルはDockerホストには存在してなくてもよく、実行中に作成することも出来る。</p>
+<p>Bind mountはよいパフォーマンスを持つが、可能なディレクトリ構造はHost OSに依存してしまう。</p>
+<p>新しいDockerアプリを作るときは名前付きのボリュームを使ってほしい。</p>
+<p>Bind mountはDocker CLIコマンドで直接管理することはできない。</p>
 <a class="header" href="#dockerfile-命令一覧" id="dockerfile-命令一覧"><h2>Dockerfile 命令一覧</h2></a>
 <a class="header" href="#copy" id="copy"><h3>COPY</h3></a>
 <p><a href="https://docs.docker.com/engine/reference/builder/#copy">COPY</a></p>
@@ -163,7 +260,7 @@ CMD command param1 param2 (shell form)</p>
 <p><code>docker network inspect &lt;network-name&gt;</code></p>
 <p>で&lt;network-name&gt;の接続情報を表示し、接続しているコンテナを探す。</p>
 <p>情報はJSON形式で表示され、Containersキーに接続中のコンテナが記述されている。</p>
-<p>確認できたら<code>docker stop &lt;container-name&gt;</code>で接続中のコンテナを停止させ、再度&lt;network-network&gt;を停止させると無事目的を達成できる。</p>
+<p>確認できたら<code>docker stop &lt;container-name&gt;</code>で接続中のコンテナを停止させ、再度&lt;network-name&gt;を停止させると無事目的を達成できる。</p>
 <pre><code class="language-bash">docker network inspect &lt;network-name&gt;
 docker stop &lt;container-name&gt;
 docker network rm &lt;network-name&gt;
@@ -171,10 +268,6 @@ docker network rm &lt;network-name&gt;
 <a class="header" href="#起動しているdockerコンテナ環境を確認したい時" id="起動しているdockerコンテナ環境を確認したい時"><h2>起動しているDockerコンテナ環境を確認したい時</h2></a>
 <p><code>docker exec -it &lt;container-id&gt; bash</code></p>
 <p>CUIに慣れておくと作業がやりやすいと思う。</p>
-<a class="header" href="#全てのコンテナイメージを削除する" id="全てのコンテナイメージを削除する"><h1>全てのコンテナ/イメージを削除する</h1></a>
-<p>docker rm $(docker ps -a -q)</p>
-<a class="header" href="#delete-all-images" id="delete-all-images"><h1>Delete all images</h1></a>
-<p>docker rmi $(docker images -q)</p>
 
                     </main>
 
