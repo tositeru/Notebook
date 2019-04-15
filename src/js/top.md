@@ -11,6 +11,7 @@
 - [node.js](./nodejs.md)
 - [Sequelize](./sequelize.md)
 - [OpenLayers](./openlayers/top.md)
+- [Webpack](./webpack.md)
   
 ## ファイル書き込み時の注意点
 
@@ -42,4 +43,33 @@ fs.open('./fsync_test.txt', 'w', (err, fd) => {
         fs.close(fd, ()=>{});
     })
 })
+```
+## TypeScript
+
+ES6でimport/exportがJSに導入されたが、TypeScriptのimport/exportとは下の感じで対応しているそうだ。
+
+[Difference between 'export' and 'export default' in JavaScript? [duplicate]](https://stackoverflow.com/questions/42478661/difference-between-export-and-export-default-in-javascript/42479216#42479216)
+
+```js
+// Three different export styles
+export foo;
+export default foo;
+export = foo;
+
+// The three matching import styles
+import {foo} from 'blah';
+import foo from 'blah';
+import * as foo from 'blah';
+```
+
+は下のように(雰囲気)変換されるみたい。
+
+```js
+exports.foo = foo;
+exports['default'] = foo;
+module.exports = foo;
+
+var foo = require('blah').foo;
+var foo = require('blah')['default'];
+var foo = require('blah');
 ```

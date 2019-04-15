@@ -20,6 +20,7 @@
         - [http](./js/nodejs/http.md)
     - [Sequelize](./js/sequelize.md)
     - [OpenLayers](./js/openlayers/top.md)
+    - [Webpack](./js/webpack.md)
 - [CSS](./css/top.md)
 - [Docker](./docker/top.md)
 - [SSH](./ssh/top.md)
