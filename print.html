@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li><li><a href="js/openlayers/top.html"><strong aria-hidden="true">3.11.</strong> OpenLayers</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li><li><a href="ssh/top.html"><strong aria-hidden="true">6.</strong> SSH</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="toc.html">トップページ</a></li><li><a href="golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li><li><a href="js/openlayers/top.html"><strong aria-hidden="true">3.11.</strong> OpenLayers</a></li><li><a href="js/webpack.html"><strong aria-hidden="true">3.12.</strong> Webpack</a></li></ol></li><li><a href="css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li><li><a href="ssh/top.html"><strong aria-hidden="true">6.</strong> SSH</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -409,6 +409,7 @@ GitHub Pagesがデモを公開するにはいい環境だそうだ。</p>
 <li><a href="js/./nodejs.html">node.js</a></li>
 <li><a href="js/./sequelize.html">Sequelize</a></li>
 <li><a href="js/./openlayers/top.html">OpenLayers</a></li>
+<li><a href="js/./webpack.html">Webpack</a></li>
 </ul>
 <a class="header" href="#ファイル書き込み時の注意点" id="ファイル書き込み時の注意点"><h2>ファイル書き込み時の注意点</h2></a>
 <p>直ちにファイルに書き込んでほしいときは<code>fs.fsync</code>を呼び出すこと。</p>
@@ -432,6 +433,28 @@ fs.open('./fsync_test.txt', 'w', (err, fd) =&gt; {
         fs.close(fd, ()=&gt;{});
     })
 })
+</code></pre>
+<a class="header" href="#typescript" id="typescript"><h2>TypeScript</h2></a>
+<p>ES6でimport/exportがJSに導入されたが、TypeScriptのimport/exportとは下の感じで対応しているそうだ。</p>
+<p><a href="https://stackoverflow.com/questions/42478661/difference-between-export-and-export-default-in-javascript/42479216#42479216">Difference between 'export' and 'export default' in JavaScript? [duplicate]</a></p>
+<pre><code class="language-js">// Three different export styles
+export foo;
+export default foo;
+export = foo;
+
+// The three matching import styles
+import {foo} from 'blah';
+import foo from 'blah';
+import * as foo from 'blah';
+</code></pre>
+<p>は下のように(雰囲気)変換されるみたい。</p>
+<pre><code class="language-js">exports.foo = foo;
+exports['default'] = foo;
+module.exports = foo;
+
+var foo = require('blah').foo;
+var foo = require('blah')['default'];
+var foo = require('blah');
 </code></pre>
 <a class="header" href="#使用しているモジュール一覧" id="使用しているモジュール一覧"><h1>使用しているモジュール一覧</h1></a>
 <p>気がつくと両手で数え切れないほどモジュールを使っているのでその一覧。</p>
@@ -1297,7 +1320,7 @@ getComponent().then(component =&gt; {
 <li><a href="https://chrisbateman.github.io/webpack-visualizer/">Webpack Visualizer</a></li>
 <li><a href="https://webpack.jakoblind.no/optimize">Bundle optimize helper</a></li>
 </ul>
-<a class="header" href="#typescript" id="typescript"><h2>TypeScript</h2></a>
+<a class="header" href="#typescript-1" id="typescript-1"><h2>TypeScript</h2></a>
 <p>TypeScriptを使う時は以下のパッケージをインストールする</p>
 <pre><code class="language-bash">yan add -D typescript ts-loader
 </code></pre>
@@ -2475,6 +2498,10 @@ function initDragAndDrop(map) {
   }))
 }
 </code></pre>
+<a class="header" href="#webpack-1" id="webpack-1"><h1>Webpack</h1></a>
+<a class="header" href="#画像などリソースファイルが複数出力されるときの対処方法" id="画像などリソースファイルが複数出力されるときの対処方法"><h2>画像などリソースファイルが複数出力されるときの対処方法</h2></a>
+<p>module.rulesの中に同じ拡張子を含む設定が複数ないか確認する。</p>
+<p>症状としては、一つのファイルに対して複数のファイルが出力され、片方は一方のファイルをエクスポートするJSファイルになっているかもしれない。</p>
 <a class="header" href="#css" id="css"><h1>CSS</h1></a>
 <a class="header" href="#fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ" id="fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ"><h2>Fontawesomeアイコンのサイズを変更してもアイコンが中央に来るようにするためのパラメータ。</h2></a>
 <p>Fontawesomeアイコン専用というわけではなく、なんにでも使える方法</p>

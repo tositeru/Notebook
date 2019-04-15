@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>node.js - Note to siteru</title>
+        <title>Webpack - Note to siteru</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="../js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="../js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="../js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="../js/nodejs.html" class="active"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="../js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="../js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li><li><a href="../js/openlayers/top.html"><strong aria-hidden="true">3.11.</strong> OpenLayers</a></li><li><a href="../js/webpack.html"><strong aria-hidden="true">3.12.</strong> Webpack</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="../docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li><li><a href="../ssh/top.html"><strong aria-hidden="true">6.</strong> SSH</a></li></ol>
+            <ol class="chapter"><li class="affix"><a href="../toc.html">トップページ</a></li><li><a href="../golang/top.html"><strong aria-hidden="true">1.</strong> Golang</a></li><li><ol class="section"><li><a href="../golang/testing-package.html"><strong aria-hidden="true">1.1.</strong> testingパッケージ</a></li><li><a href="../golang/string-formatter.html"><strong aria-hidden="true">1.2.</strong> string formatter</a></li></ol></li><li><a href="../web/top.html"><strong aria-hidden="true">2.</strong> Web</a></li><li><ol class="section"><li><a href="../web/service-worker.html"><strong aria-hidden="true">2.1.</strong> Service Worker</a></li></ol></li><li><a href="../js/top.html"><strong aria-hidden="true">3.</strong> Javascript</a></li><li><ol class="section"><li><a href="../js/use-module-list.html"><strong aria-hidden="true">3.1.</strong> Use Module List</a></li><li><a href="../js/setup-manual-for-nuxt-project.html"><strong aria-hidden="true">3.2.</strong> Setup Manual for Nuxt's Project</a></li><li><a href="../js/vue-nuxt.html"><strong aria-hidden="true">3.3.</strong> Vue/Nuxt</a></li><li><a href="../js/only-vue.html"><strong aria-hidden="true">3.4.</strong> Only-Vue</a></li><li><a href="../js/vuetify.html"><strong aria-hidden="true">3.5.</strong> Vuetify</a></li><li><a href="../js/browser-storage.html"><strong aria-hidden="true">3.6.</strong> Browser Storage</a></li><li><a href="../js/vue-router.html"><strong aria-hidden="true">3.7.</strong> Vue Router</a></li><li><a href="../js/axios.html"><strong aria-hidden="true">3.8.</strong> axios</a></li><li><a href="../js/nodejs.html"><strong aria-hidden="true">3.9.</strong> node.js</a></li><li><ol class="section"><li><a href="../js/nodejs/http.html"><strong aria-hidden="true">3.9.1.</strong> http</a></li></ol></li><li><a href="../js/sequelize.html"><strong aria-hidden="true">3.10.</strong> Sequelize</a></li><li><a href="../js/openlayers/top.html"><strong aria-hidden="true">3.11.</strong> OpenLayers</a></li><li><a href="../js/webpack.html" class="active"><strong aria-hidden="true">3.12.</strong> Webpack</a></li></ol></li><li><a href="../css/top.html"><strong aria-hidden="true">4.</strong> CSS</a></li><li><a href="../docker/top.html"><strong aria-hidden="true">5.</strong> Docker</a></li><li><a href="../ssh/top.html"><strong aria-hidden="true">6.</strong> SSH</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -140,23 +140,23 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#nodejs" id="nodejs"><h1>node.js</h1></a>
-<ul>
-<li><a href="./nodejs/http.html">HTTP</a></li>
-</ul>
+                        <a class="header" href="#webpack" id="webpack"><h1>Webpack</h1></a>
+<a class="header" href="#画像などリソースファイルが複数出力されるときの対処方法" id="画像などリソースファイルが複数出力されるときの対処方法"><h2>画像などリソースファイルが複数出力されるときの対処方法</h2></a>
+<p>module.rulesの中に同じ拡張子を含む設定が複数ないか確認する。</p>
+<p>症状としては、一つのファイルに対して複数のファイルが出力され、片方は一方のファイルをエクスポートするJSファイルになっているかもしれない。</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../js/axios.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../js/openlayers/top.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../js/nodejs/http.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../css/top.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -168,13 +168,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../js/axios.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../js/openlayers/top.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../js/nodejs/http.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../css/top.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
